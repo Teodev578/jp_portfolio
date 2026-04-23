@@ -19,7 +19,6 @@ import { ReactLenis } from 'lenis/react';
 function AppContent() {
     const { isLoaded, setIsLoaded } = usePreloader();
 
-
     // Intersection Observer for scroll animations
     useEffect(() => {
         if (!isLoaded) return;
