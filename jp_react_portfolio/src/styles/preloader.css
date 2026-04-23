@@ -1,0 +1,38 @@
+/* ======================================================== */
+/*                        PRELOADER                         */
+/* ======================================================== */
+#preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.preloader-logo {
+    height: 50px;
+    width: auto;
+}
+
+.progress-container {
+    width: 200px;
+    height: 4px;
+    border: 1px solid var(--border-color);
+}
+
+#progress-bar {
+    height: 100%;
+    background-color: var(--text-color);
+    transition: width 0.3s ease-out;
+}
+
+#progress-counter {
+    font-family: var(--font-body);
+    font-size: 1rem;
+}
+

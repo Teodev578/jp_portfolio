@@ -1,0 +1,32 @@
+.skill-trail-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.skill-trail-text {
+    position: absolute;
+    color: var(--accent-color);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    text-transform: uppercase;
+    pointer-events: none;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px rgba(255, 65, 65, 0.5);
+    transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s ease;
+    will-change: transform, opacity;
+    z-index: 10000;
+}
+
+@media (max-width: 768px) {
+    .skill-trail-container {
+        display: none;
+        /* Désactivé sur mobile pour la performance et lisibilité */
+    }
+}

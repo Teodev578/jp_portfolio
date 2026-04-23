@@ -1,0 +1,53 @@
+.marquee-container {
+    width: 100%;
+    height: 40px;
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll 30s linear infinite;
+    will-change: transform;
+    /* Optimisation pour éviter la disparition sur mobile */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.marquee-content {
+    display: flex;
+    align-items: center;
+}
+
+.marquee-content span {
+    font-family: var(--font-headline);
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.marquee-item-separator {
+    margin: 0 1.5rem;
+    font-size: 1.5rem;
+    color: var(--bg-color);
+}
+
+@keyframes marquee-scroll {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(-50%, 0, 0);
+        /* Si on a 2 blocs identiques, on décale de 50% */
+    }
+}

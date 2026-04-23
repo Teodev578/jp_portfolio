@@ -1,0 +1,90 @@
+/* ======================================================== */
+/*                STYLES GLOBAUX & VARIABLES                */
+/* ======================================================== */
+
+:root {
+    /* --- Thème Clair (par défaut) --- */
+    --bg-color: #ebe8df;
+    --text-color: #2e2b32;
+    --accent-color: #FF4141;
+    --border-color: #2e2b32;
+    --shadow-color: rgba(0, 0, 0, 0.07);
+
+    /* --- Polices --- */
+    --font-headline: 'Space Grotesk', sans-serif;
+    --font-body: 'Space Mono', monospace;
+
+    /* --- Paramètres de Layout --- */
+    --header-height: 70px;
+    --my-padding: 2rem;
+    --site-margin: 5%;
+    --site-max-width: 1440px;
+
+    /* --- Couleurs pour les sections et formulaires --- */
+    --section-bg: #FFFFFF;
+    --section-alt-bg: #f9f9f9;
+    --primary-color: #4338ca;
+    --text-light: #4b5563;
+    --input-bg: #FFFFFF;
+    --input-border: #d1d5db;
+}
+
+html {
+    overflow-y: scroll;
+}
+
+/* --- Thème Sombre --- */
+body.dark-mode {
+    --bg-color: #2D2D2D;
+    --text-color: #f2ead7;
+    --border-color: #f2ead7;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+
+    --section-bg: #1a1a1a;
+    --section-alt-bg: #111111;
+    --primary-color: #818cf8;
+    --text-light: #9ca3af;
+    --input-bg: #1f2937;
+    --input-border: #4b5563;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    transition: background-color 0.5s ease, color 0.5s ease;
+    overflow-x: clip;
+}
+
+.container {
+    width: calc(100% - (var(--site-margin) * 2));
+    max-width: var(--site-max-width);
+    margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 700;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+@media (pointer: fine) {
+    * {
+        cursor: none !important;
+    }
+}

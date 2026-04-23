@@ -1,0 +1,207 @@
+/* ======================================================== */
+/*                     SECTION SERVICES                     */
+/* ======================================================== */
+.services-new {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    /* On ajoute une valeur de secours (80px) au cas où la variable ne chargerait pas */
+    padding: var(--header-height, 80px) var(--site-margin) 4rem;
+
+    /* MODIFICATION : On enlève le "display: flex; align-items: center;" 
+       pour éviter que la section centre tout et bloque le calcul du scroll */
+    display: block;
+
+    /* MODIFICATION : "overflow: hidden" annule l'effet sticky. 
+       On utilise "clip" pour maîtriser les débordements sans casser le sticky. */
+    overflow: clip;
+}
+
+.services-container-new {
+    width: 100%;
+    max-width: var(--site-max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+}
+
+.services-main-title {
+    font-family: var(--font-headline);
+    font-weight: 400;
+    font-size: clamp(4.5rem, 15vw, 7rem);
+    line-height: 0.9;
+    color: var(--accent-color);
+    text-transform: uppercase;
+}
+
+.services-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.service-item {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 2.5rem;
+}
+
+.service-item:first-child {
+    border-top: 1px solid var(--border-color);
+    padding-top: 2.5rem;
+}
+
+.service-item+.service-item {
+    padding-top: 2.5rem;
+}
+
+.service-item h3 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.about-me-link {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    margin-top: 2.5rem;
+    align-self: flex-start;
+    transition: color 0.3s ease;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.about-me-link:hover {
+    color: var(--accent-color);
+}
+
+/* Base (Mobile) pour l'image */
+.services-image-wrapper {
+    width: 100%;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    max-height: 45vh;
+}
+
+.services-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.services-image-wrapper:hover img {
+    transform: scale(1.05);
+}
+
+/* ======================================================== */
+/*               MODE DESKTOP & EFFET STICKY                */
+/* ======================================================== */
+@media (min-width: 992px) {
+    .services-container-new {
+        grid-template-columns: 1fr 1.8fr;
+        gap: 5rem;
+        grid-template-areas:
+            "image title"
+            "image list";
+
+        /* INDISPENSABLE : Empêche l'image de s'étirer en hauteur 
+           jusqu'en bas de la liste de droite */
+        align-items: start;
+    }
+
+    .services-main-title {
+        grid-area: title;
+        font-size: clamp(6rem, 10vw, 12rem);
+    }
+
+    .services-list {
+        grid-area: list;
+    }
+
+    /* === LE CŒUR DE L'EFFET STICKY === */
+    .services-image-wrapper {
+        grid-area: image;
+
+        position: sticky;
+        top: calc(var(--header-height, 80px) + 2rem);
+
+        /* INDISPENSABLE : Fixer une hauteur !
+           Cela garantit que l'image limite sa propre taille, créant ainsi
+           la "piste" vide en dessous sur laquelle elle va pouvoir glisser */
+        height: calc(100vh - var(--header-height, 80px) - 6rem);
+        min-height: 400px;
+        max-height: none;
+        aspect-ratio: auto;
+
+        align-self: start;
+    }
+
+    .service-item {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 2rem;
+        align-items: start;
+    }
+
+    .service-item h3 {
+        margin-bottom: 0;
+    }
+}
+
+/* ======================================================== */
+/*                       ANIMATIONS                         */
+/* ======================================================== */
+@keyframes slideUpAndFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.services-new .services-main-title,
+.services-new .services-image-wrapper,
+.services-new .service-item,
+.services-new .about-me-link {
+    opacity: 0;
+}
+
+.services-new.is-visible .services-main-title {
+    animation: slideUpAndFadeIn 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    animation-delay: 0.1s;
+}
+
+.services-new.is-visible .services-image-wrapper {
+    animation: slideUpAndFadeIn 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    animation-delay: 0.2s;
+}
+
+.services-new.is-visible .service-item {
+    animation: slideUpAndFadeIn 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+.services-new.is-visible .service-item:nth-child(1) {
+    animation-delay: 0.3s;
+}
+
+.services-new.is-visible .service-item:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.services-new.is-visible .service-item:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+.services-new.is-visible .service-item:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.services-new.is-visible .about-me-link {
+    animation: slideUpAndFadeIn 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    animation-delay: 0.7s;
+}

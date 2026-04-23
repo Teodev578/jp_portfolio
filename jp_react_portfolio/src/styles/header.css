@@ -1,0 +1,266 @@
+/* ======================================================== */
+/*                   HEADER & NAVIGATION                    */
+/* ======================================================== */
+header {
+    height: var(--header-height);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: transparent;
+    /* Optimisation des performances : on évite d'animer le backdrop-filter */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    /* Force l'accélération matérielle pour éviter les saccades au scroll */
+    transform: translate3d(0, 0, 0);
+    will-change: background-color, box-shadow;
+}
+
+header.scrolled {
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+}
+
+header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent,
+            var(--accent-color),
+            transparent);
+    background-size: 250px 100%;
+    background-repeat: no-repeat;
+    background-position: calc(var(--mouse-x, 50%) - 125px) 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    filter: drop-shadow(0 4px 8px var(--accent-color));
+    pointer-events: none;
+}
+
+header:hover::after {
+    opacity: 1;
+}
+
+body.dark-mode header.scrolled {
+    background-color: transparent;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode header:hover::after {
+    filter: drop-shadow(0 4px 12px var(--accent-color));
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 700;
+}
+
+.logo-image {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+}
+
+.nav-links a {
+    padding-bottom: 5px;
+    transition: color 0.3s, border-color 0.3s;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-links a:hover {
+    color: var(--accent-color);
+}
+
+.nav-links a.active {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    padding: 5px;
+    display: flex;
+    transition: color 0.5s ease;
+}
+
+.language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+}
+
+.lang-link {
+    color: var(--text-color);
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.lang-link:hover {
+    opacity: 1;
+}
+
+.lang-link.active {
+    opacity: 1;
+    color: var(--accent-color);
+}
+
+@keyframes languageChangeAnimation {
+    0% {
+        opacity: 0.5;
+        transform: scale(0.95);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.language-switcher.animate {
+    animation: languageChangeAnimation 0.4s ease-out;
+}
+
+.burger-menu {
+    display: none;
+    width: 30px;
+    height: 21px;
+    position: relative;
+    z-index: 102;
+}
+
+.burger-menu div {
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-color);
+    position: absolute;
+    left: 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.burger-menu .line1 {
+    top: 0;
+}
+
+.burger-menu .line2 {
+    top: 9px;
+}
+
+.burger-menu .line3 {
+    top: 18px;
+}
+
+.burger-menu.toggle .line1 {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.burger-menu.toggle .line2 {
+    opacity: 0;
+}
+
+.burger-menu.toggle .line3 {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* ======================================================== */
+/*                  RESPONSIVE MENU MOBILE                  */
+/* ======================================================== */
+@media (max-width: 992px) {
+
+    /* CORRECTION SACCADES MOBILE : 
+       On retire le blur du header sur mobile car c'est extrêmement 
+       gourmand en GPU au scroll, et on met un fond quasi opaque à la place. */
+    header.scrolled {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        /* Utilisation de color-mix pour avoir 90% d'opacité avec la variable hexadécimale */
+        background-color: color-mix(in srgb, var(--bg-color) 95%, transparent);
+    }
+
+    body.dark-mode header.scrolled {
+        background-color: color-mix(in srgb, var(--bg-color) 95%, transparent);
+    }
+
+    .burger-menu {
+        display: block;
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--bg-color);
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        padding-top: var(--header-height);
+        display: block !important;
+        z-index: 101;
+    }
+
+    .main-nav.nav-active {
+        transform: translateX(0);
+    }
+
+    /* Cache les actions du header quand le menu est ouvert pour éviter les superpositions */
+    .main-nav.nav-active~.header-actions .language-switcher,
+    .main-nav.nav-active~.header-actions .theme-toggle {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        gap: 2rem;
+    }
+
+    .nav-links a {
+        font-size: 2rem;
+    }
+}

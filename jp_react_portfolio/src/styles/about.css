@@ -1,0 +1,241 @@
+/* ======================================================== */
+/*                      SECTION ABOUT                       */
+/* ======================================================== */
+.about-section {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: var(--header-height, 80px) var(--site-margin) 4rem;
+    min-height: 100vh;
+
+    /* MODIFICATIONS POUR LE STICKY : 
+       On passe en display: block et on utilise clip au lieu de hidden */
+    display: block;
+    overflow: clip;
+}
+
+.about-container {
+    width: 100%;
+    max-width: var(--site-max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+}
+
+.about-image-wrapper {
+    /* Ici le hidden est ok car il sert juste à couper l'image qui zoome au survol, 
+       ce n'est pas un parent du sticky, C'EST l'élément sticky */
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    max-height: 45vh;
+    /* Optionnel : pour adoucir les bords de l'image */
+}
+
+/* Sur mobile, la hauteur s'adapte via aspect-ratio et max-height */
+.about-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.about-image-wrapper:hover img {
+    transform: scale(1.05);
+}
+
+.about-name {
+    font-family: var(--font-headline);
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 400;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.about-subtitle {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    margin-bottom: 1.8rem;
+    position: relative;
+    z-index: 1;
+    color: var(--bg-color);
+    transition: transform 0.3s ease;
+}
+
+.about-subtitle::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--accent-color);
+    z-index: -1;
+    transform: skewX(-5deg);
+    transition: background-color 0.3s ease;
+}
+
+.about-subtitle:hover {
+    transform: scale(1.05);
+}
+
+.about-subtitle:hover::before {
+    background-color: var(--text-color);
+}
+
+.about-description {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 70ch;
+}
+
+.about-details-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+}
+
+.detail-title {
+    font-family: var(--font-body);
+    font-weight: 700;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.detail-content {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.detail-content ul {
+    list-style: none;
+}
+
+.about-projects-link {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.about-projects-link:hover {
+    color: var(--accent-color);
+}
+
+/* ======================================================== */
+/*               MODE DESKTOP & EFFET STICKY                */
+/* ======================================================== */
+@media (min-width: 992px) {
+    .about-container {
+        grid-template-columns: 1.8fr 1fr;
+        /* Texte à gauche (plus large), Image à droite */
+        gap: 3rem 5rem;
+
+        /* INDISPENSABLE : Empêche l'image de s'étirer en hauteur jusqu'en bas */
+        align-items: start;
+    }
+
+    .about-intro {
+        order: 1;
+    }
+
+    /* === LE CŒUR DE L'EFFET STICKY === */
+    .about-image-wrapper {
+        order: 2;
+
+        position: sticky;
+        top: calc(var(--header-height, 80px) + 2rem);
+
+        /* On lui donne une hauteur fixe calculée en fonction de l'écran */
+        height: calc(100vh - var(--header-height, 80px) - 6rem);
+        min-height: 400px;
+        max-height: none;
+        aspect-ratio: auto;
+        /* Sécurité */
+    }
+
+    /* On force l'image à prendre 100% de la hauteur du wrapper sticky sur desktop */
+    .about-image-wrapper img {
+        height: 100%;
+    }
+
+    /* La grille de détails en bas prend toute la largeur */
+    .about-details-grid {
+        grid-column: 1 / -1;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        order: 3;
+        margin-top: 2rem;
+        /* Espace supplémentaire au dessus des détails */
+    }
+
+    .about-projects-link {
+        grid-column: 1 / -1;
+        order: 4;
+    }
+
+    .about-detail-item:not(:last-child) {
+        border-right: 1px solid var(--border-color);
+        padding-right: 2rem;
+    }
+}
+
+/* ======================================================== */
+/*                       ANIMATIONS                         */
+/* ======================================================== */
+.about-section .about-image-wrapper,
+.about-section .about-name,
+.about-section .about-subtitle,
+.about-section .about-description,
+.about-section .about-detail-item,
+.about-section .about-projects-link {
+    opacity: 0;
+}
+
+.about-section.is-visible .about-image-wrapper,
+.about-section.is-visible .about-name,
+.about-section.is-visible .about-subtitle,
+.about-section.is-visible .about-description,
+.about-section.is-visible .about-detail-item,
+.about-section.is-visible .about-projects-link {
+    animation: slideUpAndFadeIn 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+.about-section.is-visible .about-image-wrapper {
+    animation-delay: 0.1s;
+}
+
+.about-section.is-visible .about-name {
+    animation-delay: 0.2s;
+}
+
+.about-section.is-visible .about-subtitle {
+    animation-delay: 0.3s;
+}
+
+.about-section.is-visible .about-description {
+    animation-delay: 0.4s;
+}
+
+.about-section.is-visible .about-detail-item:nth-child(1) {
+    animation-delay: 0.5s;
+}
+
+.about-section.is-visible .about-detail-item:nth-child(2) {
+    animation-delay: 0.6s;
+}
+
+.about-section.is-visible .about-detail-item:nth-child(3) {
+    animation-delay: 0.7s;
+}
+
+.about-section.is-visible .about-projects-link {
+    animation-delay: 0.8s;
+}

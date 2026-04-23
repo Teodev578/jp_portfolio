@@ -1,0 +1,328 @@
+/* ======================================================== */
+/*                     SECTION PROJETS                      */
+/* ======================================================== */
+.projects-section {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding-top: var(--header-height);
+    padding-bottom: 4rem;
+}
+
+.projects-list-wrapper {
+    padding: 0 var(--site-margin);
+}
+
+.projects-list {
+    width: 100%;
+    border-top: 2px solid var(--border-color);
+}
+
+.projects-container {
+    width: 100%;
+    max-width: var(--site-max-width);
+    margin: 0 auto;
+    padding: 0 var(--site-margin);
+}
+
+.github-link-container {
+    /* Ajuste ici l'espace entre la liste des projets et le lien GitHub */
+    margin-top: 1rem;
+
+    /* Supprime ou augmente le retrait à gauche si nécessaire */
+    padding-left: 0;
+}
+
+.github-link {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+
+    /* Ajuste ici l'espace entre le texte et le trait de soulignement */
+    padding-bottom: 8px;
+
+    /* Ajuste ici l'épaisseur et la couleur du soulignement */
+    border-bottom: 2px solid;
+
+    transition: all 0.3s ease;
+}
+
+.github-link:hover {
+    color: var(--accent-color);
+}
+
+.projects-header {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+}
+
+.header-symbol {
+    font-size: 2rem;
+    color: var(--accent-color);
+    line-height: 1.2;
+}
+
+.projects-title {
+    font-family: var(--font-headline);
+    font-size: clamp(3rem, 10vw, 6rem);
+    line-height: 0.9;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}
+
+/* ======================================================== */
+/*                    PROJETS ACCORDION                     */
+/* ======================================================== */
+.project-card {
+    border-bottom: 2px solid var(--border-color);
+    transition: background-color 0.3s ease;
+    background-color: transparent;
+}
+
+.project-card:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+body.dark-mode .project-card:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.project-card.is-expanded {
+    background-color: var(--section-bg);
+    border-bottom-color: var(--accent-color);
+}
+
+body.dark-mode .project-card.is-expanded {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.project-card-inner-container {
+    width: 100%;
+    max-width: var(--site-max-width);
+    margin: 0 auto;
+    padding: 1.5rem var(--site-margin);
+    display: flex;
+    align-items: center;
+}
+
+.card-number {
+    font-family: var(--font-headline);
+    font-size: 4rem;
+    font-weight: 400;
+    color: var(--accent-color);
+    line-height: 1;
+    margin-right: 2rem;
+    padding-right: 2rem;
+    border-right: 2px solid var(--border-color);
+    min-width: 120px;
+}
+
+.card-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.card-title {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.card-description {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin: 0.5rem 0 0.75rem;
+    max-width: 60ch;
+    line-height: 1.5;
+}
+
+.card-tags {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.card-action {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-body);
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.card-icon {
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-icon.rotate {
+    transform: rotate(135deg);
+    color: var(--accent-color);
+}
+
+/* --- ACCORDION CONTENT --- */
+.project-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+    background-color: var(--bg-color);
+}
+
+.is-expanded .project-accordion-content {
+    max-height: 2000px;
+    /* Large enough to fit content */
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.accordion-inner {
+    padding: 1.5rem var(--site-margin) 3rem;
+    max-width: var(--site-max-width);
+    margin: 0 auto;
+}
+
+.accordion-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.accordion-visual-side {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.accordion-image-wrapper {
+    width: 100%;
+    border: 2px solid var(--border-color);
+    background-color: var(--accent-color);
+}
+
+.accordion-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    mix-blend-mode: multiply;
+    transition: mix-blend-mode 0.3s ease;
+}
+
+.accordion-image-wrapper:hover img {
+    mix-blend-mode: normal;
+}
+
+.accordion-tech-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.stack-label {
+    font-family: var(--font-headline);
+    font-size: 1.2rem;
+    color: var(--accent-color);
+}
+
+.tech-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.tech-tag-badge {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--border-color);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    background-color: transparent;
+}
+
+.accordion-text-side {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.accordion-headline {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+.accordion-paragraphs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.accordion-paragraphs p {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.accordion-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.gallery-item {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.gallery-item img {
+    width: 100%;
+    border: 2px solid var(--border-color);
+}
+
+.gallery-item figcaption {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+@media (max-width: 992px) {
+    .accordion-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .card-number {
+        font-size: 3rem;
+        min-width: 80px;
+        margin-right: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .card-content {
+        gap: 1.5rem;
+    }
+
+    .card-action span {
+        display: none;
+    }
+
+    .accordion-gallery {
+        grid-template-columns: 1fr;
+    }
+}

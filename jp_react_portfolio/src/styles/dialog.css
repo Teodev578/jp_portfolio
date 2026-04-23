@@ -1,0 +1,134 @@
+/* ======================================================== */
+/*                    DIALOGUES (MODALS)                    */
+/* ======================================================== */
+.dialog {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1000;
+    padding: 2rem;
+}
+
+.dialog.is-open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.dialog-content {
+    background-color: var(--bg-color);
+    border: 2px solid var(--border-color);
+    width: 100%;
+    max-width: 1100px;
+    padding: 2.5rem;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-main-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem 2.5rem;
+    grid-template-areas: "visual header" "body body";
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 2rem;
+}
+
+.dialog-visual {
+    grid-area: visual;
+    border: 2px solid var(--border-color);
+    align-self: start;
+}
+
+.dialog-visual img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.dialog-header-content {
+    grid-area: header;
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-title {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.dialog-short-description {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+}
+
+.dialog-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1rem;
+    font-family: var(--font-body);
+}
+
+.dialog-meta span:not(:last-child)::after {
+    content: '|';
+    margin-left: 1rem;
+    opacity: 0.7;
+}
+
+.dialog-body {
+    grid-area: body;
+    padding-top: 2rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.dialog-body p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.dialog-close {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    background: none;
+    border: none;
+    align-self: flex-end;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+.dialog-screenshot {
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+.dialog-screenshot img {
+    max-width: 100%;
+    border: 2px solid var(--border-color);
+}
+
+body.dialog-open {
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .dialog-main-layout {
+        grid-template-columns: 1fr;
+        grid-template-areas: "visual" "header" "body";
+    }
+}
+

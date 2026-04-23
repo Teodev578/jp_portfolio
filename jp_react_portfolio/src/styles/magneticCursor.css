@@ -1,0 +1,132 @@
+/* ======================================================== */
+/*                   CURSEUR MAGNÉTIQUE                     */
+/* ======================================================== */
+
+/* Le petit point central qui suit exactement la souris */
+.custom-cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+
+    /* Centrage initial */
+    margin-left: -4px;
+    margin-top: -4px;
+
+    /* Transition pour les changements de taille et d'opacité */
+    transition:
+        width 0.3s ease,
+        height 0.3s ease,
+        margin 0.3s ease,
+        background-color 0.3s ease,
+        opacity 0.3s ease;
+
+    will-change: transform;
+}
+
+/* Le cercle extérieur qui suit avec un léger retard */
+.custom-cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+
+    /* Centrage initial */
+    margin-left: -20px;
+    margin-top: -20px;
+
+    /* C'est ce 'transition' sur le transform qui crée l'effet d'élastique/retard ! 
+       IMPORTANT: On ajoute 'margin' à la transition pour éviter le saut au survol */
+    /* C'est ce 'transition' sur le transform qui crée l'effet d'élastique/retard ! 
+       IMPORTANT: On ajoute 'margin' à la transition pour éviter le saut au survol */
+    transition:
+        transform 0.15s ease-out,
+        width 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+        height 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+        margin 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        opacity 0.3s ease;
+
+    will-change: transform;
+}
+
+/* ======================================================== */
+/*             EFFETS AU SURVOL (Liens, Boutons)            */
+/* ======================================================== */
+
+.custom-cursor-dot.hovering {
+    opacity: 0;
+}
+
+.custom-cursor-ring.hovering {
+    width: 60px;
+    height: 60px;
+    margin-left: -30px;
+    margin-top: -30px;
+    /* On garde une légère bordure pour éviter l'effet "flou" total */
+    background-color: rgba(255, 65, 65, 0.15);
+    border-color: rgba(255, 65, 65, 0.3);
+}
+
+/* --- EFFET AU CLIC --- */
+.custom-cursor-ring.active {
+    width: 30px;
+    height: 30px;
+    margin-left: -15px;
+    margin-top: -15px;
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+@media (pointer: coarse) {
+
+    .custom-cursor-dot,
+    .custom-cursor-ring {
+        display: none;
+    }
+}
+
+.custom-cursor-dot.hidden,
+.custom-cursor-ring.hidden {
+    opacity: 0;
+}
+
+/* ======================================================== */
+/*               EFFET DE CODE QUI TOMBE                    */
+/* ======================================================== */
+
+.falling-code-particle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9997;
+    color: var(--accent-color);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 14px;
+    margin-left: -10px;
+    margin-top: -10px;
+    animation: fallAndFade 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes fallAndFade {
+    0% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(120px) scale(0.5) rotate(var(--rot));
+    }
+}

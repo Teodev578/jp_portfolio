@@ -1,126 +1,80 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
-import GsapDemo from './components/GsapDemo'
+import { useState, useEffect } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+import './App.css';
+import './index.css';
+import { LanguageProvider } from './contexts/LanguageContext';
+import { Header } from './components/layout/Header';
+import { Hero } from './components/sections/Hero';
+import { Services } from './components/sections/Services';
+import { About } from './components/sections/About';
+import { Projects } from './components/sections/Projects';
+import { Contact } from './components/sections/Contact';
+import { Preloader } from './components/layout/Preloader';
+import { MagneticCursor } from './components/ui/MagneticCursor';
+import { LanguageTransition } from './components/ui/LanguageTransition';
+import { Marquee } from './components/ui/Marquee';
+import { ReactLenis } from 'lenis/react';
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-        
-        {/* Intégration de la démo GSAP */}
-        <GsapDemo />
-      </section>
 
-      <div className="ticks"></div>
+function AppContent() {
+    const { isLoaded, setIsLoaded } = usePreloader();
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+    // Intersection Observer for scroll animations
+    useEffect(() => {
+        if (!isLoaded) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const sections = document.querySelectorAll('section');
+        sections.forEach(s => observer.observe(s));
+
+        return () => observer.disconnect();
+    }, [isLoaded]);
+
+    return (
+        <>
+            {!isLoaded && <Preloader onLoaded={() => setIsLoaded(true)} />}
+
+            {isLoaded && <MagneticCursor />}
+
+            <LanguageTransition />
+
+            <Header />
+
+            <main>
+                <Hero />
+                <Marquee />
+                <Services />
+                <About />
+                <Projects />
+                <Contact />
+            </main>
+        </>
+    );
 }
 
-export default App
+// Custom hook to manage preloader state
+function usePreloader() {
+    const [isLoaded, setIsLoaded] = useState(false);
+    return { isLoaded, setIsLoaded };
+}
+
+function App() {
+    return (
+        <LanguageProvider>
+            <ReactLenis root>
+                <AppContent />
+            </ReactLenis>
+        </LanguageProvider>
+    );
+}
+
+export default App;
