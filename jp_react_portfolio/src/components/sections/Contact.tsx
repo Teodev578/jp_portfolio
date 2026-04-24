@@ -75,13 +75,11 @@ export const Contact = () => {
                     </div>
                     <div className="contact-details-group">
                         <div className="contact-links-new">
-                            <SocialLink href="https://www.facebook.com/TeoDePeya" label={t('contact_social_fb')} />
-                            <SocialLink href="https://www.instagram.com/fabienkpekpassi/" label={t('contact_social_ig')} />
-                            <SocialLink href="https://www.linkedin.com/in/fabien-kpekpassi-7aba12229/" label={t('contact_social_li')} />
-                            <SocialLink href="https://x.com/TeoDevUltimate" label={t('contact_social_x')} />
-                            <SocialLink href="https://wa.me/message/O2YXC4BLQOWXC1" label={t('contact_social_wa')} />
+                            <SocialLink href="https://www.instagram.com/lepreparateur01/?utm_source=qr&r=nametag" label={t('contact_social_ig')} />
+                            <SocialLink href="https://wa.me/33759211588" label={t('contact_social_wa')} />
+                            <SocialLink href="mailto:lepreparateur01@gmail.com" label="E-mail" />
                         </div>
-                        <ContactEmail email="teokpekpassi@gmail.com" />
+                        <ContactEmail email="lepreparateur01@gmail.com" />
                     </div>
                     {/* <div className="contact-background-text">CONTACT</div> */}
                 </div>

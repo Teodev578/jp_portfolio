@@ -18,7 +18,7 @@ export const Services = () => {
                 <h2 className="services-main-title">{t('services_title')}</h2>
 
                 <div className="services-image-wrapper">
-                    <img src={serviceMockup} alt="Exemple de code sur un écran" />
+                    <img src={serviceMockup} alt="Prestation de préparation automobile premium" />
                 </div>
 
                 <div className="services-list">
