@@ -100,40 +100,35 @@
     font-size: 1.3rem;
     font-weight: 600;
     color: var(--text-color);
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    transition: opacity 0.3s ease;
+    text-decoration: none; /* Removed default underline */
+    position: relative;
+    padding-bottom: 2px;
 }
 
-.hero-link:hover {
-    opacity: 0.7;
+.hero-link span {
+    display: inline-block;
 }
 
-/* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.hero-content-wrapper > * {
+/* GSAP Initial States */
+.char {
+    display: inline-block;
     opacity: 0;
 }
 
-.hero.is-visible .hero-content-wrapper > * {
-    animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+.hero-sub-intro p,
+.hero-description p,
+.hero-link {
+    opacity: 0;
 }
 
-.hero.is-visible .hero-header-box { animation-delay: 0.1s; }
-.hero.is-visible .hero-sub-intro { animation-delay: 0.2s; }
-.hero.is-visible .hero-visual { animation-delay: 0.3s; }
-.hero.is-visible .hero-description { animation-delay: 0.4s; }
-.hero.is-visible .hero-actions { animation-delay: 0.5s; }
+.image-wrapper {
+    clip-path: inset(0% 0% 100% 0%);
+}
+
+/* Custom Easing for CTA Hover */
+.ease-expo {
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+}
 
 /* --- DESKTOP LAYOUT --- */
 @media (min-width: 1024px) {
