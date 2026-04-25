@@ -3,7 +3,7 @@
 /* ======================================================== */
 
 .about-section {
-    padding: 6rem 0;
+    padding: 4rem 0; /* Réduit pour mobile */
     border-top: 1px solid var(--border-color);
     /* Ligne de séparation franche */
 }
@@ -13,10 +13,14 @@
     display: flex;
     flex-direction: column-reverse;
     /* Sur mobile : Image au dessus ou en dessous */
-    gap: 4rem;
+    gap: 3rem; /* Réduit pour mobile */
 }
 
 @media (min-width: 992px) {
+    .about-section {
+        padding: 8rem 0; /* Plus d'espace sur desktop */
+    }
+
     .about-grid {
         flex-direction: row;
         /* Sur PC : côte à côte */
@@ -78,7 +82,7 @@
 .about-detail-item {
     display: flex;
     flex-direction: column;
-    padding: 2.5rem 0;
+    padding: 1.5rem 0; /* Plus compact sur mobile */
     border-top: 1px solid var(--border-color);
 }
 
@@ -86,18 +90,24 @@
     .about-detail-item {
         flex-direction: row;
         gap: 3rem;
+        padding: 3rem 0; /* On redonne de l'air sur tablette/desktop */
+    }
+
+    .detail-title {
+        font-size: 1rem;
+        margin-bottom: 0;
     }
 }
 
 .detail-title {
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: 0.85rem; /* Style label plus discret */
     text-transform: uppercase;
     letter-spacing: 0.05em;
     opacity: 0.6;
     flex: 0 0 200px;
     /* Largeur fixe pour aligner le tableau */
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem; /* Rapproche le titre du contenu sur mobile */
 }
 
 .detail-content {
