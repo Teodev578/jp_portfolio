@@ -51,6 +51,12 @@
     transition: color 0.4s ease;
 }
 
+.service-symbol {
+    color: var(--accent-color);
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
 .service-text p {
     font-family: var(--font-body);
     font-size: 1rem;
@@ -199,14 +205,7 @@
         border-bottom-color: var(--accent-color);
     }
 
-    .service-symbol {
-        color: var(--accent-color);
-        display: inline-block;
-        /* Un léger décalage pour le dynamisme */
-        transform: translateX(0);
-        transition: transform 0.3s ease;
-    }
-
+    /* Animation du symbole uniquement au survol sur Desktop */
     .service-item:hover .service-symbol {
         transform: translateX(5px);
     }

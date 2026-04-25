@@ -93,17 +93,19 @@ export const Services = () => {
                 ease: 'power2.out'
             });
 
-            gsap.from('.service-item', {
-                scrollTrigger: { 
-                    trigger: '.services-list', 
-                    start: 'top 90%',
-                    once: true 
-                },
-                y: 30,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.1,
-                ease: 'power2.out'
+            const items = gsap.utils.toArray<HTMLElement>('.service-item');
+            items.forEach((item) => {
+                gsap.from(item, {
+                    scrollTrigger: { 
+                        trigger: item, 
+                        start: 'top 90%',
+                        once: true 
+                    },
+                    y: 30,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                });
             });
         });
 
