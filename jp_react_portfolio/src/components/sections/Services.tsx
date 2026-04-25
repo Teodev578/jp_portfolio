@@ -34,6 +34,7 @@ export const Services = () => {
     useGSAP(() => {
         const mm = gsap.matchMedia();
 
+        // Animation Desktop (min-width: 992px)
         mm.add("(min-width: 992px)", () => {
             gsap.from('.services-main-title', {
                 scrollTrigger: { trigger: '.services-section', start: 'top 80%' },
@@ -53,13 +54,22 @@ export const Services = () => {
             });
         });
 
+        // Animation Mobile (max-width: 991px)
         mm.add("(max-width: 991px)", () => {
+            gsap.from('.services-main-title', {
+                scrollTrigger: { trigger: '.services-section', start: 'top 85%' },
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power2.out'
+            });
+
             gsap.from('.service-item', {
                 scrollTrigger: { trigger: '.services-list', start: 'top 85%' },
                 y: 30,
                 opacity: 0,
                 duration: 0.8,
-                stagger: 0.15,
+                stagger: 0.1,
                 ease: 'power2.out'
             });
         });
@@ -74,12 +84,12 @@ export const Services = () => {
 
                 <div className="services-layout">
 
-                    {/* COLONNE GAUCHE : Images Fixes (PC uniquement) */}
+                    {/* COLONNE GAUCHE : Caches sur mobile via CSS, affichés sur Desktop */}
                     <div className="services-visuals">
                         <div className="sticky-wrapper">
                             {services.map((service, index) => (
                                 <img
-                                    key={`img-${service.id}`}
+                                    key={`desktop-img-${service.id}`}
                                     src={service.img}
                                     alt={service.title}
                                     className={activeImage === index ? 'active' : ''}
@@ -91,37 +101,32 @@ export const Services = () => {
                         </div>
                     </div>
 
-                    {/* COLONNE DROITE : Liste (Scroll) */}
+                    {/* COLONNE DROITE : Liste affichée en 1ère sur Mobile */}
                     <div className="services-content">
-                        <div className="services-list">
+                        <div className="services-list group-list">
                             {services.map((service, index) => (
                                 <div
                                     key={service.id}
-                                    className="service-item"
+                                    className={`service-item ${activeImage === index ? 'is-active' : ''}`}
                                     onMouseEnter={() => setActiveImage(index)}
                                 >
-                                    <div className="service-number">0{service.id}</div>
-
                                     <div className="service-text">
-                                        <h3>
-                                            {service.title}
-                                            <span className="arrow">→</span>
-                                        </h3>
+                                        <h3>{service.title}</h3>
                                         <p>{service.desc}</p>
                                     </div>
 
-                                    {/* Image visible uniquement sur mobile */}
+                                    {/* Image de la carte : affichée sur mobile, cachée sur Desktop */}
                                     <div className="service-mobile-img">
-                                        <img src={service.img} alt={service.title} />
+                                        <img src={service.img} alt={service.title} loading="lazy" />
                                     </div>
                                 </div>
                             ))}
                         </div>
 
-                        {/* Lien About Me */}
+                        {/* Lien Éditorial */}
                         <div className="services-footer">
-                            <a href="#about" className="about-link" onClick={(e) => handleScroll(e, '#about')}>
-                                {t('services_scroll_about')} <span className="arrow-down">↓</span>
+                            <a href="#about" className="editorial-link" onClick={(e) => handleScroll(e, '#about')}>
+                                {t('services_scroll_about')}
                             </a>
                         </div>
                     </div>

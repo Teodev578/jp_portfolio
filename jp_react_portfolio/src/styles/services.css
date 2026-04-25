@@ -2,182 +2,70 @@
 /*                  SECTION SERVICES                        */
 /* ======================================================== */
 
+/* --- 1. STYLES DE BASE (MOBILE FIRST) --- */
+
 .services-section {
-    padding: var(--my-padding) 0 6rem 0;
-    /* La couleur de fond s'adapte automatiquement avec le root body */
+    padding: 4rem 0;
+    /* Espacement mobile réduit */
 }
 
 .services-main-title {
     font-family: var(--font-headline);
-    font-size: clamp(3rem, 6vw, 6rem);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    /* S'adapte tout seul du mobile au PC */
     text-transform: uppercase;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
     letter-spacing: -0.02em;
+    color: var(--text-color);
 }
 
-/* --- Layout Grid (Split Screen) --- */
 .services-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    /* Mobile par défaut */
+    display: flex;
+    flex-direction: column;
     gap: 3rem;
 }
 
-@media (min-width: 992px) {
-    .services-layout {
-        grid-template-columns: 5fr 7fr;
-        /* Ratio 40% gauche / 60% droite */
-        gap: 5rem;
-    }
-}
-
-/* --- Colonne Gauche : Visuels --- */
+/* Visuels PC cachés par défaut sur mobile */
 .services-visuals {
     display: none;
-    /* Caché sur mobile, affiché dans la carte */
 }
 
-@media (min-width: 992px) {
-    .services-visuals {
-        display: block;
-        position: relative;
-    }
-
-    .sticky-wrapper {
-        position: sticky;
-        top: calc(var(--header-height) + 2rem);
-        height: 70vh;
-        /* Hauteur de l'image fixe */
-        width: 100%;
-        overflow: hidden;
-        /* Coins non arrondis comme demandé */
-        border-radius: 0;
-    }
-
-    /* Animation fondu enchainé des images */
-    .sticky-wrapper img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0;
-        transform: scale(1.05);
-        transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .sticky-wrapper img.active {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Filtre assombrissant + Texte sur l'image */
-.visual-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 40%);
-    display: flex;
-    align-items: flex-end;
-    padding: 2rem;
-    pointer-events: none;
-    /* Laisse le curseur passer à travers */
-}
-
-.visual-overlay span {
-    color: #ffffff;
-    /* Reste blanc même en light mode pour contraster l'image */
-    font-family: var(--font-body);
-    /* Espace Mono */
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-}
-
-/* --- Colonne Droite : Liste --- */
+/* Liste de services (Mobile) */
 .services-list {
     display: flex;
     flex-direction: column;
 }
 
 .service-item {
-    display: flex;
-    flex-direction: column;
-    padding: 3rem 0;
+    padding: 2.5rem 0;
     border-top: 1px solid var(--border-color);
-    transition: border-color 0.3s ease;
-}
-
-/* Sur tablette et PC : le numéro à gauche, texte à droite */
-@media (min-width: 768px) {
-    .service-item {
-        flex-direction: row;
-        gap: 2rem;
-    }
-}
-
-.service-number {
-    font-family: var(--font-body);
-    /* Space Mono donne un côté technique/blueprint */
-    font-size: 1.5rem;
-    opacity: 0.4;
-    transition: opacity 0.3s ease, color 0.3s ease;
-    margin-bottom: 1rem;
-}
-
-.service-text {
-    flex: 1;
+    cursor: pointer;
 }
 
 .service-text h3 {
     font-family: var(--font-headline);
-    /* Space Grotesk */
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    font-size: 1.8rem;
+    text-transform: uppercase;
     margin-bottom: 1rem;
-    transition: color 0.3s ease;
-}
-
-.service-text .arrow {
-    font-family: var(--font-body);
-    font-size: 1.5rem;
-    opacity: 0;
-    transform: translateX(-10px) rotate(-45deg);
-    transition: all 0.3s ease;
+    color: var(--text-color);
+    transition: color 0.4s ease;
 }
 
 .service-text p {
     font-family: var(--font-body);
-    opacity: 0.7;
-    max-width: 90%;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    opacity: 0.8;
 }
 
-/* Effets au survol */
-.service-item:hover .service-number {
-    opacity: 1;
-    color: var(--accent-color);
-}
-
-.service-item:hover .service-text h3 {
-    color: var(--accent-color);
-}
-
-.service-item:hover .service-text .arrow {
-    opacity: 1;
-    transform: translateX(0) rotate(-45deg);
-}
-
-/* --- Image sur Mobile --- */
+/* Image intégrée dans la liste pour le mobile */
 .service-mobile-img {
     margin-top: 2rem;
     width: 100%;
-    height: 300px;
+    aspect-ratio: 4/3;
+    /* Format propre sur mobile */
     overflow: hidden;
-    /* Coins bruts */
-    border-radius: 0;
 }
 
 .service-mobile-img img {
@@ -186,38 +74,142 @@
     object-fit: cover;
 }
 
-@media (min-width: 992px) {
-    .service-mobile-img {
-        display: none;
-        /* Caché sur PC car on a le Sticky Layout */
-    }
-}
-
-/* --- Lien About --- */
+/* Bouton / Lien About */
 .services-footer {
     margin-top: 2rem;
     padding-top: 3rem;
     border-top: 1px solid var(--border-color);
 }
 
-.about-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-    font-family: var(--font-headline);
-    font-size: 1.25rem;
+.editorial-link {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
     text-transform: uppercase;
-    font-weight: 700;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: var(--text-color);
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--text-color);
+    transition: all 0.3s ease;
 }
 
-.about-link:hover {
-    color: var(--accent-color);
+
+/* --- 2. ADAPTATION TABLETTE ET PC (MIN-WIDTH) --- */
+
+@media (min-width: 992px) {
+    .services-section {
+        padding: 8rem 0;
+        /* Plus d'espace sur PC */
+    }
+
+    .services-main-title {
+        margin-bottom: 5rem;
+    }
+
+    /* Le layout devient une grille 40% / 60% */
+    .services-layout {
+        display: grid;
+        grid-template-columns: 5fr 7fr;
+        gap: 6rem;
+    }
+
+    /* On affiche la zone d'image fixe à gauche */
+    .services-visuals {
+        display: block;
+        position: relative;
+    }
+
+    .sticky-wrapper {
+        position: sticky;
+        top: calc(var(--header-height) + 2rem);
+        height: 75vh;
+        width: 100%;
+        overflow: hidden;
+        background-color: var(--border-color);
+    }
+
+    .sticky-wrapper img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transform: scale(1.03);
+        transition: opacity 0.8s ease, transform 1s ease-out;
+    }
+
+    .sticky-wrapper img.active {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .visual-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 30%);
+        display: flex;
+        align-items: flex-end;
+        padding: 2.5rem;
+        pointer-events: none;
+    }
+
+    .visual-overlay span {
+        color: #ffffff;
+        font-family: var(--font-body);
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        opacity: 0.9;
+    }
+
+    /* On cache les images mobiles */
+    .service-mobile-img {
+        display: none;
+    }
+
+    /* Ajustements typo pour grand écran */
+    .service-item {
+        padding: 4rem 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .service-text h3 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .service-text p {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        max-width: 90%;
+        opacity: 0.7;
+    }
 }
 
-.about-link .arrow-down {
-    transition: transform 0.3s ease;
-}
 
-.about-link:hover .arrow-down {
-    transform: translateY(5px);
+/* --- 3. INTERACTIONS (UNIQUEMENT SUR APPAREILS AVEC SOURIS) --- */
+/* Évite les bugs de "hover" bloqué sur les smartphones tactiles */
+
+@media (hover: hover) and (pointer: fine) {
+    .editorial-link:hover {
+        color: var(--accent-color);
+        border-bottom-color: var(--accent-color);
+    }
+
+    .service-item:hover .service-text h3 {
+        color: var(--accent-color);
+    }
+
+    /* Effet focus : on baisse l'opacité de tout... */
+    .group-list:hover .service-item {
+        opacity: 0.3;
+    }
+
+    /* ...sauf l'élément survolé */
+    .group-list .service-item:hover {
+        opacity: 1;
+    }
 }
