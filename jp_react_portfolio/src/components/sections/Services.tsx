@@ -144,7 +144,16 @@ export const Services = () => {
                                     onMouseEnter={() => setActiveImage(index)}
                                 >
                                     <div className="service-text">
-                                        <h3>{service.title}</h3>
+                                        <h3>
+                                            {service.title.startsWith('>') ? (
+                                                <>
+                                                    <span className="service-symbol">{'>'}</span>
+                                                    {service.title.substring(1)}
+                                                </>
+                                            ) : (
+                                                service.title
+                                            )}
+                                        </h3>
                                         <p>{service.desc}</p>
                                     </div>
 

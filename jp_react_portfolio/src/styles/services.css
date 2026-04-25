@@ -199,8 +199,16 @@
         border-bottom-color: var(--accent-color);
     }
 
-    .service-item:hover .service-text h3 {
+    .service-symbol {
         color: var(--accent-color);
+        display: inline-block;
+        /* Un léger décalage pour le dynamisme */
+        transform: translateX(0);
+        transition: transform 0.3s ease;
+    }
+
+    .service-item:hover .service-symbol {
+        transform: translateX(5px);
     }
 
     /* Effet focus : on baisse l'opacité uniquement si on survole un item précis */
