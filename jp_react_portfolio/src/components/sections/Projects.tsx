@@ -36,7 +36,7 @@ export const Projects = () => {
                 </div>
 
                 <div className="github-link-container">
-                    <a href="https://github.com/Teodev578" target="_blank" rel="noopener noreferrer" className="github-link">
+                    <a href="https://www.instagram.com/lepreparateur01/?utm_source=qr&r=nametag" target="_blank" rel="noopener noreferrer" className="github-link">
                         {t('projects_github_link')}
                     </a>
                 </div>

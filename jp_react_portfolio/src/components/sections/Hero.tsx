@@ -3,7 +3,7 @@ import { useLenis } from 'lenis/react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useRef } from 'react';
-import portraitImg from '../../assets/portrait.avif';
+import portraitImg from '../../assets/portrait.jpeg';
 
 export const Hero = () => {
     const { t, lang, tHtml } = useLanguage();
@@ -45,12 +45,12 @@ export const Hero = () => {
         });
 
         // 2. Image Entrance : Dévoilement par clip-path (effet rideau industriel)
-        tl.fromTo('.image-wrapper', 
-            { clipPath: 'inset(0% 0% 100% 0%)' }, 
-            { 
-                clipPath: 'inset(0% 0% 0% 0%)', 
-                duration: 1.4, 
-                ease: 'power4.inOut' 
+        tl.fromTo('.image-wrapper',
+            { clipPath: 'inset(0% 0% 100% 0%)' },
+            {
+                clipPath: 'inset(0% 0% 0% 0%)',
+                duration: 1.4,
+                ease: 'power4.inOut'
             },
             "-=0.6" // Chevauchement pour plus de fluidité
         );
@@ -58,25 +58,25 @@ export const Hero = () => {
         // 3. Text Split : Animation ligne par ligne (ou bloc par bloc ici pour préserver le HTML)
         // Note : Pour un vrai split par ligne complexe avec HTML, SplitText (plugin GSAP) est recommandé.
         // Ici on utilise un stagger sur les paragraphes pour une performance optimale.
-        tl.fromTo(['.hero-sub-intro p', '.hero-description p'], 
-            { y: 20, opacity: 0 }, 
-            { 
-                y: 0, 
-                opacity: 1, 
-                duration: 1.2, 
-                stagger: 0.2, 
-                ease: 'power3.out' 
+        tl.fromTo(['.hero-sub-intro p', '.hero-description p'],
+            { y: 20, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 1.2,
+                stagger: 0.2,
+                ease: 'power3.out'
             },
             "-=0.8"
         );
 
         // 4. CTA Entrance : Apparition progressive des liens
-        tl.fromTo('.hero-link', 
-            { y: 15, opacity: 0 }, 
-            { 
-                y: 0, 
-                opacity: 1, 
-                duration: 0.8, 
+        tl.fromTo('.hero-link',
+            { y: 15, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
                 stagger: 0.1,
                 ease: 'back.out(1.7)'
             },
@@ -100,9 +100,9 @@ export const Hero = () => {
 
                 <div className="hero-visual">
                     <div className="image-wrapper">
-                        <img 
-                            src={portraitImg} 
-                            alt="Portrait de Jean-Pierre Agbo" 
+                        <img
+                            src={portraitImg}
+                            alt="Portrait de Jean-Pierre Agbo"
                             className="hero-image"
                         />
                     </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useLenis } from 'lenis/react';
-import logoTeo from '../../assets/logo-teo_compressed_final.png';
+import logoJP from '../../assets/logo_jp.png';
 
 export const Header = () => {
     const { lang, setLang, t } = useLanguage();
@@ -64,8 +64,8 @@ export const Header = () => {
         >
             <div className="container header-container">
                 <a href="#accueil" className="logo" onClick={(e) => handleLinkClick(e, '#accueil')}>
-                    <img src={logoTeo} alt="Logo" className="logo-image" />
-                    <span>Fabien Téo KPEKPASSI</span>
+                    <img src={logoJP} alt="Logo" className="logo-image" />
+                    <span>Jean-Pierre AGBO</span>
                 </a>
 
                 <div className="header-right">
