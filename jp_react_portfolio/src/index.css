@@ -1,9 +1,14 @@
-@import url('./styles/globals.css');
-@import url('./styles/header.css');
-@import url('./styles/hero.css');
-@import url('./styles/services.css');
-@import url('./styles/about.css');
-@import url('./styles/projects.css');
-@import url('./styles/contact.css');
-@import url('./styles/dialog.css');
-@import url('./styles/preloader.css');
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+
+@import "./styles/globals.css";
+@import "./styles/header.css";
+@import "./styles/hero.css";
+@import "./styles/services.css";
+@import "./styles/about.css";
+@import "./styles/projects.css";
+@import "./styles/contact.css";
+@import "./styles/dialog.css";
+@import "./styles/preloader.css";
+
+@import "tailwindcss/utilities";
