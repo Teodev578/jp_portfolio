@@ -173,7 +173,7 @@
     /* Ajustements typo pour grand écran */
     .service-item {
         padding: 4rem 0;
-        transition: opacity 0.4s ease;
+        /* transition: opacity 0.4s ease;  <-- REMOVED to avoid conflict with GSAP */
     }
 
     .service-text h3 {
@@ -203,13 +203,13 @@
         color: var(--accent-color);
     }
 
-    /* Effet focus : on baisse l'opacité de tout... */
-    .group-list:hover .service-item {
+    /* Effet focus : on baisse l'opacité uniquement si on survole un item précis */
+    /* Cela évite que tout disparaisse quand la souris est juste au-dessus de la liste */
+    .group-list:has(.service-item:hover) .service-item:not(:hover) {
         opacity: 0.3;
     }
-
-    /* ...sauf l'élément survolé */
-    .group-list .service-item:hover {
-        opacity: 1;
+    
+    .service-item {
+        transition: opacity 0.3s ease, transform 0.3s ease;
     }
 }

@@ -36,28 +36,57 @@ export const Services = () => {
 
         // Animation Desktop (min-width: 992px)
         mm.add("(min-width: 992px)", () => {
+            // Titre Principal
             gsap.from('.services-main-title', {
-                scrollTrigger: { trigger: '.services-section', start: 'top 80%' },
-                y: 60,
+                scrollTrigger: { 
+                    trigger: '.services-main-title', 
+                    start: 'top 90%',
+                    once: true 
+                },
+                y: 50,
                 opacity: 0,
                 duration: 1,
                 ease: 'power3.out'
             });
 
-            gsap.from('.service-item', {
-                scrollTrigger: { trigger: '.services-list', start: 'top 75%' },
-                y: 40,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.15,
-                ease: 'power2.out'
+            // Items Individuels pour un meilleur contrôle au scroll
+            const items = gsap.utils.toArray<HTMLElement>('.service-item');
+            items.forEach((item) => {
+                gsap.from(item, {
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 90%',
+                        once: true
+                    },
+                    y: 30,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                });
+
+                // Sync de l'image active au scroll sur Desktop
+                ScrollTrigger.create({
+                    trigger: item,
+                    start: 'top 50%',
+                    end: 'bottom 50%',
+                    onToggle: self => {
+                        if (self.isActive) {
+                            const index = items.indexOf(item);
+                            setActiveImage(index);
+                        }
+                    }
+                });
             });
         });
 
         // Animation Mobile (max-width: 991px)
         mm.add("(max-width: 991px)", () => {
             gsap.from('.services-main-title', {
-                scrollTrigger: { trigger: '.services-section', start: 'top 85%' },
+                scrollTrigger: { 
+                    trigger: '.services-main-title', 
+                    start: 'top 90%',
+                    once: true 
+                },
                 y: 30,
                 opacity: 0,
                 duration: 0.8,
@@ -65,7 +94,11 @@ export const Services = () => {
             });
 
             gsap.from('.service-item', {
-                scrollTrigger: { trigger: '.services-list', start: 'top 85%' },
+                scrollTrigger: { 
+                    trigger: '.services-list', 
+                    start: 'top 90%',
+                    once: true 
+                },
                 y: 30,
                 opacity: 0,
                 duration: 0.8,
