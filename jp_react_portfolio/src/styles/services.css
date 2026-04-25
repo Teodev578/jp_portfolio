@@ -103,6 +103,12 @@
 
 /* --- 2. ADAPTATION TABLETTE ET PC (MIN-WIDTH) --- */
 
+@media (min-width: 768px) and (max-width: 991px) {
+    .service-text p {
+        max-width: 75%; /* Confort de lecture sur tablette */
+    }
+}
+
 @media (min-width: 992px) {
     .services-section {
         padding: 8rem 0;

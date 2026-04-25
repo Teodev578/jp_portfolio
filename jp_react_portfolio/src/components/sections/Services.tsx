@@ -24,6 +24,9 @@ export const Services = () => {
         lenis?.scrollTo(target);
     };
 
+    // Nettoie le symbole '>' pour l'accessibilité (balises alt)
+    const cleanTitle = (title: string) => title.replace(/^>\s*/, '');
+
     const services = [
         { id: '1', title: t('service_1_title'), desc: t('service_1_desc'), img: presta1 },
         { id: '2', title: t('service_2_title'), desc: t('service_2_desc'), img: presta2 },
@@ -126,7 +129,7 @@ export const Services = () => {
                                 <img
                                     key={`desktop-img-${service.id}`}
                                     src={service.img}
-                                    alt={service.title}
+                                    alt={cleanTitle(service.title)}
                                     className={activeImage === index ? 'active' : ''}
                                 />
                             ))}
@@ -149,7 +152,7 @@ export const Services = () => {
                                         <h3>
                                             {service.title.startsWith('>') ? (
                                                 <>
-                                                    <span className="service-symbol">{'>'}</span>
+                                                    <span className="service-symbol" aria-hidden="true">{'>'}</span>
                                                     {service.title.substring(1)}
                                                 </>
                                             ) : (
@@ -161,7 +164,7 @@ export const Services = () => {
 
                                     {/* Image de la carte : affichée sur mobile, cachée sur Desktop */}
                                     <div className="service-mobile-img">
-                                        <img src={service.img} alt={service.title} loading="lazy" />
+                                        <img src={service.img} alt={cleanTitle(service.title)} loading="lazy" />
                                     </div>
                                 </div>
                             ))}
