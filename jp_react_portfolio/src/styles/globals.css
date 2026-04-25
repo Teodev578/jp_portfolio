@@ -2,18 +2,25 @@
 /*                STYLES GLOBAUX & VARIABLES                */
 /* ======================================================== */
 
-
 :root {
-    /* --- Thème Clair (par défaut) --- */
-    --bg-color: #ebe8df;
-    --text-color: #2e2b32;
-    --accent-color: #FF4141;
-    --border-color: #2e2b32;
-    --shadow-color: rgba(0, 0, 0, 0.07);
+    /* --- Thème Clair (Minimaliste & Clinique) --- */
+    --bg-color: #F8F9FA;
+    /* Blanc très légèrement grisé, ne fatigue pas l'oeil */
+    --text-color: #111111;
+    /* Noir profond, plus élégant qu'un gris */
+    --accent-color: #D90429;
+    /* Rouge "Racing" (plus profond et premium) */
+    --border-color: #E5E7EB;
+    /* Bordures subtiles (gris très clair) */
+    --shadow-color: rgba(0, 0, 0, 0.04);
 
-    /* --- Polices --- */
-    --font-headline: 'Space Grotesk', sans-serif;
-    --font-body: 'Space Mono', monospace;
+    /* --- Polices (Style Swiss Design / Premium) --- */
+    --font-headline: 'Montserrat', sans-serif;
+    /* Large, statutaire, luxueuse */
+    --font-body: 'Inter', sans-serif;
+    /* La norme pro absolue pour la lisibilité */
+    --font-mono: 'JetBrains Mono', monospace;
+    /* Pour le côté "Blueprint/Technique" */
 
     /* --- Paramètres de Layout --- */
     --header-height: 70px;
@@ -23,30 +30,33 @@
 
     /* --- Couleurs pour les sections et formulaires --- */
     --section-bg: #FFFFFF;
-    --section-alt-bg: #f9f9f9;
-    --primary-color: #4338ca;
-    --text-light: #4b5563;
+    --section-alt-bg: #F3F4F6;
+    --primary-color: #111111;
+    --text-light: #6B7280;
     --input-bg: #FFFFFF;
-    --input-border: #d1d5db;
+    --input-border: #E5E7EB;
 }
 
 html {
     overflow-y: scroll;
 }
 
-/* --- Thème Sombre --- */
+/* --- Thème Sombre (Noir asphalte profond, fait ressortir les photos) --- */
 body.dark-mode {
-    --bg-color: #2D2D2D;
-    --text-color: #f2ead7;
-    --border-color: #f2ead7;
-    --shadow-color: rgba(0, 0, 0, 0.1);
+    --bg-color: #0A0A0A;
+    /* Noir ultra profond */
+    --text-color: #F3F4F6;
+    /* Blanc cassé très net */
+    --border-color: #27272A;
+    /* Bordures sombres, quasi invisibles */
+    --shadow-color: rgba(0, 0, 0, 0.4);
 
-    --section-bg: #1a1a1a;
-    --section-alt-bg: #111111;
-    --primary-color: #818cf8;
-    --text-light: #9ca3af;
-    --input-bg: #1f2937;
-    --input-border: #4b5563;
+    --section-bg: #121212;
+    --section-alt-bg: #0F0F0F;
+    --primary-color: #F3F4F6;
+    --text-light: #9CA3AF;
+    --input-bg: #18181B;
+    --input-border: #3F3F46;
 }
 
 * {
@@ -63,6 +73,9 @@ body {
     line-height: 1.6;
     transition: background-color 0.5s ease, color 0.5s ease;
     overflow-x: clip;
+    /* Amélioration du rendu des polices sur Mac/PC */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
@@ -75,7 +88,11 @@ h1,
 h2,
 h3,
 h4 {
+    font-family: var(--font-headline);
+    /* On s'assure que tous les titres utilisent Montserrat */
     font-weight: 700;
+    letter-spacing: -0.02em;
+    /* Resserre légèrement les titres pour faire plus moderne */
 }
 
 a {

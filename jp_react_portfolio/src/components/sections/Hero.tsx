@@ -6,7 +6,7 @@ import { useRef } from 'react';
 import portraitImg from '../../assets/portrait.jpeg';
 
 export const Hero = () => {
-    const { t, lang, tHtml } = useLanguage();
+    const { t, tHtml } = useLanguage();
     const lenis = useLenis();
     const container = useRef<HTMLDivElement>(null);
 

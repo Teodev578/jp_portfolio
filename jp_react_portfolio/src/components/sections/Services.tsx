@@ -3,8 +3,13 @@ import { useLenis } from 'lenis/react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useRef } from 'react';
-import serviceMockup from '../../assets/service_mockup.jpeg';
+import { useRef, useState } from 'react';
+
+// Import des images de prestation
+import presta1 from '../../assets/presta/presta_1.jpeg';
+import presta2 from '../../assets/presta/presta_2.jpeg';
+import presta3 from '../../assets/presta/presta_3.jpeg';
+import presta4 from '../../assets/presta/presta_4.jpeg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,6 +17,7 @@ export const Services = () => {
     const { t } = useLanguage();
     const lenis = useLenis();
     const containerRef = useRef<HTMLDivElement>(null);
+    const [activeImage, setActiveImage] = useState(0);
 
     const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
         e.preventDefault();
@@ -19,61 +25,37 @@ export const Services = () => {
     };
 
     const services = [
-        { id: '1', title: t('service_1_title'), desc: t('service_1_desc') },
-        { id: '2', title: t('service_2_title'), desc: t('service_2_desc') },
-        { id: '3', title: t('service_3_title'), desc: t('service_3_desc') },
-        { id: '4', title: t('service_4_title'), desc: t('service_4_desc') },
+        { id: '1', title: t('service_1_title'), desc: t('service_1_desc'), img: presta1 },
+        { id: '2', title: t('service_2_title'), desc: t('service_2_desc'), img: presta2 },
+        { id: '3', title: t('service_3_title'), desc: t('service_3_desc'), img: presta3 },
+        { id: '4', title: t('service_4_title'), desc: t('service_4_desc'), img: presta4 },
     ];
 
     useGSAP(() => {
         const mm = gsap.matchMedia();
 
         mm.add("(min-width: 992px)", () => {
-            // Animation du titre
             gsap.from('.services-main-title', {
-                scrollTrigger: {
-                    trigger: '.services-main-title',
-                    start: 'top 80%',
-                },
-                y: 100,
-                opacity: 0,
-                duration: 1.2,
-                ease: 'power4.out'
-            });
-
-            // Animation de l'image (parallaxe léger)
-            gsap.to('.services-image-wrapper img', {
-                scrollTrigger: {
-                    trigger: '#services',
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: true
-                },
-                y: 50,
-                ease: 'none'
-            });
-
-            // Animation des items de service
-            gsap.from('.service-item', {
-                scrollTrigger: {
-                    trigger: '.services-list',
-                    start: 'top 70%',
-                },
-                y: 50,
+                scrollTrigger: { trigger: '.services-section', start: 'top 80%' },
+                y: 60,
                 opacity: 0,
                 duration: 1,
-                stagger: 0.2,
                 ease: 'power3.out'
+            });
+
+            gsap.from('.service-item', {
+                scrollTrigger: { trigger: '.services-list', start: 'top 75%' },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power2.out'
             });
         });
 
-        // Animation mobile simplifiée
         mm.add("(max-width: 991px)", () => {
             gsap.from('.service-item', {
-                scrollTrigger: {
-                    trigger: '.services-list',
-                    start: 'top 85%',
-                },
+                scrollTrigger: { trigger: '.services-list', start: 'top 85%' },
                 y: 30,
                 opacity: 0,
                 duration: 0.8,
@@ -85,36 +67,66 @@ export const Services = () => {
     }, { scope: containerRef });
 
     return (
-        <section id="services" className="services-new" ref={containerRef}>
-            <div className="services-container-new">
+        <section id="services" className="services-section" ref={containerRef}>
+            <div className="container">
 
                 <h2 className="services-main-title">{t('services_title')}</h2>
 
-                <div className="services-image-wrapper">
-                    <img src={serviceMockup} alt="Prestation de préparation automobile premium" />
-                    <div className="image-overlay-text">Detailing Excellence</div>
-                </div>
+                <div className="services-layout">
 
-                <div className="services-list">
-                    {services.map((service) => (
-                        <div key={service.id} className="service-item group">
-                            <div className="service-number font-serif">0{service.id}</div>
-                            <div className="service-content">
-                                <h3 className="group-hover:text-accent transition-colors duration-300">
-                                    {service.title}
-                                    <span className="arrow">→</span>
-                                </h3>
-                                <p>{service.desc}</p>
+                    {/* COLONNE GAUCHE : Images Fixes (PC uniquement) */}
+                    <div className="services-visuals">
+                        <div className="sticky-wrapper">
+                            {services.map((service, index) => (
+                                <img
+                                    key={`img-${service.id}`}
+                                    src={service.img}
+                                    alt={service.title}
+                                    className={activeImage === index ? 'active' : ''}
+                                />
+                            ))}
+                            <div className="visual-overlay">
+                                <span>Detailing Excellence</span>
                             </div>
                         </div>
-                    ))}
+                    </div>
 
-                    <a href="#about" className="about-me-link group" onClick={(e) => handleScroll(e, '#about')}>
-                        <span className="link-text">{t('services_scroll_about')}</span>
-                        <span className="link-underline"></span>
-                    </a>
+                    {/* COLONNE DROITE : Liste (Scroll) */}
+                    <div className="services-content">
+                        <div className="services-list">
+                            {services.map((service, index) => (
+                                <div
+                                    key={service.id}
+                                    className="service-item"
+                                    onMouseEnter={() => setActiveImage(index)}
+                                >
+                                    <div className="service-number">0{service.id}</div>
+
+                                    <div className="service-text">
+                                        <h3>
+                                            {service.title}
+                                            <span className="arrow">→</span>
+                                        </h3>
+                                        <p>{service.desc}</p>
+                                    </div>
+
+                                    {/* Image visible uniquement sur mobile */}
+                                    <div className="service-mobile-img">
+                                        <img src={service.img} alt={service.title} />
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Lien About Me */}
+                        <div className="services-footer">
+                            <a href="#about" className="about-link" onClick={(e) => handleScroll(e, '#about')}>
+                                {t('services_scroll_about')} <span className="arrow-down">↓</span>
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
-
             </div>
         </section>
     );

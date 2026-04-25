@@ -1,188 +1,231 @@
 /* ======================================================== */
-/*                      SECTION ABOUT                       */
+/*                  SECTION À PROPOS                        */
 /* ======================================================== */
+
 .about-section {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    padding: var(--header-height, 80px) var(--site-margin) 4rem;
-    min-height: 100vh;
-
-    /* MODIFICATIONS POUR LE STICKY : 
-       On passe en display: block et on utilise clip au lieu de hidden */
-    display: block;
-    overflow: clip;
+    padding: 6rem 0;
+    border-top: 1px solid var(--border-color);
+    /* Ligne de séparation franche */
 }
 
-.about-container {
-    width: 100%;
-    max-width: var(--site-max-width);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
+/* --- Layout Grid (Inversé par rapport aux services) --- */
+.about-grid {
+    display: flex;
+    flex-direction: column-reverse;
+    /* Sur mobile : Image au dessus ou en dessous */
+    gap: 4rem;
 }
 
-.about-image-wrapper {
-    /* Ici le hidden est ok car il sert juste à couper l'image qui zoome au survol, 
-       ce n'est pas un parent du sticky, C'EST l'élément sticky */
-    overflow: hidden;
-    aspect-ratio: 4 / 5;
-    max-height: 45vh;
-    /* Optionnel : pour adoucir les bords de l'image */
+@media (min-width: 992px) {
+    .about-grid {
+        flex-direction: row;
+        /* Sur PC : côte à côte */
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 6rem;
+    }
+
+    .about-content {
+        flex: 1;
+        /* Prend environ 55% de l'espace */
+        max-width: 60%;
+    }
+
+    .about-visuals {
+        flex: 0 0 35%;
+        /* Prend 35% de l'espace */
+        position: sticky;
+        top: calc(var(--header-height) + 2rem);
+    }
 }
 
-/* Sur mobile, la hauteur s'adapte via aspect-ratio et max-height */
-.about-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
-}
-
-.about-image-wrapper:hover img {
-    transform: scale(1.05);
-}
-
-.about-name {
-    font-family: var(--font-headline);
-    font-size: clamp(2.5rem, 8vw, 4rem);
-    font-weight: 400;
-    line-height: 1;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
+/* --- Typographie En-tête --- */
+.about-header {
+    margin-bottom: 3rem;
 }
 
 .about-subtitle {
     font-family: var(--font-body);
-    font-weight: 700;
-    font-size: 1.1rem;
-    display: inline-block;
-    padding: 0.2rem 0.6rem;
-    margin-bottom: 1.8rem;
-    position: relative;
-    z-index: 1;
-    color: var(--bg-color);
-    transition: transform 0.3s ease;
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
 }
 
-.about-subtitle::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--accent-color);
-    z-index: -1;
-    transform: skewX(-5deg);
-    transition: background-color 0.3s ease;
-}
-
-.about-subtitle:hover {
-    transform: scale(1.05);
-}
-
-.about-subtitle:hover::before {
-    background-color: var(--text-color);
+.about-name {
+    font-family: var(--font-headline);
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
 }
 
 .about-description {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    line-height: 1.7;
-    max-width: 70ch;
+    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    line-height: 1.8;
+    margin-bottom: 4rem;
+    opacity: 0.8;
+    max-width: 90%;
 }
 
-.about-details-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
+/* --- Tableau des Détails Technique --- */
+.about-details-table {
+    display: flex;
+    flex-direction: column;
+}
+
+.about-detail-item {
+    display: flex;
+    flex-direction: column;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--border-color);
+}
+
+@media (min-width: 768px) {
+    .about-detail-item {
+        flex-direction: row;
+        gap: 3rem;
+    }
 }
 
 .detail-title {
     font-family: var(--font-body);
-    font-weight: 700;
-    display: inline-block;
-    padding-bottom: 5px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.6;
+    flex: 0 0 200px;
+    /* Largeur fixe pour aligner le tableau */
     margin-bottom: 1rem;
-    border-bottom: 1px solid var(--border-color);
 }
 
 .detail-content {
+    flex: 1;
     font-family: var(--font-body);
+    /* Police monospace pour le côté "data" */
     font-size: 0.95rem;
-    line-height: 1.6;
+    line-height: 1.7;
+    opacity: 0.8;
 }
 
+/* Styling des éléments générés par dangerouslySetInnerHTML */
 .detail-content ul {
     list-style: none;
+    padding-left: 0;
+    margin-top: 0.5rem;
 }
 
-.about-projects-link {
-    font-family: var(--font-body);
+.detail-content li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.detail-content li::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.detail-content h4,
+.detail-content strong {
+    font-family: var(--font-headline);
     font-size: 1.1rem;
-    transition: color 0.3s ease;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+/* Séparation pour les Expériences (Académique / Pro) */
+.detail-content-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 1200px) {
+    .detail-content-split {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* --- Image Architecturale --- */
+.about-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    /* Hauteur définie pour le parallaxe */
+    overflow: hidden;
+    background-color: var(--border-color);
+    /* AUCUN border-radius */
+    border-radius: 0;
+}
+
+.about-parallax-img {
+    position: absolute;
+    top: -15%;
+    /* Nécessaire pour avoir de la marge pour le scroll GSAP */
+    left: 0;
+    width: 100%;
+    height: 130%;
+    /* Plus grand que le conteneur */
+    object-fit: cover;
+    /* Effet noir et blanc subtil qui se désactive au survol (optionnel, fait très pro) */
+    filter: grayscale(80%) contrast(1.1);
+    transition: filter 0.5s ease;
+}
+
+.about-image-wrapper:hover .about-parallax-img {
+    filter: grayscale(0%) contrast(1);
+}
+
+/* Badge sur l'image */
+.visual-badge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--bg-color);
+    /* S'adapte au mode sombre/clair */
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
+}
+
+.visual-badge span {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* --- Lien Projets --- */
+.about-projects-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-headline);
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    width: 100%;
+    /* S'étend sur toute la largeur de la colonne */
 }
 
 .about-projects-link:hover {
     color: var(--accent-color);
 }
 
-/* ======================================================== */
-/*               MODE DESKTOP & EFFET STICKY                */
-/* ======================================================== */
-@media (min-width: 992px) {
-    .about-container {
-        grid-template-columns: 1.8fr 1fr;
-        /* Texte à gauche (plus large), Image à droite */
-        gap: 3rem 5rem;
+.about-projects-link .arrow-down {
+    transition: transform 0.3s ease;
+}
 
-        /* INDISPENSABLE : Empêche l'image de s'étirer en hauteur jusqu'en bas */
-        align-items: start;
-    }
-
-    .about-intro {
-        order: 1;
-    }
-
-    /* === LE CŒUR DE L'EFFET STICKY === */
-    .about-image-wrapper {
-        order: 2;
-
-        position: sticky;
-        top: calc(var(--header-height, 80px) + 2rem);
-
-        /* On lui donne une hauteur fixe calculée en fonction de l'écran */
-        height: calc(100vh - var(--header-height, 80px) - 6rem);
-        min-height: 400px;
-        max-height: none;
-        aspect-ratio: auto;
-        /* Sécurité */
-    }
-
-    /* On force l'image à prendre 100% de la hauteur du wrapper sticky sur desktop */
-    .about-image-wrapper img {
-        height: 100%;
-    }
-
-    /* La grille de détails en bas prend toute la largeur */
-    .about-details-grid {
-        grid-column: 1 / -1;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2rem;
-        order: 3;
-        margin-top: 2rem;
-        /* Espace supplémentaire au dessus des détails */
-    }
-
-    .about-projects-link {
-        grid-column: 1 / -1;
-        order: 4;
-    }
-
-    .about-detail-item:not(:last-child) {
-        border-right: 1px solid var(--border-color);
-        padding-right: 2rem;
-    }
+.about-projects-link:hover .arrow-down {
+    transform: translateY(5px);
 }
