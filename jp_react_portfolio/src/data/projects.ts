@@ -1,45 +1,47 @@
-import type { ProjectModalData } from '../types/Project';
+import type { TranslationKey } from '../contexts/LanguageContext';
 
-export const projectsData: ProjectModalData[] = [
+export interface ProjectData {
+    id: string;
+    titleKey: TranslationKey;           // Clé de traduction pour le titre
+    tags: string[];             // Affichés en haut à droite (ex: ['Luxe', 'Polissage'])
+    descriptionKey: TranslationKey;     // Clé pour le texte principal (Le Défi / L'Intervention)
+    techStackKeys: string[];    // Tableau de clés (ou textes directs) pour la liste des prestations
+}
+
+// data/projects.ts
+export const projectsData: ProjectData[] = [
     {
-        id: 'dialog-stellantis',
-        number: '#1',
+        id: 'project-stellantis',
         titleKey: 'project_1_title',
-        tags: ['Nettoyage Industriel', 'Stellantis', 'Volume élevé'],
-        actionKey: 'project_learn_more',
-        image: 'https://images.pexels.com/photos/372810/pexels-photo-372810.jpeg', // Car detailing image
-        modalTitleKey: 'dialog_stellantis_title',
-        shortDescKey: 'dialog_stellantis_short_desc',
-        techTags: ['Stellantis', 'Poissy', 'Qualité Constructeur'],
-        p1Key: 'dialog_stellantis_p1',
-        p2Key: 'dialog_stellantis_p2',
-        p3Key: 'dialog_stellantis_p3',
-        closeKey: 'dialog_close'
+        tags: ['Nettoyage Industriel', 'Volume Élevé'],
+        descriptionKey: 'dialog_stellantis_p1',
+        techStackKeys: [
+            'Préparation véhicules neufs et occasions',
+            'Respect strict du cahier des charges constructeur',
+            'Gestion des flux et cadences industrielles'
+        ]
     },
     {
-        id: 'dialog-flotte',
-        number: '#2',
+        id: 'project-flotte',
         titleKey: 'project_2_title',
-        tags: ['B2B', 'Maintenance', 'Flotte'],
-        actionKey: 'project_learn_more_2',
-        image: 'https://images.pexels.com/photos/4489749/pexels-photo-4489749.jpeg', // Fleet of cars
-        modalTitleKey: 'project_2_title',
-        shortDescKey: 'service_3_desc',
-        techTags: ['Gestion de parc', 'Nettoyage régulier'],
-        p1Key: 'service_3_desc',
-        closeKey: 'dialog_close_2'
+        tags: ['B2B', 'Gestion de Parc'],
+        descriptionKey: 'service_3_desc', // Remplace par une vraie clé de description B2B si tu en as une
+        techStackKeys: [
+            'Intervention sur site pour professionnels',
+            'Nettoyage intérieur/extérieur régulier',
+            'Maintien de la valeur résiduelle du parc'
+        ]
     },
     {
-        id: 'dialog-premium',
-        number: '#3',
+        id: 'project-premium',
         titleKey: 'project_3_title',
-        tags: ['Luxe', 'Detailing', 'Protection'],
-        actionKey: 'project_learn_more_3',
-        image: 'https://images.pexels.com/photos/1149137/pexels-photo-1149137.jpeg', // Luxury car cleaning
-        modalTitleKey: 'project_3_title',
-        shortDescKey: 'service_2_desc',
-        techTags: ['Polissage', 'Céramique'],
-        p1Key: 'service_2_desc',
-        closeKey: 'dialog_close_3'
+        tags: ['Detailing Luxe', 'Protection Céramique'],
+        descriptionKey: 'service_2_desc', // Remplace par une vraie clé detailing si besoin
+        techStackKeys: [
+            'Prélavage et lavage manuel technique',
+            'Décontamination ferreuse et goudron',
+            'Polissage multi-étapes (correction des micro-rayures)',
+            'Pose de protection céramique hydrophobe'
+        ]
     }
 ];

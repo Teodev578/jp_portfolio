@@ -1,328 +1,237 @@
 /* ======================================================== */
 /*                     SECTION PROJETS                      */
 /* ======================================================== */
+
+/* --- 1. STYLES DE BASE (MOBILE FIRST) --- */
+
 .projects-section {
+    padding: 6rem 0;
     background-color: var(--bg-color);
-    color: var(--text-color);
-    padding-top: var(--header-height);
-    padding-bottom: 4rem;
+    /* S'adapte au dark/light mode */
 }
 
-.projects-list-wrapper {
-    padding: 0 var(--site-margin);
-}
-
-.projects-list {
-    width: 100%;
-    border-top: 2px solid var(--border-color);
-}
-
-.projects-container {
-    width: 100%;
-    max-width: var(--site-max-width);
-    margin: 0 auto;
-    padding: 0 var(--site-margin);
-}
-
-.github-link-container {
-    /* Ajuste ici l'espace entre la liste des projets et le lien GitHub */
-    margin-top: 1rem;
-
-    /* Supprime ou augmente le retrait à gauche si nécessaire */
-    padding-left: 0;
-}
-
-.github-link {
-    font-family: var(--font-body);
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    display: inline-block;
-
-    /* Ajuste ici l'espace entre le texte et le trait de soulignement */
-    padding-bottom: 8px;
-
-    /* Ajuste ici l'épaisseur et la couleur du soulignement */
-    border-bottom: 2px solid;
-
-    transition: all 0.3s ease;
-}
-
-.github-link:hover {
-    color: var(--accent-color);
-}
-
+/* En-tête */
 .projects-header {
-    display: flex;
-    gap: 1.5rem;
-    align-items: flex-start;
     margin-bottom: 3rem;
-}
-
-.header-symbol {
-    font-size: 2rem;
-    color: var(--accent-color);
-    line-height: 1.2;
 }
 
 .projects-title {
     font-family: var(--font-headline);
-    font-size: clamp(3rem, 10vw, 6rem);
-    line-height: 0.9;
-    font-weight: 400;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: var(--text-color);
     margin-bottom: 1rem;
-    color: var(--accent-color);
 }
 
-/* ======================================================== */
-/*                    PROJETS ACCORDION                     */
-/* ======================================================== */
-.project-card {
-    border-bottom: 2px solid var(--border-color);
-    transition: background-color 0.3s ease;
-    background-color: transparent;
+.projects-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--text-color);
+    opacity: 0.6;
+    max-width: 500px;
 }
 
-.project-card:hover {
-    background-color: rgba(0, 0, 0, 0.02);
+/* Conteneur Accordéon */
+.projects-accordion-wrapper {
+    border-top: 1px solid var(--border-color);
 }
 
-body.dark-mode .project-card:hover {
-    background-color: rgba(255, 255, 255, 0.03);
+/* Un item de l'accordéon */
+.project-item {
+    border-bottom: 1px solid var(--border-color);
 }
 
-.project-card.is-expanded {
-    background-color: var(--section-bg);
-    border-bottom-color: var(--accent-color);
-}
-
-body.dark-mode .project-card.is-expanded {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-.project-card-inner-container {
+/* Bouton Trigger (Ligne cliquable) */
+.project-trigger {
     width: 100%;
-    max-width: var(--site-max-width);
-    margin: 0 auto;
-    padding: 1.5rem var(--site-margin);
-    display: flex;
-    align-items: center;
-}
-
-.card-number {
-    font-family: var(--font-headline);
-    font-size: 4rem;
-    font-weight: 400;
-    color: var(--accent-color);
-    line-height: 1;
-    margin-right: 2rem;
-    padding-right: 2rem;
-    border-right: 2px solid var(--border-color);
-    min-width: 120px;
-}
-
-.card-content {
-    flex-grow: 1;
+    padding: 2rem 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 2rem;
+    background: transparent;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
 }
 
-.card-title {
-    font-family: var(--font-headline);
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    font-weight: 400;
-    text-transform: uppercase;
-    line-height: 1;
+.project-trigger:hover {
+    text-decoration: none !important;
+    /* Force l'annulation du soulignement Radix par défaut */
 }
 
-.card-description {
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    color: var(--text-light);
-    margin: 0.5rem 0 0.75rem;
-    max-width: 60ch;
-    line-height: 1.5;
-}
-
-.card-tags {
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    opacity: 0.7;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.card-action {
+.trigger-content {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    font-family: var(--font-body);
-    font-weight: 700;
-    text-transform: uppercase;
-    white-space: nowrap;
-    transition: all 0.3s ease;
-}
-
-.card-icon {
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.card-icon.rotate {
-    transform: rotate(135deg);
-    color: var(--accent-color);
-}
-
-/* --- ACCORDION CONTENT --- */
-.project-accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.8s cubic-bezier(0.77, 0, 0.175, 1);
-    background-color: var(--bg-color);
-}
-
-.is-expanded .project-accordion-content {
-    max-height: 2000px;
-    /* Large enough to fit content */
-    border-bottom: 2px solid var(--accent-color);
-}
-
-.accordion-inner {
-    padding: 1.5rem var(--site-margin) 3rem;
-    max-width: var(--site-max-width);
-    margin: 0 auto;
-}
-
-.accordion-grid {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 3rem;
-    align-items: start;
-}
-
-.accordion-visual-side {
-    display: flex;
-    flex-direction: column;
     gap: 1.5rem;
+    flex: 1;
 }
 
-.accordion-image-wrapper {
-    width: 100%;
-    border: 2px solid var(--border-color);
-    background-color: var(--accent-color);
+/* Typographie Numéro */
+.project-number {
+    font-family: var(--font-mono);
+    /* JetBrains Mono */
+    font-size: 1rem;
+    color: var(--text-color);
+    opacity: 0.4;
+    /* Discret */
+    transition: color 0.3s ease, opacity 0.3s ease;
 }
 
-.accordion-image-wrapper img {
-    width: 100%;
-    height: auto;
-    display: block;
-    mix-blend-mode: multiply;
-    transition: mix-blend-mode 0.3s ease;
-}
-
-.accordion-image-wrapper:hover img {
-    mix-blend-mode: normal;
-}
-
-.accordion-tech-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.stack-label {
+/* Typographie Titre */
+.project-name {
     font-family: var(--font-headline);
-    font-size: 1.2rem;
-    color: var(--accent-color);
+    font-size: clamp(1.2rem, 4vw, 2.5rem);
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--text-color);
+    transition: color 0.3s ease;
 }
 
-.tech-tags-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
+/* Effet au survol du bouton */
+@media (hover: hover) and (pointer: fine) {
+    .project-trigger:hover .project-name {
+        color: var(--accent-color);
+        /* Rouge au survol */
+    }
+
+    .project-trigger:hover .project-number {
+        color: var(--accent-color);
+        opacity: 1;
+    }
 }
 
-.tech-tag-badge {
-    padding: 0.4rem 0.8rem;
+/* Tags (Cachés sur mobile par défaut via Tailwind dans le code React, mais stylisés ici) */
+.project-tags {
+    margin-left: auto;
+    gap: 1rem;
+    padding-right: 2rem;
+}
+
+.project-tags .tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
     border: 1px solid var(--border-color);
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    background-color: transparent;
+    border-radius: 50px;
+    /* Seul bord arrondi autorisé pour un look "pilule" technique */
+    opacity: 0.6;
 }
 
-.accordion-text-side {
+/* --- CONTENU DE L'ACCORDÉON (Ouvert) --- */
+.project-content {
+    /* Radix gère l'animation de hauteur, on gère juste le padding intérieur */
+}
+
+.content-grid {
+    padding-bottom: 3rem;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2.5rem;
 }
 
-.accordion-headline {
-    font-family: var(--font-headline);
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    line-height: 1.1;
+/* Petits titres internes */
+.content-grid h4 {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
     text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-color);
+    opacity: 0.5;
+    margin-bottom: 1rem;
 }
 
-.accordion-paragraphs {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.accordion-paragraphs p {
+/* Paragraphe principal */
+.content-description p {
     font-family: var(--font-body);
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     line-height: 1.8;
+    color: var(--text-color);
+    opacity: 0.85;
 }
 
-.accordion-gallery {
+/* Liste des prestations */
+.content-specs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin: 2rem 0;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
 }
 
-.gallery-item {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.gallery-item img {
-    width: 100%;
-    border: 2px solid var(--border-color);
-}
-
-.gallery-item figcaption {
+.content-specs li {
     font-family: var(--font-body);
-    font-size: 0.9rem;
-    color: var(--text-light);
-    font-style: italic;
+    font-size: 0.95rem;
+    position: relative;
+    padding-left: 1.2rem;
+    color: var(--text-color);
+    opacity: 0.85;
 }
 
-@media (max-width: 992px) {
-    .accordion-grid {
-        grid-template-columns: 1fr;
+.content-specs li::before {
+    content: "—";
+    /* Tiret cadratin élégant au lieu d'une puce */
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+/* Footer / Lien Instagram */
+.projects-footer {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: flex-end;
+    /* Aligné à droite pour casser la monotonie */
+}
+
+
+/* --- 2. ADAPTATION TABLETTE ET PC --- */
+
+@media (min-width: 768px) {
+    .projects-section {
+        padding: 8rem 0;
+    }
+
+    .projects-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 5rem;
+    }
+
+    .projects-title {
+        margin-bottom: 0;
+    }
+
+    .projects-subtitle {
+        text-align: right;
+    }
+
+    .trigger-content {
         gap: 3rem;
     }
 
-    .card-number {
-        font-size: 3rem;
-        min-width: 80px;
-        margin-right: 1.5rem;
-        padding-right: 1.5rem;
+    .project-trigger {
+        padding: 3rem 0;
+        /* Plus d'espace de clic sur PC */
     }
 
-    .card-content {
-        gap: 1.5rem;
+    /* Le contenu devient une grille 2 colonnes (60% description / 40% specs) */
+    .content-grid {
+        flex-direction: row;
+        gap: 4rem;
+        padding-left: 4.5rem;
+        /* S'aligne avec le titre, décalé par rapport au numéro */
     }
 
-    .card-action span {
-        display: none;
+    .content-description {
+        flex: 1;
+        max-width: 600px;
     }
 
-    .accordion-gallery {
-        grid-template-columns: 1fr;
+    .content-specs {
+        flex: 0 0 300px;
     }
 }
