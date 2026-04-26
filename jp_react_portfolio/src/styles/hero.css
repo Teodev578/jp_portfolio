@@ -22,21 +22,28 @@
     flex-direction: column;
 }
 
-/* --- Colonne Image (FORCÉE EN HAUT SUR MOBILE) --- */
+/* --- Colonne Image (FORCÉE EN HAUT SUR MOBILE ET TABLETTE) --- */
 .hero-visual {
-    /* L'ordre -1 force cet élément à s'afficher en premier (en haut) */
     order: -1;
     width: 100%;
-    /* Sur mobile, l'image prend environ 35% de l'écran vertical */
-    height: 35vh;
+    /* Budget vertical strict pour garantir le 100vh global */
+    height: 35vh; 
     flex-shrink: 0;
     margin-bottom: 1.5rem;
+    
+    /* NOUVEAU : On centre le cadre 4:3 au milieu de l'écran */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hero-image-wrapper {
     position: relative;
-    width: 100%;
-    height: 100%;
+    /* NOUVEAU : La hauteur est bloquée, la largeur s'adapte en 4:3 */
+    height: 100%; 
+    width: auto; 
+    aspect-ratio: 4 / 3; 
+    
     background-color: var(--border-color);
     overflow: hidden;
 }
@@ -46,11 +53,9 @@
     top: -10%;
     left: 0;
     width: 100%;
-    height: 120%;
-    /* Marge pour le parallaxe */
+    height: 120%; /* Marge pour le parallaxe */
     object-fit: cover;
-    object-position: center 25%;
-    /* Garde le visage visible */
+    object-position: center 25%; /* Garde le visage bien placé */
     filter: contrast(1.05) saturate(0.95);
 }
 
@@ -176,66 +181,67 @@
 
 
 /* --- 2. ADAPTATION TABLETTE ET PC --- */
+
+/* Tablette (Mode Portrait type iPad) */
+@media (min-width: 768px) {
+    .hero-visual {
+        height: 40vh; 
+        margin-bottom: 2rem;
+    }
+    
+    .hero-actions {
+        flex-direction: row;
+        align-items: center;
+        gap: 3rem;
+    }
+}
+
+/* Écran PC (Paysage) et Tablette Horizontale */
 @media (min-width: 1024px) {
     .hero-section {
         padding-top: var(--header-height);
     }
 
-    /* On repasse en côte à côte */
     .hero-grid {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        gap: 6rem;
+        /* LE SECRET 1 : L'espace (gap) se réduit tout seul quand l'écran serre */
+        gap: clamp(2rem, 5vw, 6rem); 
         padding-bottom: 4rem;
-        /* Redonne un peu de respiration en bas */
     }
 
     .hero-content {
-        flex: 1;
+        /* Prend environ 55% de l'espace, et a le droit de rétrécir */
+        flex: 1 1 55%; 
         max-width: 700px;
         justify-content: center;
         padding-bottom: 0;
     }
 
-    .hero-kicker {
-        margin-bottom: 1.5rem;
-        font-size: 0.9rem;
-    }
+    .hero-kicker { margin-bottom: 1.5rem; font-size: 0.9rem; }
+    .hero-title { margin-bottom: 2rem; line-height: 1; }
+    .hero-text-block { margin-bottom: 3.5rem; gap: 1.5rem; }
+    .hero-description { -webkit-line-clamp: unset; font-size: 1rem; }
 
-    .hero-title {
-        margin-bottom: 2rem;
-        line-height: 1;
-    }
-
-    .hero-text-block {
-        margin-bottom: 3.5rem;
-        gap: 1.5rem;
-    }
-
-    .hero-description {
-        -webkit-line-clamp: unset;
-        font-size: 1rem;
-    }
-
-    .hero-actions {
-        gap: 3rem;
-        margin-top: 0;
-    }
+    .hero-actions { gap: 3rem; margin-top: 0; }
 
     .hero-btn-primary {
         padding: 1.2rem 2.5rem;
         font-size: 0.95rem;
     }
 
-    /* L'image reprend sa place à droite */
+    /* L'image reprend sa place à droite sur PC */
     .hero-visual {
         order: 2;
-        /* Repasse après le texte */
-        height: 70vh;
-        /* Hauteur maximale contrainte */
-        flex: 0 0 450px;
-        /* Largeur fixe */
+        height: auto; 
+        max-height: 70vh;
+        
+        /* LE SECRET 2 : L'image prend 40% de la largeur, et peut rétrécir ! */
+        flex: 1 1 40%; 
+        /* Mais elle ne dépassera jamais cette taille max : */
+        max-width: 450px; 
+        
         margin-bottom: 0;
         display: flex;
         align-items: center;
@@ -243,15 +249,17 @@
     }
 
     .hero-image-wrapper {
+        /* Suit dynamiquement la largeur de son conteneur tout en gardant le 4:3 */
         width: 100%;
         height: auto;
         aspect-ratio: 4 / 3;
-        /* Le fameux format 4:3 sur PC */
     }
 }
 
+/* Écran Géant */
 @media (min-width: 1440px) {
     .hero-visual {
-        flex: 0 0 550px;
+        /* On augmente juste la limite maximale, le reste reste fluide */
+        max-width: 550px; 
     }
 }
