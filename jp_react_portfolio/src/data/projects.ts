@@ -1,47 +1,49 @@
+// data/projects.ts
 import type { TranslationKey } from '../contexts/LanguageContext';
 
 export interface ProjectData {
     id: string;
-    titleKey: TranslationKey;           // Clé de traduction pour le titre
-    tags: string[];             // Affichés en haut à droite (ex: ['Luxe', 'Polissage'])
-    descriptionKey: TranslationKey;     // Clé pour le texte principal (Le Défi / L'Intervention)
-    techStackKeys: string[];    // Tableau de clés (ou textes directs) pour la liste des prestations
+    titleKey: TranslationKey;
+    tags: string[];
+    descriptionKey: TranslationKey;
+    techStackKeys: TranslationKey[];
 }
 
-// data/projects.ts
 export const projectsData: ProjectData[] = [
     {
         id: 'project-stellantis',
         titleKey: 'project_1_title',
-        tags: ['Nettoyage Industriel', 'Volume Élevé'],
-        descriptionKey: 'dialog_stellantis_p1',
+        tags: ['Nettoyage Industriel', 'Cadence Élevée'],
+        descriptionKey: 'project_1_desc',
         techStackKeys: [
-            'Préparation véhicules neufs et occasions',
-            'Respect strict du cahier des charges constructeur',
-            'Gestion des flux et cadences industrielles'
+            'project_1_spec_1',
+            'project_1_spec_2',
+            'project_1_spec_3',
+            'project_1_spec_4'
         ]
     },
     {
         id: 'project-flotte',
         titleKey: 'project_2_title',
         tags: ['B2B', 'Gestion de Parc'],
-        descriptionKey: 'service_3_desc', // Remplace par une vraie clé de description B2B si tu en as une
+        descriptionKey: 'project_2_desc',
         techStackKeys: [
-            'Intervention sur site pour professionnels',
-            'Nettoyage intérieur/extérieur régulier',
-            'Maintien de la valeur résiduelle du parc'
+            'project_2_spec_1',
+            'project_2_spec_2',
+            'project_2_spec_3',
+            'project_2_spec_4'
         ]
     },
     {
         id: 'project-premium',
         titleKey: 'project_3_title',
         tags: ['Detailing Luxe', 'Protection Céramique'],
-        descriptionKey: 'service_2_desc', // Remplace par une vraie clé detailing si besoin
+        descriptionKey: 'project_3_desc',
         techStackKeys: [
-            'Prélavage et lavage manuel technique',
-            'Décontamination ferreuse et goudron',
-            'Polissage multi-étapes (correction des micro-rayures)',
-            'Pose de protection céramique hydrophobe'
+            'project_3_spec_1',
+            'project_3_spec_2',
+            'project_3_spec_3',
+            'project_3_spec_4'
         ]
     }
 ];

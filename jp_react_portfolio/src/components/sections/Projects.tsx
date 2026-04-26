@@ -63,7 +63,7 @@ export const Projects = () => {
                                             <h4>{t('projects_services_header')}</h4>
                                             <ul>
                                                 {project.techStackKeys?.map((tech, i) => (
-                                                    <li key={i}>{tech}</li>
+                                                    <li key={i}>{t(tech)}</li>
                                                 ))}
                                             </ul>
                                         </div>
