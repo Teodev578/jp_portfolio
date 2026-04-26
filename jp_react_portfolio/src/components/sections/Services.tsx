@@ -6,10 +6,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useRef, useState } from 'react';
 
 // Import des images de prestation
-import presta1 from '../../assets/presta/presta_1.jpeg';
-import presta2 from '../../assets/presta/presta_2.jpeg';
-import presta3 from '../../assets/presta/presta_3.jpeg';
-import presta4 from '../../assets/presta/presta_4.jpeg';
+import presta1 from '../../assets/presta/presta_4.jpeg';
+import presta2 from '../../assets/presta/presta_1.jpeg';
+import presta3 from '../../assets/presta/presta_5.jpeg';
+import presta4 from '../../assets/presta/presta_6.jpeg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,10 +41,10 @@ export const Services = () => {
         mm.add("(min-width: 992px)", () => {
             // Titre Principal
             gsap.from('.services-main-title', {
-                scrollTrigger: { 
-                    trigger: '.services-main-title', 
+                scrollTrigger: {
+                    trigger: '.services-main-title',
                     start: 'top 90%',
-                    once: true 
+                    once: true
                 },
                 y: 50,
                 opacity: 0,
@@ -85,10 +85,10 @@ export const Services = () => {
         // Animation Mobile (max-width: 991px)
         mm.add("(max-width: 991px)", () => {
             gsap.from('.services-main-title', {
-                scrollTrigger: { 
-                    trigger: '.services-main-title', 
+                scrollTrigger: {
+                    trigger: '.services-main-title',
                     start: 'top 90%',
-                    once: true 
+                    once: true
                 },
                 y: 30,
                 opacity: 0,
@@ -99,10 +99,10 @@ export const Services = () => {
             const items = gsap.utils.toArray<HTMLElement>('.service-item');
             items.forEach((item) => {
                 gsap.from(item, {
-                    scrollTrigger: { 
-                        trigger: item, 
+                    scrollTrigger: {
+                        trigger: item,
                         start: 'top 90%',
-                        once: true 
+                        once: true
                     },
                     y: 30,
                     opacity: 0,

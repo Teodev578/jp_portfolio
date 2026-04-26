@@ -4,7 +4,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useRef } from 'react';
-import portraitAbout from '../../assets/a_propos.jpeg';
+import portraitAbout from '../../assets/a_propos_1.jpeg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,18 +22,6 @@ export const About = () => {
         const mm = gsap.matchMedia();
 
         mm.add("(min-width: 992px)", () => {
-            // Effet Parallaxe Premium (l'image glisse dans son conteneur fixe)
-            gsap.to('.about-parallax-img', {
-                yPercent: 15,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: '.about-image-wrapper',
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: true
-                }
-            });
-
             // Animation d'apparition du contenu
             const tl = gsap.timeline({
                 scrollTrigger: {
@@ -116,12 +104,8 @@ export const About = () => {
                             <img
                                 src={portraitAbout}
                                 alt="Photo de Jean-Pierre AGBO - Le Préparateur"
-                                className="about-parallax-img"
+                                className="about-image"
                             />
-                            {/* Overlay technique */}
-                            <div className="visual-badge">
-                                <span>L'Expertise</span>
-                            </div>
                         </div>
                     </div>
 
