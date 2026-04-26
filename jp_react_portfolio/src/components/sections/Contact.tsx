@@ -4,7 +4,6 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SocialLink } from '../ui/SocialLink';
-import { ContactEmail } from '../ui/ContactEmail';
 
 gsap.registerPlugin(ScrollTrigger);
 

@@ -157,14 +157,6 @@
     transform: rotate(180deg);
 }
 
-/* --- ANIMATIONS RADIX UI (LA MAGIE) --- */
-
-.project-content {
-    /* Le conteneur interne ne doit pas porter l'animation de hauteur */
-}
-
-/* On utilise la variable CSS créée automatiquement par Radix sur le composant Content de base */
-/* En shadcn/Radix, le data-state est sur le parent de .project-content */
 .project-item [data-state="open"].overflow-hidden {
     animation: slideDown 0.5s cubic-bezier(0.87, 0, 0.13, 1) forwards;
 }
@@ -202,7 +194,7 @@
 }
 
 /* On cible l'animation interne quand le parent est ouvert */
-[data-state="open"] > .project-content .inner-content-animate {
+[data-state="open"]>.project-content .inner-content-animate {
     opacity: 1;
     transform: translateY(0);
 }
