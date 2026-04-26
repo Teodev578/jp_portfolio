@@ -55,12 +55,12 @@ export const Projects = () => {
                                     <div className="content-grid inner-content-animate">
 
                                         <div className="content-description">
-                                            <h4>Le Défi / L'Intervention</h4>
+                                            <h4>{t('projects_challenge_header')}</h4>
                                             <p>{t(project.descriptionKey)}</p>
                                         </div>
 
                                         <div className="content-specs">
-                                            <h4>Prestations réalisées</h4>
+                                            <h4>{t('projects_services_header')}</h4>
                                             <ul>
                                                 {project.techStackKeys?.map((tech, i) => (
                                                     <li key={i}>{tech}</li>
