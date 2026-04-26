@@ -100,3 +100,7 @@ a {
     text-decoration: none;
     transition: color 0.3s ease;
 }
+
+.font-mono {
+    font-family: var(--font-mono);
+}

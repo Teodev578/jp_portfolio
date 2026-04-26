@@ -1,0 +1,114 @@
+/* ======================================================== */
+/*                  SECTION SKILLS RAIL                     */
+/* ======================================================== */
+
+.skills-rail-section {
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    padding: 2rem 0;
+    /* Espace pour respirer avant/après la section */
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Conteneurs des rails --- */
+.rail-container {
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 1.5rem 0;
+}
+
+/* Bordures architecturales */
+.border-top {
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.border-bottom {
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Optionnel : Légère différence de fond pour le 2ème rail */
+.bg-alt {
+    background-color: var(--section-alt-bg);
+}
+
+/* --- La piste qui bouge --- */
+.rail-track {
+    display: flex;
+    align-items: center;
+    /* La largeur doit être suffisante pour que l'animation -50% fonctionne sans vide */
+    width: max-content;
+}
+
+/* --- Animations CSS --- */
+.animate-scroll-left {
+    animation: scrollLeft 30s linear infinite;
+}
+
+.animate-scroll-right {
+    animation: scrollRight 30s linear infinite;
+}
+
+/* Si l'utilisateur survole, ça met l'animation en pause pour qu'il puisse lire */
+.rail-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(0);
+    }
+
+    /* On décale de -33.33% car on a dupliqué le tableau 3 fois dans React */
+    100% {
+        transform: translateX(-33.33%);
+    }
+}
+
+@keyframes scrollRight {
+    0% {
+        transform: translateX(-33.33%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* --- Style du texte --- */
+.rail-item {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-right: 2rem;
+}
+
+.rail-item span:not(.separator) {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+}
+
+/* Texte standard plein */
+.text-solid {
+    color: var(--text-color);
+}
+
+/* L'EFFET LUXE : Texte transparent avec un contour */
+.text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--text-color);
+}
+
+/* --- Séparateur technique --- */
+.separator {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    color: var(--accent-color);
+    opacity: 0.8;
+}

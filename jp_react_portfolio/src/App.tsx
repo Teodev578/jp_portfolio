@@ -11,8 +11,8 @@ import { Projects } from './components/sections/Projects';
 import { Contact } from './components/sections/Contact';
 import { Preloader } from './components/layout/Preloader';
 
+import { SkillsRail } from './components/ui/SkillsRail';
 import { LanguageTransition } from './components/ui/LanguageTransition';
-import { Marquee } from './components/ui/Marquee';
 import { ReactLenis } from 'lenis/react';
 
 
@@ -50,7 +50,7 @@ function AppContent() {
 
             <main>
                 <Hero />
-                <Marquee />
+                <SkillsRail />
                 <Services />
                 <About />
                 <Projects />
