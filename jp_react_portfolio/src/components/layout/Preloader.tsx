@@ -64,7 +64,7 @@ export const Preloader = ({ onLoaded }: PreloaderProps) => {
             ease: "power3.in",
         }, "+=0.2");
 
-        // Glissement vers le haut de l'écran noir (Effet Rideau)
+        // Glissement vers le haut de l'écran (Effet Rideau)
         tl.to(containerRef.current, {
             yPercent: -100,
             duration: 1.2,
@@ -80,7 +80,8 @@ export const Preloader = ({ onLoaded }: PreloaderProps) => {
     return (
         <div
             ref={containerRef}
-            className="fixed inset-0 w-full h-[100vh] bg-[#0A0A0A] z-[9999] flex flex-col justify-between"
+            className="fixed inset-0 w-full h-[100vh] z-[9999] flex flex-col justify-between"
+            style={{ backgroundColor: 'var(--bg-color)' }} /* S'adapte dynamiquement au thème ! */
         >
 
             {/* Centre : Logo */}
@@ -96,21 +97,24 @@ export const Preloader = ({ onLoaded }: PreloaderProps) => {
             {/* Bas : Informations Techniques */}
             <div className="preloader-content w-full flex flex-col">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 md:gap-0 px-6 md:px-8 pb-6">
-                    <span className="font-mono text-[0.65rem] md:text-xs uppercase tracking-[0.2em] text-[#F3F4F6] opacity-50">
+                    <span
+                        className="font-mono text-[0.65rem] md:text-xs uppercase tracking-[0.2em] opacity-50"
+                        style={{ color: 'var(--text-color)' }} /* S'adapte à var(--text-color) */
+                    >
                         Initialisation du studio //
                     </span>
                     <span
                         ref={counterRef}
-                        // Utilisation de variables CSS classiques pour la font-family si pas définies dans Tailwind
-                        className="text-[#F3F4F6] font-extrabold leading-[0.8] text-[clamp(3rem,8vw,6rem)]"
-                        style={{ fontFamily: 'var(--font-headline)' }}
+                        className="font-extrabold leading-[0.8] text-[clamp(3rem,8vw,6rem)]"
+                        style={{ fontFamily: 'var(--font-headline)', color: 'var(--text-color)' }}
                     >
                         00%
                     </span>
                 </div>
 
-                {/* Barre de progression ultra-fine */}
-                <div className="w-full h-[2px] bg-white/10">
+                {/* Ligne de fond de la barre de progression */}
+                <div className="w-full h-[2px]" style={{ backgroundColor: 'var(--border-color)' }}>
+                    {/* Barre de progression remplie avec la couleur Accent */}
                     <div
                         ref={progressBarRef}
                         className="w-full h-full origin-left scale-x-0"
