@@ -57,10 +57,11 @@
     padding-bottom: 1.5rem;
 }
 
+/* --- TRIGGER CONTENT (La ligne visible) --- */
 .trigger-content {
     display: flex;
-    align-items: center;
-    gap: 1.5rem;
+    align-items: center; /* Aligne verticalement le numéro, le titre et les tags */
+    gap: 2rem;
     flex: 1;
 }
 
@@ -70,6 +71,8 @@
     color: var(--text-color);
     opacity: 0.4;
     transition: color 0.3s ease, opacity 0.3s ease;
+    /* Empêche le numéro de rétrécir si le titre est très long */
+    flex-shrink: 0; 
 }
 
 .project-name {
@@ -79,6 +82,12 @@
     font-weight: 500;
     color: var(--text-color);
     transition: color 0.3s ease;
+    
+    /* LES CORRECTIONS SONT ICI ↓ */
+    text-align: left; /* Force le texte à s'aligner à gauche, même sur 2 lignes */
+    flex: 1; /* Force le titre à pousser les tags tout à droite */
+    line-height: 1.2; /* Resserre un peu les lignes pour que ça fasse plus "Titre" */
+    padding-right: 1.5rem; /* Garde une marge de sécurité avant les tags */
 }
 
 /* Coloration de l'élément actif / ouvert */
@@ -89,20 +98,16 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .project-trigger:hover .project-name {
-        color: var(--accent-color);
-    }
-
-    .project-trigger:hover .project-number {
-        color: var(--accent-color);
-        opacity: 1;
-    }
+    .project-trigger:hover .project-name { color: var(--accent-color); }
+    .project-trigger:hover .project-number { color: var(--accent-color); opacity: 1; }
 }
 
 .project-tags {
     margin-left: auto;
     gap: 1rem;
     padding-right: 2rem;
+    /* Empêche les pilules de s'écraser ou de passer à la ligne */
+    flex-shrink: 0; 
 }
 
 .project-tags .tag {
