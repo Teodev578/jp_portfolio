@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 import logoJP from '../../assets/logo_jp.png';
 
 interface PreloaderProps {
@@ -6,41 +7,118 @@ interface PreloaderProps {
 }
 
 export const Preloader = ({ onLoaded }: PreloaderProps) => {
-    const [loadingProgress, setLoadingProgress] = useState(0);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const counterRef = useRef<HTMLDivElement>(null);
+    const progressBarRef = useRef<HTMLDivElement>(null);
+    const logoRef = useRef<HTMLImageElement>(null);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setLoadingProgress(prev => {
-                if (prev >= 90) {
-                    clearInterval(interval);
-                    return 90;
+        // Bloquer le scroll pendant le chargement
+        document.body.style.overflow = 'hidden';
+
+        // 1. Animation de pulsation du logo (en boucle infinie)
+        const pulseAnim = gsap.to(logoRef.current, {
+            scale: 1.05,
+            opacity: 1,
+            duration: 1,
+            yoyo: true,
+            repeat: -1,
+            ease: "sine.inOut"
+        });
+
+        // 2. Timeline principale du preloader
+        const tl = gsap.timeline({
+            onComplete: () => {
+                pulseAnim.kill(); // On arrête la pulsation
+                document.body.style.overflow = ''; // On débloque le scroll
+                onLoaded(); // On affiche le site
+            }
+        });
+
+        const progress = { value: 0 };
+
+        // Chargement (de 0 à 100%)
+        tl.to(progress, {
+            value: 100,
+            duration: 2,
+            ease: "power3.inOut",
+            onUpdate: () => {
+                if (counterRef.current) {
+                    const num = Math.round(progress.value);
+                    counterRef.current.innerText = `${num.toString().padStart(2, '0')}%`;
                 }
-                return prev + Math.random() * 10;
-            });
-        }, 100);
+            }
+        }, 0)
+            // Barre de progression qui se remplit
+            .to(progressBarRef.current, {
+                scaleX: 1,
+                duration: 2,
+                ease: "power3.inOut",
+            }, 0);
 
-        const handleLoad = () => {
-            clearInterval(interval);
-            setLoadingProgress(100);
-            setTimeout(() => onLoaded(), 500);
+        // Disparition des éléments internes
+        tl.to(['.preloader-content'], {
+            y: -20,
+            opacity: 0,
+            duration: 0.6,
+            ease: "power3.in",
+        }, "+=0.2");
+
+        // Glissement vers le haut de l'écran noir (Effet Rideau)
+        tl.to(containerRef.current, {
+            yPercent: -100,
+            duration: 1.2,
+            ease: "power4.inOut"
+        });
+
+        return () => {
+            tl.kill();
+            pulseAnim.kill();
         };
-
-        if (document.readyState === 'complete') {
-            handleLoad();
-        } else {
-            window.addEventListener('load', handleLoad);
-            return () => window.removeEventListener('load', handleLoad);
-        }
-        return () => clearInterval(interval);
     }, [onLoaded]);
 
     return (
-        <div id="preloader">
-            <img src={logoJP} alt="Logo" className="preloader-logo" />
-            <div className="progress-container">
-                <div id="progress-bar" style={{ width: `${loadingProgress}%` }}></div>
+        <div
+            ref={containerRef}
+            className="fixed inset-0 w-full h-[100vh] bg-[#0A0A0A] z-[9999] flex flex-col justify-between"
+        >
+
+            {/* Centre : Logo */}
+            <div className="preloader-content flex-1 flex justify-center items-center">
+                <img
+                    ref={logoRef}
+                    src={logoJP}
+                    alt="Le Préparateur Logo"
+                    className="w-[120px] h-auto opacity-60 grayscale contrast-125"
+                />
             </div>
-            <div id="progress-counter">{Math.round(loadingProgress)}%</div>
+
+            {/* Bas : Informations Techniques */}
+            <div className="preloader-content w-full flex flex-col">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 md:gap-0 px-6 md:px-8 pb-6">
+                    <span className="font-mono text-[0.65rem] md:text-xs uppercase tracking-[0.2em] text-[#F3F4F6] opacity-50">
+                        Initialisation du studio //
+                    </span>
+                    <span
+                        ref={counterRef}
+                        // Utilisation de variables CSS classiques pour la font-family si pas définies dans Tailwind
+                        className="text-[#F3F4F6] font-extrabold leading-[0.8] text-[clamp(3rem,8vw,6rem)]"
+                        style={{ fontFamily: 'var(--font-headline)' }}
+                    >
+                        00%
+                    </span>
+                </div>
+
+                {/* Barre de progression ultra-fine */}
+                <div className="w-full h-[2px] bg-white/10">
+                    <div
+                        ref={progressBarRef}
+                        className="w-full h-full origin-left scale-x-0"
+                        style={{ backgroundColor: 'var(--accent-color)' }}
+                    ></div>
+                </div>
+            </div>
+
         </div>
     );
 };
