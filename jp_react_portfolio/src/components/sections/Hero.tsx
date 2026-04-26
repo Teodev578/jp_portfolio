@@ -2,8 +2,11 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { useLenis } from 'lenis/react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useRef } from 'react';
-import portraitImg from '../../assets/portrait.jpeg';
+import portraitImg from '../../assets/portrait_nb.jpeg';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const Hero = () => {
     const { t, tHtml } = useLanguage();
@@ -15,119 +18,85 @@ export const Hero = () => {
         lenis?.scrollTo(target);
     };
 
-    /**
-     * Splits a string into individual character spans for the stagger effect.
-     * Preserves spaces using whitespace-pre.
-     */
-    const splitLetters = (text: string) => {
-        return text.split('').map((char, index) => (
-            <span key={index} className="char inline-block whitespace-pre translate-y-full opacity-0">
-                {char}
-            </span>
-        ));
-    };
-
     useGSAP(() => {
         if (!container.current) return;
 
-        // Configuration de la Timeline principale
-        const tl = gsap.timeline({
-            defaults: { ease: 'expo.out' }
+        // 1. Titre (Apparition indépendante prioritaire)
+        gsap.fromTo('.hero-title',
+            { y: 30, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.1 }
+        );
+
+        const tl = gsap.timeline({ delay: 0.2 });
+
+        // 2. Image (Apparition fluide)
+        tl.fromTo('.hero-image-wrapper',
+            { clipPath: 'inset(100% 0% 0% 0%)' },
+            { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' }
+        )
+            // 3. Textes restants
+            .fromTo('.hero-animate-text',
+                { y: 20, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power2.out' },
+                "-=0.6"
+            );
+
+        // 4. Parallaxe de l'image au scroll
+        gsap.to('.hero-image', {
+            yPercent: 10,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero-section',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            }
         });
-
-        // 1. Hero Reveal : Titre 'LEPREPARATEUR' en stagger ultra-rapide
-        tl.to('.char', {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.015, // Très rapide pour l'effet industriel
-            ease: 'expo.out'
-        });
-
-        // 2. Image Entrance : Dévoilement par clip-path (effet rideau industriel)
-        tl.fromTo('.image-wrapper',
-            { clipPath: 'inset(0% 0% 100% 0%)' },
-            {
-                clipPath: 'inset(0% 0% 0% 0%)',
-                duration: 1.4,
-                ease: 'power4.inOut'
-            },
-            "-=0.6" // Chevauchement pour plus de fluidité
-        );
-
-        // 3. Text Split : Animation ligne par ligne (ou bloc par bloc ici pour préserver le HTML)
-        // Note : Pour un vrai split par ligne complexe avec HTML, SplitText (plugin GSAP) est recommandé.
-        // Ici on utilise un stagger sur les paragraphes pour une performance optimale.
-        tl.fromTo(['.hero-sub-intro p', '.hero-description p'],
-            { y: 20, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 1.2,
-                stagger: 0.2,
-                ease: 'power3.out'
-            },
-            "-=0.8"
-        );
-
-        // 4. CTA Entrance : Apparition progressive des liens
-        tl.fromTo('.hero-link',
-            { y: 15, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                stagger: 0.1,
-                ease: 'back.out(1.7)'
-            },
-            "-=0.4"
-        );
 
     }, { scope: container });
 
     return (
-        <section id="accueil" className="hero" ref={container}>
-            <div className="hero-content-wrapper">
-                <div className="hero-header-box overflow-hidden">
-                    <h1 className="main-headline">
-                        {splitLetters(t('hero_headline'))}
+        <section id="accueil" className="hero-section" ref={container}>
+            <div className="container hero-grid">
+
+                {/* COLONNE TEXTE */}
+                <div className="hero-content">
+                    <div className="hero-kicker font-mono hero-animate-text">
+                        // Detailing Studio
+                    </div>
+
+                    <h1 className="hero-title">
+                        {t('hero_headline') || 'LE PRÉPARATEUR'}
                     </h1>
+
+                    <div className="hero-text-block hero-animate-text">
+                        <div className="hero-sub-intro" dangerouslySetInnerHTML={tHtml('hero_sub_intro')} />
+                        <div className="hero-description" dangerouslySetInnerHTML={tHtml('hero_description')} />
+                    </div>
+
+                    <div className="hero-actions hero-animate-text">
+                        <a href="#about" className="hero-btn-primary" onClick={(e) => handleScroll(e, '#about')}>
+                            {t('hero_learn_more')} <span className="arrow">↓</span>
+                        </a>
+                        <a href="#contact" className="hero-link-editorial" onClick={(e) => handleScroll(e, '#contact')}>
+                            {t('hero_contact_btn')}
+                        </a>
+                    </div>
                 </div>
 
-                <div className="hero-sub-intro">
-                    <p dangerouslySetInnerHTML={tHtml('hero_sub_intro')} />
-                </div>
-
+                {/* COLONNE IMAGE (Passe en haut sur mobile grâce à 'order: -1' dans le CSS) */}
                 <div className="hero-visual">
-                    <div className="image-wrapper">
+                    <div className="hero-image-wrapper">
                         <img
                             src={portraitImg}
                             alt="Portrait de Jean-Pierre Agbo"
                             className="hero-image"
+                            loading="eager"
                         />
+                        <div className="image-overlay"></div>
                     </div>
                 </div>
 
-                <div className="hero-description">
-                    <p dangerouslySetInnerHTML={tHtml('hero_description')} />
-                </div>
-
-                <div className="hero-actions">
-                    <a href="#about" className="hero-link group" onClick={(e) => handleScroll(e, '#about')}>
-                        <span className="relative">
-                            {t('hero_learn_more')}
-                            {/* Underline fill animation */}
-                            <span className="absolute bottom-[-4px] left-0 w-full h-[2px] bg-current scale-x-0 origin-left transition-transform duration-500 ease-expo group-hover:scale-x-100 group-hover:bg-[#DFFF00]"></span>
-                        </span>
-                    </a>
-                    <a href="#contact" className="hero-link group" onClick={(e) => handleScroll(e, '#contact')}>
-                        <span className="relative">
-                            {t('hero_contact_btn')}
-                            {/* Underline fill animation */}
-                            <span className="absolute bottom-[-4px] left-0 w-full h-[2px] bg-current scale-x-0 origin-left transition-transform duration-500 ease-expo group-hover:scale-x-100 group-hover:bg-[#DFFF00]"></span>
-                        </span>
-                    </a>
-                </div>
             </div>
         </section>
     );

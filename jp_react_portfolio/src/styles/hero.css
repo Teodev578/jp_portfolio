@@ -1,242 +1,257 @@
 /* ======================================================== */
 /*                       SECTION HERO                       */
 /* ======================================================== */
-.hero {
-    min-height: 100vh;
-    width: 100%;
-    padding: calc(var(--header-height) + 2rem) var(--site-margin) 4rem var(--site-margin);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
 
-.hero-content-wrapper {
-    max-width: 600px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-}
+/* --- 1. STYLES DE BASE (MOBILE FIRST : IMAGE EN HAUT, 100% HAUTEUR) --- */
 
-.hero-header-box {
-    background-color: var(--accent-color);
-    padding: 0.5rem 1.5rem;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.main-headline {
-    font-family: var(--font-headline);
-    font-weight: 900;
-    font-size: clamp(2rem, 10vw, 3.5rem);
-    line-height: 1;
-    text-transform: uppercase;
-    color: #1a1a1a; /* Dark color for the text on orange */
-    margin: 0;
-}
-
-.hero-sub-intro {
-    font-size: 1.2rem;
-    line-height: 1.4;
-    color: var(--text-color);
-    max-width: 90%;
-}
-
-.hero-sub-intro strong {
-    font-weight: 800;
-}
-
-.hero-visual {
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    justify-content: center;
-}
-
-.image-wrapper {
+.hero-section {
     position: relative;
-    border: 8px solid #000;
-    line-height: 0;
+    width: 100%;
+    /* Contrainte stricte : Ne dépasse jamais l'écran */
+    height: 100svh;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    /* On laisse la place pour le header en haut */
+    padding-top: var(--header-height);
+}
+
+.hero-grid {
+    height: 100%;
+    /* Prend toute la place restante sous le header */
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Colonne Image (FORCÉE EN HAUT SUR MOBILE) --- */
+.hero-visual {
+    /* L'ordre -1 force cet élément à s'afficher en premier (en haut) */
+    order: -1;
+    width: 100%;
+    /* Sur mobile, l'image prend environ 35% de l'écran vertical */
+    height: 35vh;
+    flex-shrink: 0;
+    margin-bottom: 1.5rem;
+}
+
+.hero-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: var(--border-color);
     overflow: hidden;
 }
 
-.image-wrapper img {
+.hero-image {
+    position: absolute;
+    top: -10%;
+    left: 0;
     width: 100%;
-    height: auto;
-    display: block;
-    filter: grayscale(100%);
-    transition: transform 0.5s ease;
+    height: 120%;
+    /* Marge pour le parallaxe */
+    object-fit: cover;
+    object-position: center 25%;
+    /* Garde le visage visible */
+    filter: contrast(1.05) saturate(0.95);
 }
 
-.image-wrapper:hover img {
-    transform: scale(1.03);
+.image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
+    pointer-events: none;
+}
+
+/* --- Colonne Texte --- */
+.hero-content {
+    /* flex: 1 permet au texte de remplir tout l'espace qu'il reste en bas */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Centre le texte verticalement dans son espace */
+    padding-bottom: 2rem;
+    z-index: 2;
+}
+
+.hero-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.hero-title {
+    font-family: var(--font-headline);
+    font-weight: 1000;
+    /* Taille de police dynamique pour tout faire rentrer */
+    font-size: clamp(2.2rem, 8vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--text-color);
+    margin: 0 0 1rem 0;
+}
+
+.hero-text-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.hero-sub-intro {
+    font-family: var(--font-body);
+    font-size: clamp(0.95rem, 3vw, 1.3rem);
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--text-color);
 }
 
 .hero-description {
-    font-size: 1.1rem;
-    line-height: 1.6;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.5;
     color: var(--text-color);
-    max-width: 50ch;
+    opacity: 0.7;
+    /* Sur les très petits téléphones, on cache ce texte pour garantir que ça rentre */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.hero-description strong {
-    font-weight: 700;
-}
-
+/* --- Actions (Boutons) --- */
 .hero-actions {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
+    flex-direction: row;
+    /* Sur mobile on les met côte à côte pour gagner de la hauteur */
+    align-items: flex-end;
+    gap: 1.5rem;
+    margin-top: auto;
+    /* Pousse les boutons vers le bas si besoin */
 }
 
-.hero-link {
-    font-size: 1.3rem;
+.hero-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    padding: 0.8rem 1.5rem;
+    font-family: var(--font-headline);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.hero-btn-primary:hover {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+}
+
+/* Style de base existant */
+.hero-link-editorial {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    text-transform: uppercase;
     font-weight: 600;
     color: var(--text-color);
-    text-decoration: none; /* Removed default underline */
-    position: relative;
     padding-bottom: 2px;
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    /* Cette ligne gère déjà la fluidité */
 }
 
-.hero-link span {
-    display: inline-block;
+/* AJOUTE CECI : */
+.hero-link-editorial:hover {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+    transform: translateY(-2px);
+    /* Petit saut vers le haut pour le côté premium */
 }
 
-/* GSAP Initial States */
-.char {
-    display: inline-block;
-    opacity: 0;
-}
 
-.hero-sub-intro p,
-.hero-description p,
-.hero-link {
-    opacity: 0;
-}
 
-.image-wrapper {
-    clip-path: inset(0% 0% 100% 0%);
-}
-
-/* Custom Easing for CTA Hover */
-.ease-expo {
-    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-/* --- DESKTOP LAYOUT --- */
+/* --- 2. ADAPTATION TABLETTE ET PC --- */
 @media (min-width: 1024px) {
-    .hero {
-        align-items: center;
-        text-align: left;
+    .hero-section {
         padding-top: var(--header-height);
     }
 
-    .hero-content-wrapper {
-        max-width: var(--site-max-width);
-        display: grid;
-        grid-template-columns: 1fr 1.1fr;
-        grid-template-rows: auto auto 1fr;
-        grid-template-areas: 
-            "head desc"
-            "sub visual"
-            "act visual";
-        gap: 2rem 5rem;
-        align-items: start;
-    }
-
-    .hero-header-box {
-        grid-area: head;
-        justify-content: flex-start;
-        width: fit-content;
-        padding: 0.8rem 2rem;
-    }
-
-    .main-headline {
-        font-size: clamp(3rem, 6vw, 5.5rem);
-    }
-
-    .hero-sub-intro {
-        grid-area: sub;
-        font-size: 1.5rem;
-        max-width: 100%;
-        margin-top: 1rem;
-    }
-
-    .hero-description {
-        grid-area: desc;
-        font-size: 1.15rem;
-        line-height: 1.6;
-        color: var(--text-color);
-        max-width: 100%;
-        text-align: left;
-    }
-
-    .hero-visual {
-        grid-area: visual;
-        max-width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .image-wrapper {
-        width: 100%;
-        max-width: 500px;
-        border-width: 12px;
-    }
-
-    .hero-actions {
-        grid-area: act;
+    /* On repasse en côte à côte */
+    .hero-grid {
         flex-direction: row;
-        gap: 3rem;
-        margin-top: 4rem;
-        justify-content: flex-start;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6rem;
+        padding-bottom: 4rem;
+        /* Redonne un peu de respiration en bas */
     }
 
-    .hero-link {
-        font-size: 1.4rem;
-    }
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 1023px) {
-    .hero-header-box { grid-area: auto; }
-    .hero-sub-intro { grid-area: auto; }
-    .hero-visual { grid-area: auto; }
-    .hero-description { grid-area: auto; }
-    .hero-actions { grid-area: auto; }
-}
-
-@media (max-width: 480px) {
-    .hero {
-        padding-top: calc(var(--header-height) + 1.5rem);
+    .hero-content {
+        flex: 1;
+        max-width: 700px;
+        justify-content: center;
+        padding-bottom: 0;
     }
 
-    .hero-content-wrapper {
+    .hero-kicker {
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .hero-title {
+        margin-bottom: 2rem;
+        line-height: 1;
+    }
+
+    .hero-text-block {
+        margin-bottom: 3.5rem;
         gap: 1.5rem;
     }
 
-    .main-headline {
-        font-size: 2.2rem;
-    }
-
-    .hero-sub-intro {
-        font-size: 1.1rem;
-    }
-
     .hero-description {
+        -webkit-line-clamp: unset;
         font-size: 1rem;
     }
 
-    .hero-link {
-        font-size: 1.1rem;
+    .hero-actions {
+        gap: 3rem;
+        margin-top: 0;
+    }
+
+    .hero-btn-primary {
+        padding: 1.2rem 2.5rem;
+        font-size: 0.95rem;
+    }
+
+    /* L'image reprend sa place à droite */
+    .hero-visual {
+        order: 2;
+        /* Repasse après le texte */
+        height: 70vh;
+        /* Hauteur maximale contrainte */
+        flex: 0 0 450px;
+        /* Largeur fixe */
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .hero-image-wrapper {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        /* Le fameux format 4:3 sur PC */
+    }
+}
+
+@media (min-width: 1440px) {
+    .hero-visual {
+        flex: 0 0 550px;
     }
 }
