@@ -26,7 +26,7 @@ export const translations = {
         about_study_title: "Profil :",
         about_study_content: `<p><strong>Jean-Pierre AGBO</strong><br>Master 1 Stratégie Marketing des Entreprises</p><p>Expertise alliant rigueur opérationnelle et vision stratégique.</p>`,
         about_skills_title: "Expertises :",
-        about_skills_content: `<ul><li>-Préparation esthétique</li><li>-Nettoyage cryogénique</li><li>-Polissage & Lustrage</li><li>-Protection céramique</li><li>-Gestion de flotte</li><li>-Stratégie Marketing</li></ul>`,
+        about_skills_content: `<ul><li>Préparation esthétique</li><li>Nettoyage cryogénique</li><li>Polissage & Lustrage</li><li>Protection céramique</li><li>Gestion de flotte</li><li>Stratégie Marketing</li></ul>`,
         about_exp_title: "Expérience majeure :",
         about_exp_content_title: "<strong>Préparation de véhicules – Stellantis (Site de Poissy)</strong>",
         about_exp_content_list: `<ul>
@@ -41,7 +41,7 @@ export const translations = {
                                     <li>Souci du détail et finitions professionnelles.</li>
                                     <li>Réactivité et respect des délais industriels.</li>
                                     </ul>`,
-        about_scroll_projects: "↓ Nos réalisations",
+        about_scroll_projects: "Nos réalisations",
         projects_header_title: "MES PROJETS",
         projects_header_desc: "Découvrez nos interventions majeures et la qualité de nos prestations en préparation automobile.",
         projects_challenge_header: "Le Défi / L'Intervention",
@@ -114,7 +114,7 @@ export const translations = {
         about_study_title: "Profile:",
         about_study_content: `<p><strong>Jean-Pierre AGBO</strong><br>Master 1 in Corporate Marketing Strategy</p><p>Expertise combining operational rigor and strategic vision.</p>`,
         about_skills_title: "Expertise:",
-        about_skills_content: `<ul><li>-Aesthetic Preparation</li><li>-Cryogenic Cleaning</li><li>-Polishing & Buffing</li><li>-Ceramic Protection</li><li>-Fleet Management</li><li>-Marketing Strategy</li></ul>`,
+        about_skills_content: `<ul><li>Aesthetic Preparation</li><li>Cryogenic Cleaning</li><li>Polishing & Buffing</li><li>Ceramic Protection</li><li>Fleet Management</li><li>Marketing Strategy</li></ul>`,
         about_exp_title: "Key Experience:",
         about_exp_content_title: "<strong>Vehicle Preparation – Stellantis (Poissy Site)</strong>",
         about_exp_content_list: `<ul>
@@ -129,7 +129,7 @@ export const translations = {
                                     <li>Attention to detail and professional finishes.</li>
                                     <li>Responsiveness and respect for industrial deadlines.</li>
                                     </ul>`,
-        about_scroll_projects: "↓ Our Projects",
+        about_scroll_projects: "Our Projects",
         projects_header_title: "MY PROJECTS",
         projects_header_desc: "Discover our major interventions and the quality of our automotive preparation services.",
         projects_challenge_header: "The Challenge / Intervention",

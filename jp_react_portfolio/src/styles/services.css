@@ -105,7 +105,8 @@
 
 @media (min-width: 768px) and (max-width: 991px) {
     .service-text p {
-        max-width: 75%; /* Confort de lecture sur tablette */
+        max-width: 75%;
+        /* Confort de lecture sur tablette */
     }
 }
 
@@ -221,7 +222,7 @@
     .group-list:has(.service-item:hover) .service-item:not(:hover) {
         opacity: 0.3;
     }
-    
+
     .service-item {
         transition: opacity 0.3s ease, transform 0.3s ease;
     }
