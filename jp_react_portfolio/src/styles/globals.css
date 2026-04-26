@@ -100,9 +100,3 @@ a {
     text-decoration: none;
     transition: color 0.3s ease;
 }
-
-@media (pointer: fine) {
-    * {
-        cursor: none !important;
-    }
-}
