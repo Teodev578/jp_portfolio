@@ -2,15 +2,11 @@
 /*                     SECTION PROJETS                      */
 /* ======================================================== */
 
-/* --- 1. STYLES DE BASE (MOBILE FIRST) --- */
-
 .projects-section {
     padding: 6rem 0;
     background-color: var(--bg-color);
-    /* S'adapte au dark/light mode */
 }
 
-/* En-tête */
 .projects-header {
     margin-bottom: 3rem;
 }
@@ -33,17 +29,15 @@
     max-width: 500px;
 }
 
-/* Conteneur Accordéon */
 .projects-accordion-wrapper {
     border-top: 1px solid var(--border-color);
 }
 
-/* Un item de l'accordéon */
 .project-item {
     border-bottom: 1px solid var(--border-color);
 }
 
-/* Bouton Trigger (Ligne cliquable) */
+/* --- TRIGGER (Bouton d'ouverture) --- */
 .project-trigger {
     width: 100%;
     padding: 2rem 0;
@@ -52,12 +46,15 @@
     align-items: center;
     background: transparent;
     cursor: pointer;
-    transition: opacity 0.3s ease;
+    border: none;
+    transition: padding 0.4s ease;
+    /* Fluidité globale */
 }
 
-.project-trigger:hover {
-    text-decoration: none !important;
-    /* Force l'annulation du soulignement Radix par défaut */
+/* 💡 Astuce Pro : L'élément ouvert a un peu plus d'espace au dessus */
+.project-trigger[data-state="open"] {
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
 }
 
 .trigger-content {
@@ -67,18 +64,14 @@
     flex: 1;
 }
 
-/* Typographie Numéro */
 .project-number {
     font-family: var(--font-mono);
-    /* JetBrains Mono */
     font-size: 1rem;
     color: var(--text-color);
     opacity: 0.4;
-    /* Discret */
     transition: color 0.3s ease, opacity 0.3s ease;
 }
 
-/* Typographie Titre */
 .project-name {
     font-family: var(--font-headline);
     font-size: clamp(1.2rem, 4vw, 2.5rem);
@@ -88,11 +81,16 @@
     transition: color 0.3s ease;
 }
 
-/* Effet au survol du bouton */
+/* Coloration de l'élément actif / ouvert */
+.project-trigger[data-state="open"] .project-name,
+.project-trigger[data-state="open"] .project-number {
+    color: var(--accent-color);
+    opacity: 1;
+}
+
 @media (hover: hover) and (pointer: fine) {
     .project-trigger:hover .project-name {
         color: var(--accent-color);
-        /* Rouge au survol */
     }
 
     .project-trigger:hover .project-number {
@@ -101,7 +99,6 @@
     }
 }
 
-/* Tags (Cachés sur mobile par défaut via Tailwind dans le code React, mais stylisés ici) */
 .project-tags {
     margin-left: auto;
     gap: 1rem;
@@ -115,15 +112,101 @@
     padding: 0.3rem 0.8rem;
     border: 1px solid var(--border-color);
     border-radius: 50px;
-    /* Seul bord arrondi autorisé pour un look "pilule" technique */
     opacity: 0.6;
 }
 
-/* --- CONTENU DE L'ACCORDÉON (Ouvert) --- */
-.project-content {
-    /* Radix gère l'animation de hauteur, on gère juste le padding intérieur */
+/* --- ICÔNE ANIMÉE ( + vers - ) --- */
+.accordion-icon {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.icon-line {
+    position: absolute;
+    background-color: var(--text-color);
+    transition: all 0.4s cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.icon-line.horizontal {
+    width: 100%;
+    height: 2px;
+}
+
+.icon-line.vertical {
+    width: 2px;
+    height: 100%;
+}
+
+/* L'animation au moment du clic */
+.project-trigger[data-state="open"] .icon-line {
+    background-color: var(--accent-color);
+}
+
+.project-trigger[data-state="open"] .icon-line.vertical {
+    transform: rotate(90deg);
+    opacity: 0;
+    /* La barre verticale disparaît pour former un "Moins" (-) */
+}
+
+.project-trigger[data-state="open"] .icon-line.horizontal {
+    transform: rotate(180deg);
+}
+
+/* --- ANIMATIONS RADIX UI (LA MAGIE) --- */
+
+.project-content {
+    overflow: hidden;
+    /* Obligatoire pour cacher le contenu */
+}
+
+/* On utilise la variable CSS créée automatiquement par Radix */
+.project-content[data-state="open"] {
+    animation: slideDown 0.5s cubic-bezier(0.87, 0, 0.13, 1) forwards;
+}
+
+.project-content[data-state="closed"] {
+    animation: slideUp 0.5s cubic-bezier(0.87, 0, 0.13, 1) forwards;
+}
+
+@keyframes slideDown {
+    from {
+        height: 0;
+    }
+
+    to {
+        height: var(--radix-accordion-content-height);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        height: var(--radix-accordion-content-height);
+    }
+
+    to {
+        height: 0;
+    }
+}
+
+/* Animation d'apparition du texte en décalé */
+.inner-content-animate {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
+    /* Délai pour laisser l'accordéon s'ouvrir */
+}
+
+.project-content[data-state="open"] .inner-content-animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- CONTENU --- */
 .content-grid {
     padding-bottom: 3rem;
     display: flex;
@@ -131,7 +214,6 @@
     gap: 2.5rem;
 }
 
-/* Petits titres internes */
 .content-grid h4 {
     font-family: var(--font-mono);
     font-size: 0.8rem;
@@ -142,7 +224,6 @@
     margin-bottom: 1rem;
 }
 
-/* Paragraphe principal */
 .content-description p {
     font-family: var(--font-body);
     font-size: 1.05rem;
@@ -151,7 +232,6 @@
     opacity: 0.85;
 }
 
-/* Liste des prestations */
 .content-specs ul {
     list-style: none;
     padding: 0;
@@ -172,18 +252,32 @@
 
 .content-specs li::before {
     content: "—";
-    /* Tiret cadratin élégant au lieu d'une puce */
     position: absolute;
     left: 0;
     color: var(--accent-color);
 }
 
-/* Footer / Lien Instagram */
 .projects-footer {
-    margin-top: 5rem;
+    margin-top: 4rem;
     display: flex;
     justify-content: flex-end;
-    /* Aligné à droite pour casser la monotonie */
+}
+
+.editorial-link {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: var(--text-color);
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.editorial-link:hover {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
 }
 
 
@@ -215,15 +309,18 @@
 
     .project-trigger {
         padding: 3rem 0;
-        /* Plus d'espace de clic sur PC */
     }
 
-    /* Le contenu devient une grille 2 colonnes (60% description / 40% specs) */
+    .project-trigger[data-state="open"] {
+        padding-top: 3.5rem;
+        padding-bottom: 2rem;
+    }
+
     .content-grid {
         flex-direction: row;
         gap: 4rem;
         padding-left: 4.5rem;
-        /* S'aligne avec le titre, décalé par rapport au numéro */
+        /* Alignement parfait avec le titre */
     }
 
     .content-description {
