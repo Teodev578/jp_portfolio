@@ -7,8 +7,10 @@
 .services-section {
     padding: 4rem 0;
     /* Espacement mobile réduit */
+    background-color: var(--bg-color);
 }
 
+/* Titre Principal + Configuration Mask Reveal */
 .services-main-title {
     font-family: var(--font-headline);
     font-size: clamp(2.5rem, 8vw, 5rem);
@@ -17,6 +19,17 @@
     margin-bottom: 3rem;
     letter-spacing: -0.02em;
     color: var(--text-color);
+
+    /* Requis pour l'effet d'apparition GSAP */
+    overflow: hidden;
+    padding-bottom: 5px;
+    /* Évite de couper la base des lettres sous Safari */
+}
+
+/* Le texte caché en bas par défaut pour le Mask Reveal */
+.title-mask-service {
+    display: block;
+    transform: translateY(100%);
 }
 
 .services-layout {
@@ -30,7 +43,7 @@
     display: none;
 }
 
-/* Liste de services (Mobile) */
+/* --- Liste de services (Mobile & Base) --- */
 .services-list {
     display: flex;
     flex-direction: column;
@@ -40,6 +53,9 @@
     padding: 2.5rem 0;
     border-top: 1px solid var(--border-color);
     cursor: pointer;
+    /* Opacité à 0 par défaut : GSAP se chargera de la passer à 1 */
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .service-text h3 {
@@ -65,7 +81,7 @@
     opacity: 0.8;
 }
 
-/* Image intégrée dans la liste pour le mobile */
+/* --- Image intégrée dans la liste (Mobile uniquement) --- */
 .service-mobile-img {
     margin-top: 2rem;
     width: 100%;
@@ -80,11 +96,13 @@
     object-fit: cover;
 }
 
-/* Bouton / Lien About */
+/* --- Lien Footer (About) --- */
 .services-footer {
     margin-top: 2rem;
     padding-top: 3rem;
     border-top: 1px solid var(--border-color);
+    /* Opacité à 0 : GSAP s'en occupe */
+    opacity: 0;
 }
 
 .editorial-link {
@@ -101,7 +119,9 @@
 }
 
 
-/* --- 2. ADAPTATION TABLETTE ET PC (MIN-WIDTH) --- */
+/* ======================================================== */
+/*         2. ADAPTATION TABLETTE ET PC (MIN-WIDTH)         */
+/* ======================================================== */
 
 @media (min-width: 768px) and (max-width: 991px) {
     .service-text p {
@@ -120,14 +140,14 @@
         margin-bottom: 5rem;
     }
 
-    /* Le layout devient une grille 40% / 60% */
+    /* Le layout devient une grille 40% (Image) / 60% (Texte) */
     .services-layout {
         display: grid;
         grid-template-columns: 5fr 7fr;
         gap: 6rem;
     }
 
-    /* On affiche la zone d'image fixe à gauche */
+    /* --- Apparition de l'image Fixe (PC) --- */
     .services-visuals {
         display: block;
         position: relative;
@@ -138,8 +158,10 @@
         top: calc(var(--header-height) + 2rem);
         height: 75vh;
         width: 100%;
-        overflow: hidden;
         background-color: var(--border-color);
+        /* Préparation de l'effet rideau animé par GSAP */
+        clip-path: inset(100% 0% 0% 0%);
+        overflow: hidden;
     }
 
     .sticky-wrapper img {
@@ -151,14 +173,17 @@
         object-fit: cover;
         opacity: 0;
         transform: scale(1.03);
+        /* Léger zoom de base */
         transition: opacity 0.8s ease, transform 1s ease-out;
     }
 
     .sticky-wrapper img.active {
         opacity: 1;
         transform: scale(1);
+        /* Dézoom fluide à l'activation */
     }
 
+    /* Overlay sombre sur l'image */
     .visual-overlay {
         position: absolute;
         inset: 0;
@@ -178,15 +203,14 @@
         opacity: 0.9;
     }
 
-    /* On cache les images mobiles */
+    /* On cache les images incluses dans les cartes mobiles */
     .service-mobile-img {
         display: none;
     }
 
-    /* Ajustements typo pour grand écran */
+    /* Ajustements typographiques pour grand écran */
     .service-item {
         padding: 4rem 0;
-        /* transition: opacity 0.4s ease;  <-- REMOVED to avoid conflict with GSAP */
     }
 
     .service-text h3 {
@@ -203,27 +227,31 @@
 }
 
 
-/* --- 3. INTERACTIONS (UNIQUEMENT SUR APPAREILS AVEC SOURIS) --- */
-/* Évite les bugs de "hover" bloqué sur les smartphones tactiles */
+/* ======================================================== */
+/*  3. INTERACTIONS (UNIQUEMENT SUR APPAREILS AVEC SOURIS)  */
+/* ======================================================== */
 
+/* Ce bloc évite les bugs de "hover" bloqué sur les smartphones tactiles */
 @media (hover: hover) and (pointer: fine) {
+
+    /* Animation du lien About */
     .editorial-link:hover {
         color: var(--accent-color);
         border-bottom-color: var(--accent-color);
     }
 
-    /* Animation du symbole uniquement au survol sur Desktop */
+    /* Animation du symbole (>) au survol */
     .service-item:hover .service-symbol {
         transform: translateX(5px);
     }
 
-    /* Effet focus : on baisse l'opacité uniquement si on survole un item précis */
-    /* Cela évite que tout disparaisse quand la souris est juste au-dessus de la liste */
+    /* 
+       EFFET FOCUS AVANCÉ (CSS Moderne) : 
+       Si on survole un élément de la liste, on baisse l'opacité 
+       uniquement des éléments NON survolés.
+    */
     .group-list:has(.service-item:hover) .service-item:not(:hover) {
-        opacity: 0.3;
-    }
-
-    .service-item {
-        transition: opacity 0.3s ease, transform 0.3s ease;
+        opacity: 0.3 !important;
+        /* Force la priorité sur l'opacité de base */
     }
 }

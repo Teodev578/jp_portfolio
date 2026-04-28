@@ -21,29 +21,44 @@ export const Hero = () => {
     useGSAP(() => {
         if (!container.current) return;
 
-        // 1. Titre (Apparition indépendante prioritaire)
-        gsap.fromTo('.hero-title',
-            { y: 30, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.1 }
-        );
+        // Configuration d'une timeline globale (Chorégraphie)
+        const tl = gsap.timeline({ delay: 0.1 });
 
-        const tl = gsap.timeline({ delay: 0.2 });
-
-        // 2. Image (Apparition fluide)
-        tl.fromTo('.hero-image-wrapper',
-            { clipPath: 'inset(100% 0% 0% 0%)' },
-            { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' }
+        // 1. Le "Kicker" (// Detailing Studio) glisse doucement depuis la gauche
+        tl.fromTo('.hero-kicker',
+            { x: -20, opacity: 0 },
+            { x: 0, opacity: 1, duration: 1, ease: 'power3.out' }
         )
-            // 3. Textes restants
+
+            // 2. "Mask Reveal" du grand Titre (Surgit de sa propre boîte)
+            .fromTo('.title-mask',
+                { yPercent: 100 }, // Commence caché en bas
+                { yPercent: 0, duration: 1.2, ease: 'expo.out' }, // Remonte d'un coup avec un freinage doux
+                "-=0.7" // Démarre en même temps que la fin du kicker
+            )
+
+            // 3. Dévoilement de l'image (Clip Path + Dézoom simultané = Effet Cinéma)
+            .fromTo('.hero-image-wrapper',
+                { clipPath: 'inset(100% 0% 0% 0%)' },
+                { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.5, ease: 'expo.inOut' },
+                "-=1"
+            )
+            .fromTo('.hero-image',
+                { scale: 1.3 }, // L'image est zoomée au départ
+                { scale: 1, duration: 1.5, ease: 'expo.inOut' },
+                "<" // "<" signifie "Joue exactement en même temps que l'animation précédente"
+            )
+
+            // 4. Apparition des textes et boutons en cascade
             .fromTo('.hero-animate-text',
                 { y: 20, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power2.out' },
-                "-=0.6"
+                { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: 'power3.out' },
+                "-=0.8"
             );
 
-        // 4. Parallaxe de l'image au scroll
+        // 5. Parallaxe de l'image au scroll (Indépendant de la timeline d'apparition)
         gsap.to('.hero-image', {
-            yPercent: 10,
+            yPercent: 15, // Un peu plus de mouvement pour contraster avec le cadre fixe
             ease: 'none',
             scrollTrigger: {
                 trigger: '.hero-section',
@@ -61,17 +76,20 @@ export const Hero = () => {
 
                 {/* COLONNE TEXTE */}
                 <div className="hero-content">
-                    <div className="hero-kicker font-mono hero-animate-text">
+                    <div className="hero-kicker font-mono">
                         // Detailing Studio
                     </div>
 
+                    {/* Modification HTML : Ajout du conteneur de masque */}
                     <h1 className="hero-title">
-                        {t('hero_headline') || 'LE PRÉPARATEUR'}
+                        <span className="title-mask block">
+                            {t('hero_headline') || 'LE PRÉPARATEUR'}
+                        </span>
                     </h1>
 
-                    <div className="hero-text-block hero-animate-text">
-                        <div className="hero-sub-intro" dangerouslySetInnerHTML={tHtml('hero_sub_intro')} />
-                        <div className="hero-description" dangerouslySetInnerHTML={tHtml('hero_description')} />
+                    <div className="hero-text-block">
+                        <div className="hero-sub-intro hero-animate-text" dangerouslySetInnerHTML={tHtml('hero_sub_intro')} />
+                        <div className="hero-description hero-animate-text" dangerouslySetInnerHTML={tHtml('hero_description')} />
                     </div>
 
                     <div className="hero-actions hero-animate-text">
@@ -84,7 +102,7 @@ export const Hero = () => {
                     </div>
                 </div>
 
-                {/* COLONNE IMAGE (Passe en haut sur mobile grâce à 'order: -1' dans le CSS) */}
+                {/* COLONNE IMAGE */}
                 <div className="hero-visual">
                     <div className="hero-image-wrapper">
                         <img
