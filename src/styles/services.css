@@ -5,7 +5,7 @@
 /* --- 1. STYLES DE BASE (MOBILE FIRST) --- */
 
 .services-section {
-    padding: 4rem 0;
+    padding: 4rem 0; 
     background-color: var(--bg-color);
 }
 
@@ -16,13 +16,16 @@
     margin-bottom: 3rem;
     letter-spacing: -0.02em;
     color: var(--text-color);
-    overflow: hidden;
-    padding-bottom: 5px;
+    overflow: hidden; 
+    padding-bottom: 5px; 
+    line-height: 1.2;
+    position: relative;
+    z-index: 10;
 }
 
 .title-mask-service {
     display: block;
-    transform: translateY(100%);
+    position: relative;
 }
 
 .services-layout {
@@ -32,7 +35,7 @@
 }
 
 .services-visuals {
-    display: none;
+    display: none; /* Caché sur mobile */
 }
 
 .services-list {
@@ -44,7 +47,7 @@
     padding: 2.5rem 0;
     border-top: 1px solid var(--border-color);
     cursor: pointer;
-    opacity: 0;
+    opacity: 0; 
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
@@ -74,7 +77,7 @@
 .service-mobile-img {
     margin-top: 2rem;
     width: 100%;
-    aspect-ratio: 4/3;
+    aspect-ratio: 4/3; 
     overflow: hidden;
 }
 
@@ -82,7 +85,7 @@
     margin-top: 2rem;
     padding-top: 3rem;
     border-top: 1px solid var(--border-color);
-    opacity: 0;
+    opacity: 0; 
 }
 
 .editorial-link {
@@ -105,42 +108,49 @@
 
 @media (min-width: 768px) and (max-width: 991px) {
     .service-text p {
-        max-width: 75%;
+        max-width: 75%; 
     }
 }
 
 @media (min-width: 992px) {
     .services-section {
-        padding: 8rem 0;
+        padding: 8rem 0; 
     }
 
     .services-main-title {
         margin-bottom: 5rem;
     }
 
+    /* Le layout devient une grille de 2 colonnes (Image Fixe / Liste Scrollable) */
     .services-layout {
         display: grid;
         grid-template-columns: 5fr 7fr;
         gap: 6rem;
+        /* Aligne la grille en haut pour permettre au sticky de fonctionner sur toute la hauteur */
+        align-items: start; 
     }
 
+    /* Le conteneur gauche qui "colle" à l'écran */
     .services-visuals {
         display: block;
-        position: relative;
-    }
-
-    .sticky-wrapper {
         position: sticky;
         top: calc(var(--header-height) + 2rem);
         height: 75vh;
         width: 100%;
+    }
+
+    /* La boîte d'image à l'intérieur du conteneur sticky */
+    .sticky-wrapper {
+        position: relative; /* Devient le parent des images "absolute" */
+        width: 100%;
+        height: 100%;
         background-color: var(--border-color);
-        clip-path: inset(100% 0% 0% 0%);
+        clip-path: inset(100% 0% 0% 0%); 
         overflow: hidden;
     }
 
     .service-mobile-img {
-        display: none;
+        display: none; /* Cache l'image mobile sur PC */
     }
 
     .service-item {
@@ -177,6 +187,6 @@
 
     /* Effet focus : Baisse l'opacité des éléments non survolés */
     .group-list:has(.service-item:hover) .service-item:not(:hover) {
-        opacity: 0.3 !important;
+        opacity: 0.3 !important; 
     }
 }
