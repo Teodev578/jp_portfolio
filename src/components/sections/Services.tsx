@@ -5,14 +5,31 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Import des images
-import imgS1Avant from '../../assets/before_after/before_1.jpeg';
-import imgS1Apres from '../../assets/before_after/after_1.jpeg';
-import imgS2Avant from '../../assets/before_after/before_2.jpeg';
-import imgS2Apres from '../../assets/before_after/after_2.jpeg';
 import imgS3Avant from '../../assets/before_after/before_3.jpeg';
 import imgS3Apres from '../../assets/before_after/after_3.jpeg';
-import imgS4Avant from '../../assets/before_after/after_1.jpeg';
+import imgConseil from '../../assets/Conseil/2.jpeg';
+
+// Images Nettoyage Premium
+import net1 from '../../assets/nettoyage/IMG-20260409-WA0035.jpg';
+import net2 from '../../assets/nettoyage/IMG-20260429-WA0111.jpg';
+import net3 from '../../assets/nettoyage/IMG-20260429-WA0292.jpg';
+import net4 from '../../assets/nettoyage/IMG-20260429-WA0293.jpg';
+import net5 from '../../assets/nettoyage/IMG-20260429-WA0301.jpg';
+import net6 from '../../assets/nettoyage/IMG-20260429-WA0302.jpg';
+import net7 from '../../assets/nettoyage/IMG-20260429-WA0304.jpg';
+import net8 from '../../assets/nettoyage/IMG-20260429-WA0305.jpg';
+import net9 from '../../assets/nettoyage/IMG-20260429-WA0306.jpg';
+import net10 from '../../assets/nettoyage/IMG-20260429-WA0309.jpg';
+import net11 from '../../assets/nettoyage/IMG-20260429-WA0317.jpg';
+
+// Images Esthétique Auto
+import est1 from '../../assets/esthetique/IMG-20260429-WA0106.jpg';
+import est2 from '../../assets/esthetique/IMG-20260429-WA0107.jpg';
+import est3 from '../../assets/esthetique/IMG-20260429-WA0108.jpg';
+import est4 from '../../assets/esthetique/IMG-20260429-WA0296.jpg';
+import est5 from '../../assets/esthetique/IMG-20260429-WA0299.jpg';
+import est6 from '../../assets/esthetique/IMG-20260429-WA0300.jpg';
+import est7 from '../../assets/esthetique/IMG-20260429-WA0303.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -118,13 +135,19 @@ export const Services = () => {
             id: '1',
             title: t('service_1_title'),
             desc: t('service_1_desc'),
-            media: { type: 'before-after', before: imgS1Avant, after: imgS1Apres }
+            media: {
+                type: 'slideshow',
+                images: [net1, net2, net3, net4, net5, net6, net7, net8, net9, net10, net11]
+            }
         },
         {
             id: '2',
             title: t('service_2_title'),
             desc: t('service_2_desc'),
-            media: { type: 'slideshow', images: [imgS2Avant, imgS2Apres] }
+            media: {
+                type: 'slideshow',
+                images: [est1, est2, est3, est4, est5, est6, est7]
+            }
         },
         {
             id: '3',
@@ -136,7 +159,7 @@ export const Services = () => {
             id: '4',
             title: t('service_4_title'),
             desc: t('service_4_desc'),
-            media: { type: 'image', src: imgS4Avant }
+            media: { type: 'image', src: imgConseil }
         },
     ];
 
@@ -156,8 +179,8 @@ export const Services = () => {
                 scrollTrigger: { trigger: containerRef.current, start: 'top 75%', once: true }
             });
 
-            tl.fromTo('.services-main-title .title-mask-service', 
-                { yPercent: 100, opacity: 0 }, 
+            tl.fromTo('.services-main-title .title-mask-service',
+                { yPercent: 100, opacity: 0 },
                 { yPercent: 0, opacity: 1, duration: 1, ease: 'expo.out' }
             )
                 .fromTo('.sticky-wrapper', { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' }, "-=0.6")
@@ -187,8 +210,8 @@ export const Services = () => {
                 scrollTrigger: { trigger: containerRef.current, start: 'top 85%', once: true }
             });
 
-            tl.fromTo('.services-main-title .title-mask-service', 
-                { yPercent: 100, opacity: 0 }, 
+            tl.fromTo('.services-main-title .title-mask-service',
+                { yPercent: 100, opacity: 0 },
                 { yPercent: 0, opacity: 1, duration: 1, ease: 'expo.out' }
             )
                 .fromTo('.service-item', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power2.out' }, "-=0.6")
