@@ -30,7 +30,7 @@ function AppContent() {
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0 });
 
         const sections = document.querySelectorAll('section');
         sections.forEach(s => observer.observe(s));

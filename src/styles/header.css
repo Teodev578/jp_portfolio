@@ -1,266 +1,276 @@
 /* ======================================================== */
-/*                   HEADER & NAVIGATION                    */
+/*                       HEADER                             */
 /* ======================================================== */
-header {
-    height: var(--header-height);
-    width: 100%;
+
+/* --- 1. STYLES DE BASE (MOBILE FIRST) --- */
+
+.site-header {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 100;
-    background-color: transparent;
-    /* Optimisation des performances : on évite d'animer le backdrop-filter */
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    /* Force l'accélération matérielle pour éviter les saccades au scroll */
-    transform: translate3d(0, 0, 0);
-    will-change: background-color, box-shadow;
-}
-
-header.scrolled {
-    background-color: transparent;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
-}
-
-header::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
     width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg,
-            transparent,
-            var(--accent-color),
-            transparent);
-    background-size: 250px 100%;
-    background-repeat: no-repeat;
-    background-position: calc(var(--mouse-x, 50%) - 125px) 0;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    filter: drop-shadow(0 4px 8px var(--accent-color));
-    pointer-events: none;
-}
-
-header:hover::after {
-    opacity: 1;
-}
-
-body.dark-mode header.scrolled {
+    height: var(--header-height, 80px);
+    z-index: 1000;
     background-color: transparent;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.4s ease, border-bottom 0.4s ease;
+    border-bottom: 1px solid transparent;
 }
 
-body.dark-mode header:hover::after {
-    filter: drop-shadow(0 4px 12px var(--accent-color));
+/* État lors du scroll (ou quand le menu mobile est ouvert) */
+.site-header.is-scrolled,
+.site-header.menu-is-open {
+    /* Utilise une légère transparence pour l'effet "Verre" très pro */
+    background-color: color-mix(in srgb, var(--bg-color) 98%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom-color: var(--border-color);
 }
 
 .header-container {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     height: 100%;
 }
 
-.logo {
+/* --- LOGO --- */
+.header-logo {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
+    position: relative;
+    z-index: 1001;
+}
+
+.header-logo img {
+    width: 35px;
+    height: auto;
+    filter: grayscale(100%);
+    transition: transform 0.3s ease;
+}
+
+.header-logo:hover img {
+    transform: scale(1.05);
+}
+
+.header-logo span {
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: var(--text-color);
+    display: none;
 }
 
-.logo-image {
-    height: 32px;
-    width: auto;
-    object-fit: contain;
+@media (min-width: 400px) {
+    .header-logo span {
+        display: block;
+    }
 }
 
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 2.5rem;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 2.5rem;
-}
-
-.nav-links a {
-    padding-bottom: 5px;
-    transition: color 0.3s, border-color 0.3s;
-    border-bottom: 2px solid transparent;
-}
-
-.nav-links a:hover {
-    color: var(--accent-color);
-}
-
-.nav-links a.active {
-    color: var(--accent-color);
-    border-bottom-color: var(--accent-color);
-}
-
+/* --- ACTIONS (Droite) --- */
 .header-actions {
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    position: relative;
+    z-index: 1001;
+}
+
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-color);
+}
+
+.lang-switcher button {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    opacity: 0.4;
+    transition: opacity 0.3s ease, color 0.3s ease;
+    font-family: inherit;
+    padding: 0;
+}
+
+.lang-switcher button:hover,
+.lang-switcher button.active {
+    opacity: 1;
+    color: var(--accent-color);
+}
+
+.lang-separator {
+    opacity: 0.3;
 }
 
 .theme-toggle {
     background: none;
     border: none;
     color: var(--text-color);
-    padding: 5px;
-    display: flex;
-    transition: color 0.5s ease;
-}
-
-.language-switcher {
+    cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-weight: 700;
+    justify-content: center;
+    opacity: 0.7;
+    transition: opacity 0.3s ease, color 0.3s ease;
 }
 
-.lang-link {
-    color: var(--text-color);
-    opacity: 0.6;
-    transition: opacity 0.3s ease;
-}
-
-.lang-link:hover {
-    opacity: 1;
-}
-
-.lang-link.active {
+.theme-toggle:hover {
     opacity: 1;
     color: var(--accent-color);
 }
 
-@keyframes languageChangeAnimation {
-    0% {
-        opacity: 0.5;
-        transform: scale(0.95);
-    }
-
-    50% {
-        opacity: 1;
-        transform: scale(1.05);
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.language-switcher.animate {
-    animation: languageChangeAnimation 0.4s ease-out;
-}
-
+/* --- MENU BURGER (2 Lignes Luxe) --- */
 .burger-menu {
-    display: none;
-    width: 30px;
-    height: 21px;
-    position: relative;
-    z-index: 102;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
 }
 
-.burger-menu div {
+.burger-line {
     width: 100%;
-    height: 3px;
+    height: 2px;
     background-color: var(--text-color);
-    position: absolute;
-    left: 0;
-    transition: all 0.3s ease;
-    border-radius: 2px;
+    transition: transform 0.4s cubic-bezier(0.87, 0, 0.13, 1), background-color 0.3s ease;
+    transform-origin: center;
 }
 
-.burger-menu .line1 {
+.burger-menu.is-active .burger-line {
+    background-color: var(--accent-color);
+}
+
+.burger-menu.is-active .burger-line:first-child {
+    transform: translateY(4px) rotate(45deg);
+}
+
+.burger-menu.is-active .burger-line:last-child {
+    transform: translateY(-4px) rotate(-45deg);
+}
+
+/* --- NAVIGATION (MOBILE OVERLAY) --- */
+.header-nav {
+    position: fixed;
     top: 0;
-}
-
-.burger-menu .line2 {
-    top: 9px;
-}
-
-.burger-menu .line3 {
-    top: 18px;
-}
-
-.burger-menu.toggle .line1 {
-    transform: rotate(45deg) translate(6px, 6px);
-}
-
-.burger-menu.toggle .line2 {
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    z-index: 1000;
 }
 
-.burger-menu.toggle .line3 {
-    transform: rotate(-45deg) translate(7px, -7px);
+.header-nav.is-active {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
 }
 
+.nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-list a {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 8vw, 3rem);
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* L'état "Actif" sur Mobile */
+.nav-list a:hover,
+.nav-list a.active {
+    color: var(--accent-color);
+}
+
+
 /* ======================================================== */
-/*                  RESPONSIVE MENU MOBILE                  */
+/*         2. ADAPTATION TABLETTE ET PC (MIN-WIDTH)         */
 /* ======================================================== */
-@media (max-width: 992px) {
 
-    /* CORRECTION SACCADES MOBILE : 
-       On retire le blur du header sur mobile car c'est extrêmement 
-       gourmand en GPU au scroll, et on met un fond quasi opaque à la place. */
-    header.scrolled {
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        /* Utilisation de color-mix pour avoir 90% d'opacité avec la variable hexadécimale */
-        background-color: color-mix(in srgb, var(--bg-color) 95%, transparent);
-    }
-
-    body.dark-mode header.scrolled {
-        background-color: color-mix(in srgb, var(--bg-color) 95%, transparent);
-    }
-
+@media (min-width: 992px) {
     .burger-menu {
-        display: block;
+        display: none;
     }
 
-    .main-nav {
-        position: fixed;
-        top: 0;
-        right: 0;
+    .header-nav {
+        position: static;
+        width: auto;
+        height: auto;
+        background-color: transparent;
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+        display: flex;
+    }
+
+    .nav-list {
+        flex-direction: row;
+        gap: 3rem;
+    }
+
+    .nav-list a {
+        font-family: var(--font-body);
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        position: relative;
+        /* Sur PC, on ne veut pas que le texte change de couleur au scroll */
+        color: var(--text-color) !important;
+    }
+
+    /* Effet "Ligne en dessous" pour le survol ET l'état Actif sur PC */
+    .nav-list a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
         width: 100%;
-        height: 100vh;
-        background-color: var(--bg-color);
-        transform: translateX(100%);
-        transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-        padding-top: var(--header-height);
-        display: block !important;
-        z-index: 101;
+        height: 2px;
+        background-color: var(--accent-color);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.4s cubic-bezier(0.87, 0, 0.13, 1);
     }
 
-    .main-nav.nav-active {
-        transform: translateX(0);
+    /* Animation au survol */
+    .nav-list a:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
     }
 
-    /* Cache les actions du header quand le menu est ouvert pour éviter les superpositions */
-    .main-nav.nav-active~.header-actions .language-switcher,
-    .main-nav.nav-active~.header-actions .theme-toggle {
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.2s ease;
+    /* L'état Actif fixe la ligne en dessous du texte */
+    .nav-list a.active::after {
+        transform: scaleX(1);
+        transform-origin: left;
     }
 
-    .nav-links {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
+    .header-actions {
         gap: 2rem;
-    }
-
-    .nav-links a {
-        font-size: 2rem;
     }
 }
