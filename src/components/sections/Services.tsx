@@ -10,26 +10,17 @@ import imgS3Apres from '../../assets/before_after/after_3.jpeg';
 import imgConseil from '../../assets/Conseil/2.jpeg';
 
 // Images Nettoyage Premium
-import net1 from '../../assets/nettoyage/IMG-20260409-WA0035.jpg';
-import net2 from '../../assets/nettoyage/IMG-20260429-WA0111.jpg';
-import net3 from '../../assets/nettoyage/IMG-20260429-WA0292.jpg';
-import net4 from '../../assets/nettoyage/IMG-20260429-WA0293.jpg';
-import net5 from '../../assets/nettoyage/IMG-20260429-WA0301.jpg';
-import net6 from '../../assets/nettoyage/IMG-20260429-WA0302.jpg';
-import net7 from '../../assets/nettoyage/IMG-20260429-WA0304.jpg';
-import net8 from '../../assets/nettoyage/IMG-20260429-WA0305.jpg';
-import net9 from '../../assets/nettoyage/IMG-20260429-WA0306.jpg';
-import net10 from '../../assets/nettoyage/IMG-20260429-WA0309.jpg';
-import net11 from '../../assets/nettoyage/IMG-20260429-WA0317.jpg';
+//import net1 from '../../assets/nettoyage/IMG-20260409-WA0035.jpg';
+import net1 from '../../assets/nettoyage/1.jpg';
+import net2 from '../../assets/nettoyage/2.jpg';
+import net3 from '../../assets/nettoyage/3.jpg';
+import net4 from '../../assets/nettoyage/4.jpg';
+import net5 from '../../assets/nettoyage/5.jpg';
 
 // Images Esthétique Auto
-import est1 from '../../assets/esthetique/IMG-20260429-WA0106.jpg';
-import est2 from '../../assets/esthetique/IMG-20260429-WA0107.jpg';
-import est3 from '../../assets/esthetique/IMG-20260429-WA0108.jpg';
-import est4 from '../../assets/esthetique/IMG-20260429-WA0296.jpg';
-import est5 from '../../assets/esthetique/IMG-20260429-WA0299.jpg';
-import est6 from '../../assets/esthetique/IMG-20260429-WA0300.jpg';
-import est7 from '../../assets/esthetique/IMG-20260429-WA0303.jpg';
+import est1 from '../../assets/esthetique/1.jpg';
+import est2 from '../../assets/esthetique/2.avif';
+import est3 from '../../assets/esthetique/3.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -137,7 +128,7 @@ export const Services = () => {
             desc: t('service_1_desc'),
             media: {
                 type: 'slideshow',
-                images: [net1, net2, net3, net4, net5, net6, net7, net8, net9, net10, net11]
+                images: [net1, net2, net3, net4, net5]
             }
         },
         {
@@ -146,7 +137,7 @@ export const Services = () => {
             desc: t('service_2_desc'),
             media: {
                 type: 'slideshow',
-                images: [est1, est2, est3, est4, est5, est6, est7]
+                images: [est1, est2, est3]
             }
         },
         {
