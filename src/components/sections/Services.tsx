@@ -5,8 +5,6 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import imgS3Avant from '../../assets/before_after/before_3.jpeg';
-import imgS3Apres from '../../assets/before_after/after_3.jpeg';
 import imgConseil from '../../assets/Conseil/2.jpeg';
 
 // Images Nettoyage Premium
@@ -21,6 +19,11 @@ import net5 from '../../assets/nettoyage/5.jpg';
 import est1 from '../../assets/esthetique/1.jpg';
 import est2 from '../../assets/esthetique/2.avif';
 import est3 from '../../assets/esthetique/3.jpg';
+
+// Images Préparation Livraison
+import prep1 from '../../assets/preparation/1.jpg';
+import prep2 from '../../assets/preparation/2.avif';
+import prep3 from '../../assets/preparation/3.jpeg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -144,7 +147,10 @@ export const Services = () => {
             id: '3',
             title: t('service_3_title'),
             desc: t('service_3_desc'),
-            media: { type: 'slideshow', images: [imgS3Avant, imgS3Apres] }
+            media: {
+                type: 'slideshow',
+                images: [prep1, prep2, prep3]
+            }
         },
         {
             id: '4',
