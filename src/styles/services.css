@@ -21,6 +21,7 @@
     line-height: 1.2;
     position: relative;
     z-index: 10;
+    word-break: break-word; /* ROBUSTESSE */
 }
 
 .title-mask-service {
@@ -35,7 +36,7 @@
 }
 
 .services-visuals {
-    display: none; /* Caché sur mobile */
+    display: none;
 }
 
 .services-list {
@@ -58,12 +59,17 @@
     margin-bottom: 1rem;
     color: var(--text-color);
     transition: color 0.4s ease;
+    /* ROBUSTESSE : Anti débordement mobile */
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
 }
 
 .service-symbol {
     color: var(--accent-color);
     display: inline-block;
     transition: transform 0.3s ease;
+    margin-right: 0.5rem; /* Sécurité spatiale */
 }
 
 .service-text p {
@@ -72,6 +78,7 @@
     line-height: 1.6;
     color: var(--text-color);
     opacity: 0.8;
+    min-width: 0; /* ROBUSTESSE flexbox */
 }
 
 .service-mobile-img {
@@ -79,6 +86,7 @@
     width: 100%;
     aspect-ratio: 4/3; 
     overflow: hidden;
+    position: relative; /* Sécurité absolue */
 }
 
 .services-footer {
@@ -99,6 +107,7 @@
     padding-bottom: 5px;
     border-bottom: 1px solid var(--text-color);
     transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 
@@ -176,9 +185,11 @@
 /* ======================================================== */
 
 @media (hover: hover) and (pointer: fine) {
-    .editorial-link:hover {
+    .editorial-link:hover,
+    .editorial-link:focus-visible { /* ROBUSTESSE A11Y */
         color: var(--accent-color);
         border-bottom-color: var(--accent-color);
+        outline: none;
     }
 
     .service-item:hover .service-symbol {
