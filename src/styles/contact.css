@@ -2,12 +2,24 @@
 /*                     SECTION CONTACT                      */
 /* ======================================================== */
 
+/* --- UTILITAIRES ACCESSIBILITÉ --- */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 /* --- 1. STYLES DE BASE (MOBILE FIRST) --- */
 
 .contact-section {
     position: relative;
     padding: 6rem 0 10rem 0;
-    /* Beaucoup d'espace en bas pour le filigrane */
     background-color: var(--bg-color);
     overflow: hidden;
     border-top: 1px solid var(--border-color);
@@ -19,10 +31,8 @@
     gap: 5rem;
     position: relative;
     z-index: 2;
-    /* Reste au dessus du filigrane */
 }
 
-/* En-tête du formulaire */
 .contact-title {
     font-family: var(--font-headline);
     font-size: clamp(2.5rem, 6vw, 4rem);
@@ -42,7 +52,7 @@
     margin-bottom: 3rem;
 }
 
-/* --- Formulaire (Style "Fiche technique") --- */
+/* --- Formulaire --- */
 .contact-form-col {
     display: flex;
     flex-direction: column;
@@ -57,6 +67,7 @@
 .form-group {
     position: relative;
     margin-bottom: 1.5rem;
+    width: 100%;
 }
 
 .form-group input,
@@ -67,16 +78,14 @@
     border-bottom: 1px solid var(--border-color);
     padding: 1rem 0;
     font-family: var(--font-mono);
-    /* Police type code pour le formulaire ! */
     font-size: 0.95rem;
     color: var(--text-color);
-    transition: border-color 0.3s ease;
-    /* Supprime les styles natifs moches sur iOS/Android */
+    transition: border-color 0.3s ease, opacity 0.3s ease;
     appearance: none;
     border-radius: 0;
 }
 
-/* Les Placeholder (textes fantômes) */
+/* Textes fantômes */
 .form-group input::placeholder,
 .form-group textarea::placeholder {
     color: var(--text-color);
@@ -85,10 +94,18 @@
     letter-spacing: 0.05em;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
+/* focus-visible est plus robuste que focus : il ne s'active qu'au clavier */
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
     outline: none;
     border-bottom-color: var(--accent-color);
+}
+
+/* États inactifs pendant l'envoi */
+.form-group input:disabled,
+.form-group textarea:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .form-footer {
@@ -117,6 +134,12 @@
     transition: all 0.3s ease;
 }
 
+.submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-bottom-color: var(--border-color);
+}
+
 .btn-arrow {
     font-family: var(--font-body);
     font-size: 1.2rem;
@@ -126,8 +149,10 @@
 .form-status {
     font-family: var(--font-mono);
     font-size: 0.85rem;
-    height: 1rem;
-    /* Maintient l'espace même vide */
+    min-height: 1.2rem;
+    /* min-height empêche le saut de mise en page quand le texte apparaît */
+    display: flex;
+    align-items: center;
 }
 
 /* --- Infos de Contact --- */
@@ -165,7 +190,6 @@
     gap: 1rem;
 }
 
-/* Tes balises <SocialLink> doivent avoir ces styles si ce n'est pas déjà le cas */
 .contact-links a {
     font-family: var(--font-headline);
     font-size: clamp(1.2rem, 3vw, 1.8rem);
@@ -173,7 +197,7 @@
     transition: color 0.3s ease, padding-left 0.3s ease;
 }
 
-/* --- Filigrane "CONTACT" (Watermark) --- */
+/* --- Filigrane "CONTACT" --- */
 .contact-watermark {
     position: absolute;
     bottom: -2vw;
@@ -181,12 +205,10 @@
     width: 100%;
     font-family: var(--font-headline);
     font-size: 18vw;
-    /* Prend toute la largeur */
     font-weight: 800;
     line-height: 0.8;
     color: var(--text-color);
     opacity: 0.03;
-    /* Quasi invisible, très luxueux */
     text-align: center;
     white-space: nowrap;
     user-select: none;
@@ -203,7 +225,6 @@
 
     .form-row .form-group {
         flex: 1;
-        /* Les inputs Nom et Email prennent 50% chacun */
     }
 }
 
@@ -215,13 +236,11 @@
     .contact-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        /* 50/50 Split */
         gap: 8rem;
     }
 
     .contact-info-col {
         padding-top: 1rem;
-        /* S'aligne avec le titre du formulaire */
     }
 
     .form-footer {
@@ -233,18 +252,17 @@
 
 /* --- INTERACTIONS SOURIS --- */
 @media (hover: hover) and (pointer: fine) {
-    .submit-btn:hover {
+    .submit-btn:not(:disabled):hover {
         color: var(--accent-color);
         border-bottom-color: var(--accent-color);
     }
 
-    .submit-btn:hover .btn-arrow {
+    .submit-btn:not(:disabled):hover .btn-arrow {
         transform: translateX(5px);
     }
 
     .contact-links a:hover {
         color: var(--accent-color);
         padding-left: 10px;
-        /* Petit décalage élégant au survol */
     }
 }

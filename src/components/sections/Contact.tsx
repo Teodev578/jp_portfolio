@@ -10,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 export const Contact = () => {
     const { t, tHtml } = useLanguage();
     const [status, setStatus] = useState<{ message: string, color: string }>({ message: '', color: '' });
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
     // Animation fluide GSAP
@@ -29,9 +30,14 @@ export const Contact = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        // Empêche le multi-clic pendant l'envoi
+        if (isSubmitting) return;
+
         const form = e.currentTarget;
         const formData = new FormData(form);
 
+        setIsSubmitting(true);
         setStatus({ message: "Envoi en cours...", color: 'var(--text-color)' });
 
         try {
@@ -43,18 +49,20 @@ export const Contact = () => {
 
             const json = await response.json();
 
-            if (response.status === 200) {
-                setStatus({ message: "Message envoyé avec succès !", color: '#10B981' }); // Vert émeraude propre
+            // Utilisation de response.ok pour capturer tous les succès (200-299)
+            if (response.ok) {
+                setStatus({ message: "Message envoyé avec succès !", color: '#10B981' });
                 form.reset();
             } else {
                 setStatus({ message: json.message || "Une erreur s'est produite.", color: 'var(--accent-color)' });
             }
         } catch (error) {
-            console.log(error);
-            setStatus({ message: "Une erreur s'est produite lors de l'envoi.", color: 'var(--accent-color)' });
+            console.error("Erreur d'envoi du formulaire :", error);
+            setStatus({ message: "Une erreur de connexion s'est produite.", color: 'var(--accent-color)' });
+        } finally {
+            setIsSubmitting(false);
+            setTimeout(() => setStatus({ message: '', color: '' }), 5000);
         }
-
-        setTimeout(() => setStatus({ message: '', color: '' }), 5000);
     };
 
     return (
@@ -70,27 +78,58 @@ export const Contact = () => {
                         </div>
 
                         <form id="contact-form" onSubmit={handleSubmit} className="contact-animate">
-                            <input type="hidden" name="access_key" value="e6672d01-5c76-4135-b647-f541075d7d0a" />
+                            <input type="hidden" name="access_key" value={import.meta.env.VITE_WEB3FORMS_ACCESS_KEY} />
+                            {/* Protection anti-spam basique Web3Forms */}
+                            <input type="checkbox" name="botcheck" className="sr-only" style={{ display: 'none' }} />
 
                             <div className="form-row">
                                 <div className="form-group">
-                                    <input type="text" id="name" name="name" placeholder={t('contact_form_name')} required />
+                                    <label htmlFor="name" className="sr-only">{t('contact_form_name')}</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        placeholder={t('contact_form_name')}
+                                        required
+                                        maxLength={100}
+                                        autoComplete="name"
+                                        disabled={isSubmitting}
+                                    />
                                 </div>
                                 <div className="form-group">
-                                    <input type="email" id="email" name="email" placeholder={t('contact_form_email')} required />
+                                    <label htmlFor="email" className="sr-only">{t('contact_form_email')}</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        placeholder={t('contact_form_email')}
+                                        required
+                                        maxLength={150}
+                                        autoComplete="email"
+                                        disabled={isSubmitting}
+                                    />
                                 </div>
                             </div>
 
                             <div className="form-group">
-                                <textarea id="message" name="message" placeholder={t('contact_form_message')} rows={4} required></textarea>
+                                <label htmlFor="message" className="sr-only">{t('contact_form_message')}</label>
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    placeholder={t('contact_form_message')}
+                                    rows={4}
+                                    required
+                                    maxLength={2000}
+                                    disabled={isSubmitting}
+                                ></textarea>
                             </div>
 
                             <div className="form-footer">
-                                <button type="submit" className="submit-btn">
+                                <button type="submit" className="submit-btn" disabled={isSubmitting}>
                                     <span>{t('contact_form_submit')}</span>
                                     <span className="btn-arrow">→</span>
                                 </button>
-                                <div className="form-status" style={{ color: status.color }}>
+                                <div className="form-status" style={{ color: status.color }} aria-live="polite">
                                     {status.message}
                                 </div>
                             </div>
@@ -119,7 +158,7 @@ export const Contact = () => {
             </div>
 
             {/* Filigrane discret en fond */}
-            <div className="contact-watermark">CONTACT</div>
+            <div className="contact-watermark" aria-hidden="true">CONTACT</div>
         </section>
     );
 };
