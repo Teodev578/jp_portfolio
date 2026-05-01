@@ -188,13 +188,34 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    align-items: flex-start; /* Empêche les liens de prendre 100% de la largeur */
+    overflow: hidden; /* Sécurité pour le conteneur */
 }
 
-.contact-links a {
+.social-link {
+    display: inline-flex;
+    align-items: center; /* Aligne le texte et la flèche verticalement */
+    gap: 0.5rem; /* Espace fixe entre le texte et la flèche */
+    max-width: 100%; /* Empêche le lien de déborder de l'écran sur mobile */
     font-family: var(--font-headline);
     font-size: clamp(1.2rem, 3vw, 1.8rem);
     color: var(--text-color);
-    transition: color 0.3s ease, padding-left 0.3s ease;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Le texte du lien */
+.social-label {
+    white-space: nowrap; /* Force le texte sur une ligne */
+    overflow: hidden; /* Cache ce qui dépasse */
+    text-overflow: ellipsis; /* Ajoute des "..." si l'écran est trop petit */
+}
+
+/* La flèche */
+.social-arrow {
+    flex-shrink: 0; /* INTERDIT à la flèche de rétrécir ou de disparaître */
+    font-size: 0.9em; /* Ajuste un peu la taille de la flèche par rapport au texte */
+    transition: transform 0.3s ease;
 }
 
 /* --- Filigrane "CONTACT" --- */
@@ -261,8 +282,14 @@
         transform: translateX(5px);
     }
 
-    .contact-links a:hover {
+    .social-link:hover {
         color: var(--accent-color);
-        padding-left: 10px;
+        /* Au lieu du padding-left, on utilise un translate (plus performant) */
+        transform: translateX(10px); 
+    }
+
+    /* Petit bonus : la flèche part légèrement en haut à droite au survol */
+    .social-link:hover .social-arrow {
+        transform: translate(3px, -3px);
     }
 }
