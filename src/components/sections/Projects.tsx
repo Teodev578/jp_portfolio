@@ -39,13 +39,13 @@ export const Projects = () => {
 
                                         <div className="project-tags hidden md:flex">
                                             {project.tags?.slice(0, 2).map((tag, i) => (
-                                                <span key={i} className="tag">{tag}</span>
+                                                <span key={i} className="tag" aria-hidden="true">{tag}</span>
                                             ))}
                                         </div>
                                     </div>
 
-                                    {/* NOUVEAU : Indicateur d'état animé (+ / -) */}
-                                    <div className="accordion-icon">
+                                    {/* On cache l'icône aux lecteurs d'écran car elle est 100% visuelle/décorative */}
+                                    <div className="accordion-icon" aria-hidden="true">
                                         <span className="icon-line horizontal"></span>
                                         <span className="icon-line vertical"></span>
                                     </div>
