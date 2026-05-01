@@ -35,13 +35,21 @@
     --text-light: #6B7280;
     --input-bg: #FFFFFF;
     --input-border: #E5E7EB;
+
+    /* --- Transition Thème Uniforme --- */
+    --theme-transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                         color 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                         border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                         opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 
 html {
     overflow-y: scroll;
 }
 
 /* --- Thème Sombre (Noir asphalte profond, fait ressortir les photos) --- */
+:root[data-theme='dark'],
 body.dark-mode {
     --bg-color: #0A0A0A;
     /* Noir ultra profond */
@@ -59,6 +67,7 @@ body.dark-mode {
     --input-border: #3F3F46;
 }
 
+
 * {
     margin: 0;
     padding: 0;
@@ -71,12 +80,55 @@ body {
     font-family: var(--font-body);
     font-size: 16px;
     line-height: 1.6;
-    transition: background-color 0.5s ease, color 0.5s ease;
+    /* Transition fluide pour le changement de thème */
+    transition: var(--theme-transition);
     overflow-x: clip;
     /* Amélioration du rendu des polices sur Mac/PC */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+/* --- Transition Thème Uniforme --- */
+/* On définit une variable pour la transition du thème afin de pouvoir la réutiliser partout */
+:root {
+    --theme-transition-base: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    --theme-transition: background-color var(--theme-transition-base), 
+                         color var(--theme-transition-base), 
+                         border-color var(--theme-transition-base),
+                         fill var(--theme-transition-base),
+                         stroke var(--theme-transition-base);
+}
+
+/* On applique cette transition aux conteneurs principaux et aux éléments de base */
+body, 
+header, 
+section, 
+main, 
+footer, 
+.container,
+.site-header,
+.site-header * {
+    transition: var(--theme-transition) !important; /* Priorité sur les fonds pour l'unité visuelle */
+}
+
+/* Pour les éléments interactifs ou animés par GSAP, on est plus prudent 
+   On applique la transition sur les couleurs mais on laisse le reste libre */
+a, button, h1, h2, h3, h4, p, span, li, input, textarea,
+a::before, a::after, button::before, button::after, div::before, div::after {
+    transition: color var(--theme-transition-base), 
+                background-color var(--theme-transition-base), 
+                border-color var(--theme-transition-base);
+}
+
+
+/* On s'assure que les éléments SVG (icônes) suivent aussi */
+svg, svg path {
+    transition: var(--theme-transition);
+}
+
+
+
+
 
 .container {
     width: calc(100% - (var(--site-margin) * 2));

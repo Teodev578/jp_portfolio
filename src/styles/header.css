@@ -12,9 +12,10 @@
     height: var(--header-height, 80px);
     z-index: 1000;
     background-color: transparent;
-    transition: background-color 0.4s ease, border-bottom 0.4s ease;
+    transition: var(--theme-transition), border-bottom 0.4s ease;
     border-bottom: 1px solid transparent;
 }
+
 
 /* État lors du scroll (ou quand le menu mobile est ouvert) */
 .site-header.is-scrolled,

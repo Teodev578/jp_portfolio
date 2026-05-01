@@ -49,8 +49,9 @@
     border-top: 1px solid var(--border-color);
     cursor: pointer;
     opacity: 0; 
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, var(--theme-transition);
 }
+
 
 .service-text h3 {
     font-family: var(--font-headline);

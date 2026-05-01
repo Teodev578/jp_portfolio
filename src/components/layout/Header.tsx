@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useTheme } from '../../contexts/ThemeContext';
 import { useLenis } from 'lenis/react';
 import logoJP from '../../assets/logo_jp.png';
 
 export const Header = () => {
     const { lang, setLang, t } = useLanguage();
+    const { isDarkMode, toggleTheme } = useTheme();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isDarkMode, setIsDarkMode] = useState(false);
     const [activeSection, setActiveSection] = useState('accueil'); // État pour la section active
 
     const lenis = useLenis(({ scroll }) => {
@@ -63,21 +64,6 @@ export const Header = () => {
             sections.forEach(section => observer.unobserve(section));
         };
     }, []);
-
-    // 2. Gestion du thème
-    useEffect(() => {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            setIsDarkMode(true);
-            document.body.classList.add('dark-mode');
-        }
-    }, []);
-
-    const toggleTheme = () => {
-        setIsDarkMode(!isDarkMode);
-        document.body.classList.toggle('dark-mode');
-        localStorage.setItem('theme', !isDarkMode ? 'dark' : 'light');
-    };
 
     // Helper pour savoir si le lien est actif
     const isLinkActive = (id: string) => activeSection === id ? 'active' : '';

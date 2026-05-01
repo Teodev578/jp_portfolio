@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import './index.css';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import { Header } from './components/layout/Header';
 import { Hero } from './components/sections/Hero';
 import { Services } from './components/sections/Services';
@@ -42,8 +43,6 @@ function AppContent() {
         <>
             {!isLoaded && <Preloader onLoaded={() => setIsLoaded(true)} />}
 
-
-
             <LanguageTransition />
 
             <Header />
@@ -68,11 +67,13 @@ function usePreloader() {
 
 function App() {
     return (
-        <LanguageProvider>
-            <ReactLenis root>
-                <AppContent />
-            </ReactLenis>
-        </LanguageProvider>
+        <ThemeProvider>
+            <LanguageProvider>
+                <ReactLenis root>
+                    <AppContent />
+                </ReactLenis>
+            </LanguageProvider>
+        </ThemeProvider>
     );
 }
 
