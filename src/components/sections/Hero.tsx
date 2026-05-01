@@ -75,7 +75,7 @@ export const Hero = () => {
 
                     <h1 className="hero-title">
                         <span className="title-mask block">
-                            {t('hero_headline') || 'LE PRÉPARATEUR'}
+                            {t('hero_headline') || 'Le Préparateur'}
                         </span>
                     </h1>
 
