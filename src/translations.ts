@@ -94,6 +94,13 @@ export const translations = {
         skill_engine: "Nettoyage Moteur",
         skill_showroom: "Finition Showroom",
         skill_fleet: "Gestion de Flotte",
+        contact_info_title: "Discutons de votre projet",
+        contact_location_title: "Localisation",
+        contact_location_text: "Intervention sur site<br />& Atelier sur rendez-vous",
+        contact_status_sending: "Envoi en cours...",
+        contact_status_success: "Message envoyé avec succès !",
+        contact_status_error: "Une erreur s'est produite.",
+        contact_status_conn_error: "Une erreur de connexion s'est produite.",
     },
     en: {
         nav_home: "Home",
@@ -190,5 +197,12 @@ export const translations = {
         skill_engine: "Engine Cleaning",
         skill_showroom: "Showroom Finish",
         skill_fleet: "Fleet Management",
+        contact_info_title: "Let's discuss your project",
+        contact_location_title: "Location",
+        contact_location_text: "On-site intervention<br />& Workshop by appointment",
+        contact_status_sending: "Sending...",
+        contact_status_success: "Message sent successfully!",
+        contact_status_error: "An error occurred.",
+        contact_status_conn_error: "A connection error occurred.",
     }
 };

@@ -38,7 +38,7 @@ export const Contact = () => {
         const formData = new FormData(form);
 
         setIsSubmitting(true);
-        setStatus({ message: "Envoi en cours...", color: 'var(--text-color)' });
+        setStatus({ message: t('contact_status_sending'), color: 'var(--text-color)' });
 
         try {
             const response = await fetch('https://api.web3forms.com/submit', {
@@ -49,16 +49,15 @@ export const Contact = () => {
 
             const json = await response.json();
 
-            // Utilisation de response.ok pour capturer tous les succès (200-299)
             if (response.ok) {
-                setStatus({ message: "Message envoyé avec succès !", color: '#10B981' });
+                setStatus({ message: t('contact_status_success'), color: '#10B981' });
                 form.reset();
             } else {
-                setStatus({ message: json.message || "Une erreur s'est produite.", color: 'var(--accent-color)' });
+                setStatus({ message: json.message || t('contact_status_error'), color: 'var(--accent-color)' });
             }
         } catch (error) {
             console.error("Erreur d'envoi du formulaire :", error);
-            setStatus({ message: "Une erreur de connexion s'est produite.", color: 'var(--accent-color)' });
+            setStatus({ message: t('contact_status_conn_error'), color: 'var(--accent-color)' });
         } finally {
             setIsSubmitting(false);
             setTimeout(() => setStatus({ message: '', color: '' }), 5000);
@@ -126,8 +125,8 @@ export const Contact = () => {
 
                             <div className="form-footer">
                                 <button type="submit" className="submit-btn" disabled={isSubmitting}>
-                                    <span>{t('contact_form_submit')}</span>
-                                    <span className="btn-arrow">→</span>
+                                    <span>{isSubmitting ? t('contact_status_sending') : t('contact_form_submit')}</span>
+                                    {!isSubmitting && <span className="btn-arrow">→</span>}
                                 </button>
                                 <div className="form-status" style={{ color: status.color }} aria-live="polite">
                                     {status.message}
@@ -139,7 +138,7 @@ export const Contact = () => {
                     {/* COLONNE DROITE : Informations de contact */}
                     <div className="contact-info-col contact-animate">
                         <div className="info-block">
-                            <h3 className="info-title">Discutons de votre projet</h3>
+                            <h3 className="info-title">{t('contact_info_title')}</h3>
 
                             <div className="contact-links">
                                 <SocialLink href="mailto:lepreparateur01@gmail.com" label="lepreparateur01@gmail.com" />
@@ -149,8 +148,8 @@ export const Contact = () => {
                         </div>
 
                         <div className="info-block">
-                            <h3 className="info-title">Localisation</h3>
-                            <p className="info-text">Intervention sur site<br />& Atelier sur rendez-vous</p>
+                            <h3 className="info-title">{t('contact_location_title')}</h3>
+                            <p className="info-text" dangerouslySetInnerHTML={tHtml('contact_location_text')}></p>
                         </div>
                     </div>
 
