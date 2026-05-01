@@ -44,7 +44,7 @@ const BeforeAfterImage = ({ before, after, alt }: { before: string, after: strin
             <input
                 type="range" min="0" max="100" value={sliderPos}
                 onChange={(e) => setSliderPos(Number(e.target.value))}
-                aria-label="Contrôle de comparaison avant/après" /* ROBUSTESSE A11Y */
+                aria-label="Contrôle de comparaison avant/après"
                 className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20 m-0 p-0"
             />
             <div
@@ -65,83 +65,106 @@ const BeforeAfterImage = ({ before, after, alt }: { before: string, after: strin
 };
 
 // ========================================================
-// 2. COMPOSANT : DIAPORAMA (Amélioré avec Swipe et Clics)
+// 2. COMPOSANT : DIAPORAMA (Swipe + Flèches + Points)
 // ========================================================
 const Slideshow = ({ images, alt }: { images: string[], alt: string }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [isAutoPlaying, setIsAutoPlaying] = useState(true); // ROBUSTESSE: Permet de couper l'auto-play
+    const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-    // Variables pour détecter le balayage (swipe)
     const touchStartX = useRef(0);
     const touchEndX = useRef(0);
 
-    useEffect(() => {
-        if (!isAutoPlaying) return; // Arrête le minuteur si l'utilisateur a pris le contrôle manuel
+    // Fonction de passage à l'image suivante
+    const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % images.length);
+    // Fonction de passage à l'image précédente
+    const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
 
-        const timer = setInterval(() => {
-            setCurrentIndex((prev) => (prev + 1) % images.length);
-        }, 3000);
+    useEffect(() => {
+        if (!isAutoPlaying) return;
+        const timer = setInterval(nextSlide, 3000);
         return () => clearInterval(timer);
     }, [images.length, isAutoPlaying]);
 
-    // Changement manuel via les points
+    // Interactions manuelles
     const handleDotClick = (index: number) => {
         setCurrentIndex(index);
         setIsAutoPlaying(false);
     };
 
-    // --- LOGIQUE DE SWIPE MOBILE ---
-    const handleTouchStart = (e: React.TouchEvent) => {
-        touchStartX.current = e.touches[0].clientX;
+    const handleArrowClick = (direction: 'next' | 'prev', e: React.MouseEvent) => {
+        e.stopPropagation(); // Empêche des clics fantômes
+        setIsAutoPlaying(false);
+        if (direction === 'next') nextSlide();
+        else prevSlide();
     };
 
+    // Swipe Mobile
+    const handleTouchStart = (e: React.TouchEvent) => touchStartX.current = e.touches[0].clientX;
     const handleTouchEnd = (e: React.TouchEvent) => {
         touchEndX.current = e.changedTouches[0].clientX;
-        handleSwipe();
-    };
-
-    const handleSwipe = () => {
         const swipeDistance = touchStartX.current - touchEndX.current;
-        const minSwipeDistance = 40; // Seuil de détection en pixels
+        const minSwipeDistance = 40;
 
         if (swipeDistance > minSwipeDistance) {
-            // Swipe Gauche (Image suivante)
-            setCurrentIndex((prev) => (prev + 1) % images.length);
+            nextSlide();
             setIsAutoPlaying(false);
         } else if (swipeDistance < -minSwipeDistance) {
-            // Swipe Droite (Image précédente)
-            setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+            prevSlide();
             setIsAutoPlaying(false);
         }
     };
 
     return (
         <div
-            className="w-full h-full relative overflow-hidden"
+            className="w-full h-full relative overflow-hidden group" // "group" permet d'afficher les flèches au survol
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
         >
+            {/* Images */}
             {images.map((img, index) => (
                 <img
                     key={index}
                     src={img}
                     alt={`${alt} vue ${index + 1}`}
-                    loading="lazy"
+                    loading={index === 0 ? "eager" : "lazy"} // La 1ère charge de suite, les autres en différé
                     decoding="async"
                     className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                 />
             ))}
+
+            {/* ROBUSTESSE: Flèche Gauche */}
+            <button
+                onClick={(e) => handleArrowClick('prev', e)}
+                aria-label="Image précédente"
+                className="absolute left-2 top-1/2 -translate-y-1/2 p-2 z-20 text-white opacity-50 transition-all duration-300 drop-shadow-lg md:opacity-0 md:group-hover:opacity-70 hover:!opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-full"
+            >
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+            </button>
+
+            {/* ROBUSTESSE: Flèche Droite */}
+            <button
+                onClick={(e) => handleArrowClick('next', e)}
+                aria-label="Image suivante"
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 z-20 text-white opacity-50 transition-all duration-300 drop-shadow-lg md:opacity-0 md:group-hover:opacity-70 hover:!opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-full"
+            >
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 18l6-6-6-6" />
+                </svg>
+            </button>
+
+            {/* Points (Dots) */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1 z-20">
                 {images.map((_, index) => (
                     <button
                         key={index}
                         onClick={() => handleDotClick(index)}
                         aria-label={`Afficher l'image ${index + 1}`}
-                        // ROBUSTESSE : p-2 augmente la taille cliquable sur mobile sans changer la taille visuelle !
-                        className="p-2 cursor-pointer outline-none group"
+                        className="p-2 cursor-pointer outline-none group/dot"
                     >
                         <div
-                            className={`w-1.5 h-1.5 rounded-full transition-all duration-500 group-focus-visible:ring-2 group-focus-visible:ring-offset-2 group-focus-visible:ring-white group-focus-visible:outline-none ${index === currentIndex ? 'bg-white scale-125' : 'bg-white/50 group-hover:bg-white/80'}`}
+                            className={`w-1.5 h-1.5 rounded-full transition-all duration-500 drop-shadow-md group-focus-visible/dot:ring-2 group-focus-visible/dot:ring-white ${index === currentIndex ? 'bg-white scale-125' : 'bg-white/50 group-hover/dot:bg-white/80'}`}
                         />
                     </button>
                 ))}
