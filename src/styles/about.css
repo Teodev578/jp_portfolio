@@ -3,27 +3,23 @@
 /* ======================================================== */
 
 .about-section {
-    padding: 4rem 0; /* Réduit pour mobile */
+    padding: 4rem 0;
     border-top: 1px solid var(--border-color);
-    /* Ligne de séparation franche */
 }
 
-/* --- Layout Grid (Inversé par rapport aux services) --- */
 .about-grid {
     display: flex;
     flex-direction: column-reverse;
-    /* Sur mobile : Image au dessus ou en dessous */
-    gap: 3rem; /* Réduit pour mobile */
+    gap: 3rem;
 }
 
 @media (min-width: 992px) {
     .about-section {
-        padding: 8rem 0; /* Plus d'espace sur desktop */
+        padding: 8rem 0;
     }
 
     .about-grid {
         flex-direction: row;
-        /* Sur PC : côte à côte */
         justify-content: space-between;
         align-items: flex-start;
         gap: 6rem;
@@ -31,13 +27,11 @@
 
     .about-content {
         flex: 1;
-        /* Prend environ 55% de l'espace */
         max-width: 60%;
     }
 
     .about-visuals {
         flex: 0 0 35%;
-        /* Prend 35% de l'espace */
         position: sticky;
         top: calc(var(--header-height) + 2rem);
     }
@@ -55,6 +49,7 @@
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 1rem;
+    word-break: break-word; /* ROBUSTESSE : Anti-dépassement */
 }
 
 .about-name {
@@ -63,6 +58,7 @@
     line-height: 1.1;
     text-transform: uppercase;
     letter-spacing: -0.02em;
+    overflow-wrap: break-word; /* ROBUSTESSE : Coupe les mots trop longs sur petits écrans */
 }
 
 .about-description {
@@ -71,6 +67,12 @@
     margin-bottom: 4rem;
     opacity: 0.8;
     max-width: 90%;
+}
+
+@media (max-width: 768px) {
+    .about-description {
+        max-width: 100%; /* ROBUSTESSE: Sur mobile, on prend toute la place pour la lisibilité */
+    }
 }
 
 /* --- Tableau des Détails Technique --- */
@@ -82,7 +84,7 @@
 .about-detail-item {
     display: flex;
     flex-direction: column;
-    padding: 1.5rem 0; /* Plus compact sur mobile */
+    padding: 1.5rem 0;
     border-top: 1px solid var(--border-color);
 }
 
@@ -90,7 +92,7 @@
     .about-detail-item {
         flex-direction: row;
         gap: 3rem;
-        padding: 3rem 0; /* On redonne de l'air sur tablette/desktop */
+        padding: 3rem 0;
     }
 
     .detail-title {
@@ -101,22 +103,22 @@
 
 .detail-title {
     font-family: var(--font-body);
-    font-size: 0.85rem; /* Style label plus discret */
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     opacity: 0.6;
     flex: 0 0 200px;
-    /* Largeur fixe pour aligner le tableau */
-    margin-bottom: 0.5rem; /* Rapproche le titre du contenu sur mobile */
+    margin-bottom: 0.5rem;
+    word-break: break-word; /* ROBUSTESSE */
 }
 
 .detail-content {
     flex: 1;
     font-family: var(--font-body);
-    /* Police monospace pour le côté "data" */
     font-size: 0.95rem;
     line-height: 1.7;
     opacity: 0.8;
+    min-width: 0; /* ROBUSTESSE : Permet aux textes de se tronquer/couper correctement dans un container flex */
 }
 
 /* Styling des éléments générés par dangerouslySetInnerHTML */
@@ -130,6 +132,7 @@
     position: relative;
     padding-left: 1.5rem;
     margin-bottom: 0.5rem;
+    overflow-wrap: break-word; /* Sécurité pour les listes */
 }
 
 .detail-content li::before {
@@ -168,10 +171,10 @@
     position: relative;
     width: 100%;
     height: 70vh;
-    /* Hauteur définie pour le parallaxe */
+    min-height: 400px; /* ROBUSTESSE : Protège les téléphones en mode paysage */
+    max-height: 800px; /* ROBUSTESSE : Protège les écrans ultra-larges */
     overflow: hidden;
     background-color: var(--border-color);
-    /* AUCUN border-radius */
     border-radius: 0;
 }
 
@@ -182,16 +185,16 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Effet noir et blanc subtil qui se désactive au survol */
     filter: grayscale(80%) contrast(1.1);
     transition: filter 0.5s ease;
+    will-change: filter; /* ROBUSTESSE : Soulage le CPU mobile pendant l'animation */
 }
 
-.about-image-wrapper:hover .about-image {
-    filter: grayscale(0%) contrast(1);
+@media (hover: hover) and (pointer: fine) {
+    .about-image-wrapper:hover .about-image {
+        filter: grayscale(0%) contrast(1);
+    }
 }
-
-
 
 /* --- Lien Projets --- */
 .about-projects-link {
@@ -206,17 +209,22 @@
     padding-top: 2rem;
     border-top: 1px solid var(--border-color);
     width: 100%;
-    /* S'étend sur toute la largeur de la colonne */
+    text-decoration: none;
+    color: var(--text-color);
+    transition: color 0.3s ease;
 }
 
-.about-projects-link:hover {
+.about-projects-link:hover,
+.about-projects-link:focus-visible { /* ROBUSTESSE A11Y */
     color: var(--accent-color);
+    outline: none; /* Enlève le contour bleu moche par défaut car on gère la couleur */
 }
 
 .about-projects-link .arrow-down {
     transition: transform 0.3s ease;
 }
 
-.about-projects-link:hover .arrow-down {
+.about-projects-link:hover .arrow-down,
+.about-projects-link:focus-visible .arrow-down {
     transform: translateY(5px);
 }

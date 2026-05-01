@@ -14,15 +14,18 @@ export const About = () => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
-        e.preventDefault();
-        lenis?.scrollTo(target);
+        // ROBUSTESSE : Si Lenis est actif on fait le scroll fluide, 
+        // sinon on laisse l'ancre native HTML faire son travail.
+        if (lenis) {
+            e.preventDefault();
+            lenis.scrollTo(target);
+        }
     };
 
     useGSAP(() => {
         const mm = gsap.matchMedia();
 
         mm.add("(min-width: 992px)", () => {
-            // Animation d'apparition du contenu
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: '.about-section',
@@ -94,7 +97,7 @@ export const About = () => {
                         </div>
 
                         <a href="#projets" className="about-projects-link" onClick={(e) => handleScroll(e, '#projets')}>
-                            {t('about_scroll_projects')} <span className="arrow-down">↓</span>
+                            {t('about_scroll_projects')} <span className="arrow-down" aria-hidden="true">↓</span>
                         </a>
                     </div>
 
@@ -105,6 +108,8 @@ export const About = () => {
                                 src={portraitAbout}
                                 alt="Photo de Jean-Pierre AGBO - Le Préparateur"
                                 className="about-image"
+                                loading="lazy" /* ROBUSTESSE: Ne bloque pas le chargement initial de la page */
+                                decoding="async" /* ROBUSTESSE: Décode l'image en arrière-plan */
                             />
                         </div>
                     </div>
