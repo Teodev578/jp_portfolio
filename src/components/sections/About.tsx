@@ -23,36 +23,19 @@ export const About = () => {
     };
 
     useGSAP(() => {
-        const mm = gsap.matchMedia();
-
-        mm.add("(min-width: 992px)", () => {
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: '.about-section',
-                    start: 'top 70%',
-                }
-            });
-
-            tl.from('.about-subtitle', { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out' })
-                .from('.about-name', { y: 40, opacity: 0, duration: 1, ease: 'power4.out' }, '-=0.6')
-                .from('.about-description', { y: 30, opacity: 0, duration: 1, ease: 'power3.out' }, '-=0.6')
-                .from('.about-detail-item', { y: 30, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out' }, '-=0.4')
-                .from('.about-projects-link', { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4');
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: 'top 80%',
+                once: true
+            }
         });
 
-        mm.add("(max-width: 991px)", () => {
-            gsap.from(['.about-subtitle', '.about-name', '.about-description', '.about-detail-item'], {
-                scrollTrigger: {
-                    trigger: '.about-section',
-                    start: 'top 85%',
-                },
-                y: 30,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.1,
-                ease: 'power2.out'
-            });
-        });
+        tl.from('.about-subtitle', { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out' })
+            .from('.about-name', { y: 40, opacity: 0, duration: 1, ease: 'power4.out' }, '-=0.6')
+            .from('.about-description', { y: 30, opacity: 0, duration: 1, ease: 'power3.out' }, '-=0.6')
+            .from('.about-detail-item', { y: 30, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out' }, '-=0.4')
+            .from('.about-projects-link', { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4');
 
     }, { scope: containerRef });
 

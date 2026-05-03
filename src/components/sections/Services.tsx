@@ -246,47 +246,30 @@ export const Services = () => {
     };
 
     useGSAP(() => {
-        const mm = gsap.matchMedia();
-
-        mm.add("(min-width: 992px)", () => {
-            const tl = gsap.timeline({
-                scrollTrigger: { trigger: containerRef.current, start: 'top 75%', once: true }
-            });
-
-            tl.fromTo('.services-main-title .title-mask-service',
-                { yPercent: 100, opacity: 0 },
-                { yPercent: 0, opacity: 1, duration: 1, ease: 'expo.out' }
-            )
-                .fromTo('.sticky-wrapper', { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' }, "-=0.6")
-                .fromTo('.service-item', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out' }, "-=0.8")
-                .fromTo('.services-footer', { opacity: 0 }, { opacity: 1, duration: 1, ease: 'power2.out' }, "-=0.4");
-
-            if (!listRef.current) return;
-            const items = gsap.utils.toArray<HTMLElement>('.service-item', listRef.current);
-
-            items.forEach((item, index) => {
-                ScrollTrigger.create({
-                    trigger: item,
-                    start: "top center",
-                    end: "bottom center",
-                    onToggle: self => {
-                        if (self.isActive) setActiveImage(index);
-                    }
-                });
-            });
+        const tl = gsap.timeline({
+            scrollTrigger: { trigger: containerRef.current, start: 'top 80%', once: true }
         });
 
-        mm.add("(max-width: 991px)", () => {
-            const tl = gsap.timeline({
-                scrollTrigger: { trigger: containerRef.current, start: 'top 85%', once: true }
-            });
+        tl.fromTo('.services-main-title .title-mask-service',
+            { yPercent: 100, opacity: 0 },
+            { yPercent: 0, opacity: 1, duration: 1, ease: 'expo.out' }
+        )
+            .fromTo('.sticky-wrapper', { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' }, "-=0.6")
+            .fromTo('.service-item', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out' }, "-=0.8")
+            .fromTo('.services-footer', { opacity: 0 }, { opacity: 1, duration: 1, ease: 'power2.out' }, "-=0.4");
 
-            tl.fromTo('.services-main-title .title-mask-service',
-                { yPercent: 100, opacity: 0 },
-                { yPercent: 0, opacity: 1, duration: 1, ease: 'expo.out' }
-            )
-                .fromTo('.service-item', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power2.out' }, "-=0.6")
-                .fromTo('.services-footer', { opacity: 0 }, { opacity: 1, duration: 0.8 }, "-=0.4");
+        if (!listRef.current) return;
+        const items = gsap.utils.toArray<HTMLElement>('.service-item', listRef.current);
+
+        items.forEach((item, index) => {
+            ScrollTrigger.create({
+                trigger: item,
+                start: "top center",
+                end: "bottom center",
+                onToggle: self => {
+                    if (self.isActive) setActiveImage(index);
+                }
+            });
         });
 
     }, { scope: containerRef });

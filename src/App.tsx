@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import gsap from 'gsap';
 
 import './App.css';
 import './index.css';
@@ -14,11 +16,47 @@ import { Preloader } from './components/layout/Preloader';
 
 import { SkillsRail } from './components/ui/SkillsRail';
 import { LanguageTransition } from './components/ui/LanguageTransition';
-import { ReactLenis } from 'lenis/react';
-
+import { ReactLenis, useLenis } from 'lenis/react';
 
 function AppContent() {
     const { isLoaded, setIsLoaded } = usePreloader();
+    const lenis = useLenis(ScrollTrigger.update);
+
+    useEffect(() => {
+        if ('scrollRestoration' in window.history) {
+            window.history.scrollRestoration = 'manual';
+        }
+        ScrollTrigger.clearScrollMemory("manual");
+    }, []);
+
+    useEffect(() => {
+        if (lenis) {
+            gsap.ticker.add((time) => {
+                lenis.raf(time * 1000);
+            });
+            gsap.ticker.lagSmoothing(0);
+            
+            // Re-sync on ScrollTrigger refresh
+            let scrollPos = 0;
+            const onRefreshInit = () => {
+                scrollPos = lenis.scroll;
+            };
+            const onRefresh = () => {
+                lenis.resize();
+                // Force Lenis to restore the exact scroll position after GSAP rebuilds the layout
+                lenis.scrollTo(scrollPos, { immediate: true });
+            };
+
+            ScrollTrigger.addEventListener("refreshInit", onRefreshInit);
+            ScrollTrigger.addEventListener("refresh", onRefresh);
+
+            return () => {
+                gsap.ticker.remove((time) => lenis?.raf(time * 1000));
+                ScrollTrigger.removeEventListener("refreshInit", onRefreshInit);
+                ScrollTrigger.removeEventListener("refresh", onRefresh);
+            };
+        }
+    }, [lenis]);
 
     // Intersection Observer for scroll animations
     useEffect(() => {

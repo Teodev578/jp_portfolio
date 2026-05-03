@@ -54,7 +54,7 @@ export const Hero = () => {
             yPercent: 15,
             ease: 'none',
             scrollTrigger: {
-                trigger: '.hero-section',
+                trigger: container.current,
                 start: 'top top',
                 end: 'bottom top',
                 scrub: true

@@ -17,7 +17,7 @@ export const Contact = () => {
     useGSAP(() => {
         gsap.from('.contact-animate', {
             scrollTrigger: {
-                trigger: '.contact-section',
+                trigger: containerRef.current,
                 start: 'top 80%',
             },
             y: 40,
