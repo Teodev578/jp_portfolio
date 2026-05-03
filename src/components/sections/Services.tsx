@@ -5,24 +5,24 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import imgConseil from '../../assets/Conseil/2.jpeg';
+import imgConseil from '../../assets/Conseil/2.avif';
 
 // Images Nettoyage Premium
-import net1 from '../../assets/nettoyage/1.jpg';
-import net2 from '../../assets/nettoyage/2.jpg';
-import net3 from '../../assets/nettoyage/3.jpg';
-import net4 from '../../assets/nettoyage/4.jpg';
-import net5 from '../../assets/nettoyage/5.jpg';
+import net1 from '../../assets/nettoyage/1.avif';
+import net2 from '../../assets/nettoyage/2.avif';
+import net3 from '../../assets/nettoyage/3.avif';
+import net4 from '../../assets/nettoyage/4.avif';
+import net5 from '../../assets/nettoyage/5.avif';
 
 // Images Esthétique Auto
-import est1 from '../../assets/esthetique/1.jpg';
+import est1 from '../../assets/esthetique/1.avif';
 import est2 from '../../assets/esthetique/2.avif';
-import est3 from '../../assets/esthetique/3.jpg';
+import est3 from '../../assets/esthetique/3.avif';
 
 // Images Préparation Livraison
-import prep1 from '../../assets/preparation/1.jpg';
+import prep1 from '../../assets/preparation/1.avif';
 import prep2 from '../../assets/preparation/2.avif';
-import prep3 from '../../assets/preparation/3.jpeg';
+import prep3 from '../../assets/preparation/3.avif';
 
 gsap.registerPlugin(ScrollTrigger);
 
