@@ -270,7 +270,7 @@ export const Services = () => {
             { yPercent: 100, opacity: 0 },
             { yPercent: 0, opacity: 1, duration: 1, ease: 'expo.out' }
         )
-            .fromTo('.sticky-wrapper', { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' }, "-=0.6")
+            .fromTo('.sticky-wrapper', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: 'power3.out' }, "-=0.6")
             .fromTo('.service-item', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out' }, "-=0.8")
             .fromTo('.services-footer', { opacity: 0 }, { opacity: 1, duration: 1, ease: 'power2.out' }, "-=0.4");
 
