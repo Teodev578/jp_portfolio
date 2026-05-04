@@ -4,6 +4,7 @@ import { useLenis } from 'lenis/react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 import imgConseil from '../../assets/Conseil/2.avif';
 
@@ -79,11 +80,24 @@ const Slideshow = ({ images, alt }: { images: string[], alt: string }) => {
     // Fonction de passage à l'image précédente
     const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
 
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [isVisible, setIsVisible] = useState(false);
+
+    // Observer pour ne lancer l'intervalle que si visible
     useEffect(() => {
-        if (!isAutoPlaying) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => setIsVisible(entry.isIntersecting),
+            { threshold: 0.1 }
+        );
+        if (containerRef.current) observer.observe(containerRef.current);
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        if (!isAutoPlaying || !isVisible) return;
         const timer = setInterval(nextSlide, 3000);
         return () => clearInterval(timer);
-    }, [images.length, isAutoPlaying]);
+    }, [images.length, isAutoPlaying, isVisible]);
 
     // Interactions manuelles
     const handleDotClick = (index: number) => {
@@ -116,6 +130,7 @@ const Slideshow = ({ images, alt }: { images: string[], alt: string }) => {
 
     return (
         <div
+            ref={containerRef}
             className="w-full h-full relative overflow-hidden group" // "group" permet d'afficher les flèches au survol
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
@@ -192,6 +207,7 @@ export const Services = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const listRef = useRef<HTMLDivElement>(null);
     const [activeImage, setActiveImage] = useState(0);
+    const isDesktop = useMediaQuery('(min-width: 992px)');
 
     const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
         if (lenis) {
@@ -271,8 +287,7 @@ export const Services = () => {
                 }
             });
         });
-
-    }, { scope: containerRef });
+    }, { scope: containerRef, dependencies: [isDesktop] });
 
     return (
         <section id="services" className="services-section" ref={containerRef}>
@@ -289,7 +304,7 @@ export const Services = () => {
                     {/* COLONNE GAUCHE : Visuels fixes (PC) */}
                     <div className="services-visuals">
                         <div className="sticky-wrapper">
-                            {services.map((service, index) => (
+                            {isDesktop && services.map((service, index) => (
                                 <div
                                     key={`desktop-media-${service.id}`}
                                     className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${activeImage === index ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'}`}
@@ -325,7 +340,7 @@ export const Services = () => {
 
                                     {/* MÉDIA MOBILE (Intégré dans la carte) */}
                                     <div className="service-mobile-img relative">
-                                        {renderMedia(service.media, service.title)}
+                                        {!isDesktop && renderMedia(service.media, service.title)}
                                     </div>
                                 </div>
                             ))}

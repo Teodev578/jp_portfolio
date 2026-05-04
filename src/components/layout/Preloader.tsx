@@ -1,6 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import logoJP from '../../assets/logo_jp.avif';
+import portraitImg from '../../assets/portrait_nb.avif';
+import net1 from '../../assets/nettoyage/1.avif';
+import est1 from '../../assets/esthetique/1.avif';
+import prep1 from '../../assets/preparation/1.avif';
 
 interface PreloaderProps {
     onLoaded: () => void;
@@ -11,6 +15,8 @@ export const Preloader = ({ onLoaded }: PreloaderProps) => {
     const counterRef = useRef<HTMLDivElement>(null);
     const progressBarRef = useRef<HTMLDivElement>(null);
     const logoRef = useRef<HTMLImageElement>(null);
+
+    const [loadProgress, setLoadProgress] = useState(0);
 
     useEffect(() => {
         // Bloquer le scroll pendant le chargement
@@ -26,56 +32,85 @@ export const Preloader = ({ onLoaded }: PreloaderProps) => {
             ease: "sine.inOut"
         });
 
-        // 2. Timeline principale du preloader
-        const tl = gsap.timeline({
-            onComplete: () => {
-                pulseAnim.kill(); // On arrête la pulsation
-                document.body.style.overflow = ''; // On débloque le scroll
-                onLoaded(); // On affiche le site
+        // 2. Préchargement des images critiques
+        const criticalImages = [logoJP, portraitImg, net1, est1, prep1];
+        let loadedCount = 0;
+
+        const updateProgress = () => {
+            loadedCount++;
+            const progress = (loadedCount / criticalImages.length) * 100;
+            setLoadProgress(progress);
+
+            if (loadedCount === criticalImages.length) {
+                // Une fois fini, on lance la sortie du preloader
+                startExitAnimation();
             }
+        };
+
+        criticalImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
+            img.onload = updateProgress;
+            img.onerror = updateProgress; // On continue même si une image échoue
         });
 
-        const progress = { value: 0 };
+        // Sécurité : Timeout si le chargement est trop long (5s)
+        const timeout = setTimeout(() => {
+            if (loadedCount < criticalImages.length) {
+                setLoadProgress(100);
+                startExitAnimation();
+            }
+        }, 5000);
 
-        // Chargement (de 0 à 100%)
-        tl.to(progress, {
-            value: 100,
-            duration: 2,
-            ease: "power3.inOut",
-            onUpdate: () => {
-                if (counterRef.current) {
-                    const num = Math.round(progress.value);
-                    counterRef.current.innerText = `${num.toString().padStart(2, '0')}%`;
+        function startExitAnimation() {
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    pulseAnim.kill();
+                    document.body.style.overflow = '';
+                    onLoaded();
                 }
-            }
-        }, 0)
-            // Barre de progression qui se remplit
-            .to(progressBarRef.current, {
-                scaleX: 1,
-                duration: 2,
-                ease: "power3.inOut",
-            }, 0);
+            });
 
-        // Disparition des éléments internes
-        tl.to(['.preloader-content'], {
-            y: -20,
-            opacity: 0,
-            duration: 0.6,
-            ease: "power3.in",
-        }, "+=0.2");
-
-        // Glissement vers le haut de l'écran (Effet Rideau)
-        tl.to(containerRef.current, {
-            yPercent: -100,
-            duration: 1.2,
-            ease: "power4.inOut"
-        });
+            tl.to(['.preloader-content'], {
+                y: -20,
+                opacity: 0,
+                duration: 0.6,
+                ease: "power3.in",
+            }, "+=0.3")
+            .to(containerRef.current, {
+                yPercent: -100,
+                duration: 1.2,
+                ease: "power4.inOut"
+            });
+        }
 
         return () => {
-            tl.kill();
+            clearTimeout(timeout);
             pulseAnim.kill();
         };
     }, [onLoaded]);
+
+    // Animation fluide de la barre et du compteur
+    useEffect(() => {
+        gsap.to(progressBarRef.current, {
+            scaleX: loadProgress / 100,
+            duration: 0.5,
+            ease: "power2.out"
+        });
+        
+        if (counterRef.current) {
+            const currentNum = parseInt(counterRef.current.innerText) || 0;
+            gsap.to({ val: currentNum }, {
+                val: loadProgress,
+                duration: 0.5,
+                onUpdate: function() {
+                    if (counterRef.current) {
+                        counterRef.current.innerText = `${Math.round(this.targets()[0].val).toString().padStart(2, '0')}%`;
+                    }
+                }
+            });
+        }
+    }, [loadProgress]);
 
     return (
         <div

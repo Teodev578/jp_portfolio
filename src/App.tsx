@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 import './App.css';
 import './index.css';
@@ -26,14 +28,16 @@ function AppContent() {
         if ('scrollRestoration' in window.history) {
             window.history.scrollRestoration = 'manual';
         }
-        ScrollTrigger.clearScrollMemory("manual");
+        ScrollTrigger.clearScrollMemory();
     }, []);
 
     useEffect(() => {
         if (lenis) {
-            gsap.ticker.add((time) => {
+            const updateLenis = (time: number) => {
                 lenis.raf(time * 1000);
-            });
+            };
+
+            gsap.ticker.add(updateLenis);
             gsap.ticker.lagSmoothing(0);
             
             // Re-sync on ScrollTrigger refresh
@@ -51,7 +55,7 @@ function AppContent() {
             ScrollTrigger.addEventListener("refresh", onRefresh);
 
             return () => {
-                gsap.ticker.remove((time) => lenis?.raf(time * 1000));
+                gsap.ticker.remove(updateLenis);
                 ScrollTrigger.removeEventListener("refreshInit", onRefreshInit);
                 ScrollTrigger.removeEventListener("refresh", onRefresh);
             };
@@ -107,7 +111,7 @@ function App() {
     return (
         <ThemeProvider>
             <LanguageProvider>
-                <ReactLenis root>
+                <ReactLenis root autoRaf={false}>
                     <AppContent />
                 </ReactLenis>
             </LanguageProvider>
