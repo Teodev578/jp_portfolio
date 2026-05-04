@@ -76,9 +76,9 @@ const Slideshow = ({ images, alt }: { images: string[], alt: string }) => {
     const touchEndX = useRef(0);
 
     // Fonction de passage à l'image suivante
-    const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % images.length);
+    const nextSlide = React.useCallback(() => setCurrentIndex((prev) => (prev + 1) % images.length), [images.length]);
     // Fonction de passage à l'image précédente
-    const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    const prevSlide = React.useCallback(() => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length), [images.length]);
 
     const containerRef = useRef<HTMLDivElement>(null);
     const [isVisible, setIsVisible] = useState(false);
@@ -97,7 +97,7 @@ const Slideshow = ({ images, alt }: { images: string[], alt: string }) => {
         if (!isAutoPlaying || !isVisible) return;
         const timer = setInterval(nextSlide, 3000);
         return () => clearInterval(timer);
-    }, [images.length, isAutoPlaying, isVisible]);
+    }, [isAutoPlaying, isVisible, nextSlide]);
 
     // Interactions manuelles
     const handleDotClick = (index: number) => {
@@ -254,10 +254,10 @@ export const Services = () => {
         },
     ];
 
-    const renderMedia = (media: any, title: string) => {
-        if (media.type === 'before-after') return <BeforeAfterImage before={media.before} after={media.after} alt={cleanTitle(title)} />;
-        if (media.type === 'slideshow') return <Slideshow images={media.images} alt={cleanTitle(title)} />;
-        if (media.type === 'image') return <SimpleImage src={media.src} alt={cleanTitle(title)} />;
+    const renderMedia = (media: { type: string, images?: string[], src?: string, before?: string, after?: string }, title: string) => {
+        if (media.type === 'before-after') return <BeforeAfterImage before={media.before!} after={media.after!} alt={cleanTitle(title)} />;
+        if (media.type === 'slideshow') return <Slideshow images={media.images!} alt={cleanTitle(title)} />;
+        if (media.type === 'image') return <SimpleImage src={media.src!} alt={cleanTitle(title)} />;
         return null;
     };
 
