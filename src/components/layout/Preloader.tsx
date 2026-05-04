@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import logoJP from '../../assets/logo_jp.png';
+import logoJP from '../../assets/logo_jp.avif';
 
 interface PreloaderProps {
     onLoaded: () => void;

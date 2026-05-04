@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useLenis } from 'lenis/react';
-import logoJP from '../../assets/logo_jp.png';
+import logoJP from '../../assets/logo_jp.avif';
 
 export const Header = () => {
     const { lang, setLang, t } = useLanguage();
