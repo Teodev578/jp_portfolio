@@ -35,12 +35,8 @@ export const Header = () => {
         document.body.style.overflow = !isMenuOpen ? 'hidden' : '';
     };
 
-    // 1. Initialisation Scroll et IntersectionObserver pour les sections
+    // 1. IntersectionObserver pour les sections
     useEffect(() => {
-        const handleScroll = () => setIsScrolled(window.scrollY > 50);
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll();
-
         // 💡 L'OBSERVATEUR DE SECTIONS
         const sections = document.querySelectorAll('section');
 
@@ -60,7 +56,6 @@ export const Header = () => {
         });
 
         return () => {
-            window.removeEventListener('scroll', handleScroll);
             sections.forEach(section => observer.unobserve(section));
         };
     }, []);
