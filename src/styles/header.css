@@ -275,3 +275,34 @@
         gap: 2rem;
     }
 }
+
+/* ==========================================================================
+   CORRECTION RESPONSIVE : MENU MOBILE EN MODE PAYSAGE (Petite hauteur)
+   ========================================================================== */
+
+@media (max-width: 1023px) {
+    /* 1. On permet au menu de scroller si le contenu est trop grand */
+    .header-nav.is-active {
+        overflow-y: auto; /* Autorise le scroll vertical */
+        /* On empêche le centrage forcé qui coupe le haut de l'écran */
+        justify-content: flex-start; 
+        /* On protège l'espace en haut pour que le logo et la croix restent toujours visibles */
+        padding-top: calc(var(--header-height, 80px) + 20px); 
+        padding-bottom: 40px;
+    }
+
+    /* 2. On centre le bloc de liens "intelligemment" */
+    .header-nav.is-active .nav-list {
+        margin: auto; /* Centre verticalement s'il y a de la place, sinon permet le scroll naturel */
+        
+        /* La magie est ici : l'espace entre les liens s'adapte à la HAUTEUR (vh) de l'écran */
+        gap: clamp(1rem, 4vh, 2.5rem); 
+    }
+
+    /* 3. On adapte la taille de la police à la hauteur de l'écran */
+    .header-nav.is-active .nav-list a {
+        /* Le texte garde son gros design original, mais rétrécit si l'écran est écrasé */
+        font-size: clamp(1.5rem, 8vh, 3.5rem); 
+        line-height: 1.1;
+    }
+}
