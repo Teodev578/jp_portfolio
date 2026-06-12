@@ -37,6 +37,18 @@ export const About = () => {
             .from('.about-detail-item', { y: 30, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out' }, '-=0.4')
             .from('.about-projects-link', { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4');
 
+        // Effet de parallaxe subtil sur l'image à propos
+        gsap.to('.about-image', {
+            yPercent: 15,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true
+            }
+        });
+
     }, { scope: containerRef });
 
     return (

@@ -26,6 +26,21 @@ export const Contact = () => {
             stagger: 0.15,
             ease: 'power3.out'
         });
+
+        // Parallaxe horizontal sur le filigrane "CONTACT" en fond
+        gsap.fromTo('.contact-watermark',
+            { xPercent: -5 },
+            {
+                xPercent: 5,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            }
+        );
     }, { scope: containerRef });
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
