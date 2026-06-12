@@ -102,6 +102,53 @@ export const translations = {
         contact_status_success: "Message envoyé avec succès !",
         contact_status_error: "Une erreur s'est produite.",
         contact_status_conn_error: "Une erreur de connexion s'est produite.",
+        footer_brand: "LE PRÉPARATEUR",
+        footer_tagline: "L'esthétique automobile de prestige, alliant rigueur et passion.",
+        footer_nav_title: "NAVIGATION",
+        footer_legal_title: "LÉGAL",
+        footer_socials_title: "RÉSEAUX",
+        footer_copyright: "© {year} Le Préparateur. Tous droits réservés.",
+        footer_back_to_top: "RETOUR EN HAUT ↑",
+        footer_legal_notice: "Mentions Légales",
+        footer_privacy_policy: "Politique de Confidentialité",
+        footer_developed_by: "Conçu & développé par KPEKPASSI Fabien Téo",
+        legal_modal_title: "Mentions Légales",
+        legal_modal_content: `<h3>ÉDITEUR DU SITE</h3>
+<p>Le site internet <strong>Le Préparateur</strong> est édité par Jean-Pierre AGBO, Entrepreneur Individuel (EI), domicilié en France.<br />
+Adresse e-mail : <a href="mailto:lepreparateur01@gmail.com">lepreparateur01@gmail.com</a><br />
+Téléphone : +33 7 59 21 15 88</p>
+
+<h3>HÉBERGEMENT DU SITE</h3>
+<p>Le site est hébergé par la société Vercel Inc.<br />
+Adresse : 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis.<br />
+Site web : <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel.com</a></p>
+
+<h3>PROPRIÉTÉ INTELLECTUELLE</h3>
+<p>L'ensemble de ce site (structure, design, textes, logos, images) est la propriété exclusive de Jean-Pierre AGBO. Toute reproduction, représentation ou diffusion de son contenu, en tout ou partie, sans autorisation écrite préalable est interdite.</p>
+
+<h3>LIMITATION DE RESPONSABILITÉ</h3>
+<p>Les informations contenues sur ce site sont aussi précises que possible et le site est périodiquement mis à jour. Toutefois, Le Préparateur ne saurait être tenu pour responsable de toute omission ou lacune.</p>
+
+<h3>CONCEPTION & DÉVELOPPEMENT</h3>
+<p>Ce site internet a été conçu et développé par <strong>KPEKPASSI Fabien Téo</strong>.</p>`,
+        privacy_modal_title: "Politique de Confidentialité",
+        privacy_modal_content: `<h3>COLLECTE DES DONNÉES</h3>
+<p>Nous collectons les données que vous nous transmettez directement via le formulaire de contact : nom, adresse e-mail et contenu de votre message.</p>
+
+<h3>FINALITÉ DU TRAITEMENT</h3>
+<p>Ces données sont uniquement destinées à répondre à vos demandes de renseignements ou de devis personnalisé concernant nos services de préparation automobile.</p>
+
+<h3>DESTINATAIRES DES DONNÉES</h3>
+<p>Vos données personnelles restent strictement confidentielles et ne sont jamais vendues ni cédées à des tiers. Les formulaires sont acheminés et sécurisés via le service tiers <strong>Web3Forms</strong>.</p>
+
+<h3>DURÉE DE CONSERVATION</h3>
+<p>Les données transmises sont conservées pour la durée nécessaire au traitement opérationnel de votre demande, avec un maximum de 3 ans après le dernier contact.</p>
+
+<h3>VOS DROITS (RGPD)</h3>
+<p>Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification et de suppression de vos données personnelles. Pour exercer ce droit, écrivez-nous à : <a href="mailto:lepreparateur01@gmail.com">lepreparateur01@gmail.com</a>.</p>
+
+<h3>COOKIES</h3>
+<p>Ce site n'utilise aucun cookie tiers de profilage ou publicitaire. Seules les préférences fonctionnelles (comme le choix de la langue et du thème) peuvent être temporairement conservées localement dans votre navigateur.</p>`,
     },
     en: {
         nav_home: "Home",
@@ -206,5 +253,52 @@ export const translations = {
         contact_status_success: "Message sent successfully!",
         contact_status_error: "An error occurred.",
         contact_status_conn_error: "A connection error occurred.",
+        footer_brand: "LE PRÉPARATEUR",
+        footer_tagline: "Prestige automotive detailing, combining rigor and passion.",
+        footer_nav_title: "NAVIGATION",
+        footer_legal_title: "LEGAL",
+        footer_socials_title: "SOCIALS",
+        footer_copyright: "© {year} Le Préparateur. All rights reserved.",
+        footer_back_to_top: "BACK TO TOP ↑",
+        footer_legal_notice: "Legal Notice",
+        footer_privacy_policy: "Privacy Policy",
+        footer_developed_by: "Designed & developed by KPEKPASSI Fabien Téo",
+        legal_modal_title: "Legal Notice",
+        legal_modal_content: `<h3>SITE PUBLISHER</h3>
+<p>The website <strong>Le Préparateur</strong> is published by Jean-Pierre AGBO, Sole Proprietorship (EI), based in France.<br />
+Email address: <a href="mailto:lepreparateur01@gmail.com">lepreparateur01@gmail.com</a><br />
+Phone: +33 7 59 21 15 88</p>
+
+<h3>WEBSITE HOSTING</h3>
+<p>This website is hosted by Vercel Inc.<br />
+Address: 340 S Lemon Ave #4133, Walnut, CA 91789, USA.<br />
+Website: <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel.com</a></p>
+
+<h3>INTELLECTUAL PROPERTY</h3>
+<p>All content on this site (structure, layout, design, text, logos, photos) is the exclusive property of Jean-Pierre AGBO. Any partial or full reproduction, representation, or distribution without prior written consent is strictly prohibited.</p>
+
+<h3>LIMITATION OF LIABILITY</h3>
+<p>The information on this site is updated regularly and is as accurate as possible. However, Le Préparateur cannot be held liable for any omission or inaccuracy.</p>
+
+<h3>DESIGN & DEVELOPMENT</h3>
+<p>This website was designed and developed by <strong>KPEKPASSI Fabien Téo</strong>.</p>`,
+        privacy_modal_title: "Privacy Policy",
+        privacy_modal_content: `<h3>DATA COLLECTION</h3>
+<p>We collect the data you provide directly when using our contact form: name, email address, and message content.</p>
+
+<h3>PURPOSE OF DATA TREATMENT</h3>
+<p>This data is used solely to reply to your requests for information or custom detailing quotes.</p>
+
+<h3>DATA RECIPIENTS</h3>
+<p>Your personal data remains strictly confidential and will never be shared, sold, or rented to third parties. Form submissions are safely routed via the third-party service <strong>Web3Forms</strong>.</p>
+
+<h3>RETENTION PERIOD</h3>
+<p>Your data is stored for the time needed to manage your inquiries, up to a maximum of 3 years from the last interaction.</p>
+
+<h3>YOUR RIGHTS (GDPR)</h3>
+<p>Under the General Data Protection Regulation (GDPR), you have the right to access, rectify, or delete your personal data. To exercise these rights, please contact us at: <a href="mailto:lepreparateur01@gmail.com">lepreparateur01@gmail.com</a>.</p>
+
+<h3>COOKIES</h3>
+<p>This website does not use any tracking or advertising cookies. Only functional preferences (such as language and theme state) are saved locally within your browser's memory.</p>`,
     }
 };

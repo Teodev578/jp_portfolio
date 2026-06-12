@@ -19,10 +19,13 @@ import { Preloader } from './components/layout/Preloader';
 import { SkillsRail } from './components/ui/SkillsRail';
 import { LanguageTransition } from './components/ui/LanguageTransition';
 import { ReactLenis, useLenis } from 'lenis/react';
+import { Footer } from './components/layout/Footer';
+import { LegalModal } from './components/ui/LegalModal';
 
 function AppContent() {
     const { isLoaded, setIsLoaded } = usePreloader();
     const lenis = useLenis(ScrollTrigger.update);
+    const [legalType, setLegalType] = useState<'legal' | 'privacy' | null>(null);
 
     useEffect(() => {
         if ('scrollRestoration' in window.history) {
@@ -97,6 +100,10 @@ function AppContent() {
                 <Projects />
                 <Contact />
             </main>
+
+            <Footer onOpenLegal={setLegalType} />
+
+            <LegalModal isOpen={!!legalType} onClose={() => setLegalType(null)} type={legalType} />
         </>
     );
 }

@@ -1,0 +1,234 @@
+/* ======================================================== */
+/*                     SECTION FOOTER                       */
+/* ======================================================== */
+
+.site-footer {
+    background-color: var(--bg-color);
+    border-top: 1px solid var(--border-color);
+    padding: 5rem 0 3rem 0;
+    position: relative;
+    z-index: 5;
+    transition: var(--theme-transition);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    margin-bottom: 4rem;
+}
+
+/* --- Brand block --- */
+.footer-brand-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: var(--font-headline);
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+}
+
+.footer-logo img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.footer-tagline {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    opacity: 0.7;
+    max-width: 320px;
+}
+
+/* --- Links columns --- */
+.footer-links-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.footer-col-title {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-color);
+}
+
+.footer-links-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.footer-link-item a,
+.footer-link-item button {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text-color);
+    cursor: pointer;
+    text-align: left;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* --- Bottom row --- */
+.footer-bottom {
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.footer-copyright {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    opacity: 0.6;
+    text-align: center;
+}
+
+.footer-credits {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .footer-credits {
+        align-items: flex-start;
+    }
+}
+
+.back-to-top-btn {
+    background: none;
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--text-color);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.back-to-top-btn span {
+    transition: transform 0.3s ease;
+}
+
+/* --- Legal Dialog Overrides --- */
+.legal-dialog-content {
+    max-width: 800px;
+    padding: 3rem;
+}
+
+.legal-dialog-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 2rem;
+}
+
+.legal-dialog-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.legal-dialog-body h3 {
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-color);
+    margin-top: 1rem;
+    border-left: 3px solid var(--accent-color);
+    padding-left: 0.8rem;
+}
+
+.legal-dialog-body p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+.legal-dialog-body ul {
+    margin-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.legal-dialog-body li {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+.legal-dialog-body a {
+    color: var(--text-color);
+    border-bottom: 1px solid var(--text-color);
+    transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+.legal-dialog-body a:hover {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+
+/* --- Media Queries --- */
+@media (min-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+/* --- Hover states & interactive micro-animations --- */
+@media (hover: hover) and (pointer: fine) {
+    .footer-link-item a:hover,
+    .footer-link-item button:hover {
+        color: var(--accent-color);
+        transform: translateX(5px);
+    }
+    
+    .back-to-top-btn:hover {
+        color: var(--accent-color);
+    }
+
+    .back-to-top-btn:hover span {
+        transform: translateY(-4px);
+    }
+}
