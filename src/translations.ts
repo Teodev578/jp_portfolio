@@ -111,41 +111,44 @@ export const translations = {
         footer_back_to_top: "RETOUR EN HAUT ↑",
         footer_legal_notice: "Mentions Légales",
         footer_privacy_policy: "Politique de Confidentialité",
-        footer_developed_by: "Conçu & développé par KPEKPASSI Fabien Téo",
+        footer_developed_by: "",
         legal_modal_title: "Mentions Légales",
         legal_modal_content: `<h3>ÉDITEUR DU SITE</h3>
-<p>Le site internet <strong>Le Préparateur</strong> est édité par Jean-Pierre AGBO, Entrepreneur Individuel (EI), domicilié en France.<br />
+<p>Le site internet <strong>Le Préparateur</strong> est édité par Jean-Pierre AGBO, Entrepreneur Individuel (EI).<br />
+Siège social : [Adresse postale complète, Code Postal, Ville]<br />
+SIRET : [Numéro à 14 chiffres] | TVA : [Numéro de TVA intracommunautaire OU "TVA non applicable, art. 293 B du CGI"]<br />
 Adresse e-mail : <a href="mailto:lepreparateur01@gmail.com">lepreparateur01@gmail.com</a><br />
 Téléphone : +33 7 59 21 15 88</p>
+
+<h3>DIRECTEUR DE LA PUBLICATION</h3>
+<p>Le Directeur de la publication est Monsieur Jean-Pierre AGBO.</p>
 
 <h3>HÉBERGEMENT DU SITE</h3>
 <p>Le site est hébergé par la société Vercel Inc.<br />
 Adresse : 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis.<br />
-Site web : <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel.com</a></p>
+Contact : <a href="https://vercel.com/contact" target="_blank" rel="noopener noreferrer">vercel.com/contact</a></p>
 
 <h3>PROPRIÉTÉ INTELLECTUELLE</h3>
 <p>L'ensemble de ce site (structure, design, textes, logos, images) est la propriété exclusive de Jean-Pierre AGBO. Toute reproduction, représentation ou diffusion de son contenu, en tout ou partie, sans autorisation écrite préalable est interdite.</p>
 
 <h3>LIMITATION DE RESPONSABILITÉ</h3>
-<p>Les informations contenues sur ce site sont aussi précises que possible et le site est périodiquement mis à jour. Toutefois, Le Préparateur ne saurait être tenu pour responsable de toute omission ou lacune.</p>
-
-<h3>CONCEPTION & DÉVELOPPEMENT</h3>
-<p>Ce site internet a été conçu et développé par <strong>KPEKPASSI Fabien Téo</strong>.</p>`,
+<p>Les informations contenues sur ce site sont aussi précises que possible et le site est périodiquement mis à jour. Toutefois, Le Préparateur ne saurait être tenu pour responsable de toute omission ou lacune.</p>`,
         privacy_modal_title: "Politique de Confidentialité",
-        privacy_modal_content: `<h3>COLLECTE DES DONNÉES</h3>
-<p>Nous collectons les données que vous nous transmettez directement via le formulaire de contact : nom, adresse e-mail et contenu de votre message.</p>
+        privacy_modal_content: `<h3>COLLECTE ET FINALITÉ DES DONNÉES</h3>
+<p>Nous collectons les données que vous nous transmettez directement via le formulaire de contact : nom, adresse e-mail et contenu de votre message. Ces données sont uniquement destinées à répondre à vos demandes de renseignements ou de devis concernant nos services de préparation automobile.</p>
 
-<h3>FINALITÉ DU TRAITEMENT</h3>
-<p>Ces données sont uniquement destinées à répondre à vos demandes de renseignements ou de devis personnalisé concernant nos services de préparation automobile.</p>
+<h3>BASE LÉGALE DU TRAITEMENT</h3>
+<p>Le traitement de vos données est basé sur votre <strong>consentement</strong> (lorsque vous soumettez le formulaire) ainsi que sur l'exécution de <strong>mesures précontractuelles</strong> (lors d'une demande de devis).</p>
 
 <h3>DESTINATAIRES DES DONNÉES</h3>
-<p>Vos données personnelles restent strictement confidentielles et ne sont jamais vendues ni cédées à des tiers. Les formulaires sont acheminés et sécurisés via le service tiers <strong>Web3Forms</strong>.</p>
+<p>Vos données personnelles restent strictement confidentielles et ne sont jamais vendues ni cédées à des tiers. Les formulaires sont acheminés via le service tiers <strong>Web3Forms</strong>, qui s'engage à traiter les données conformément aux standards de sécurité en vigueur.</p>
 
 <h3>DURÉE DE CONSERVATION</h3>
-<p>Les données transmises sont conservées pour la durée nécessaire au traitement opérationnel de votre demande, avec un maximum de 3 ans après le dernier contact.</p>
+<p>Les données transmises sont conservées pour la durée nécessaire au traitement de votre demande, avec un maximum de 3 ans après notre dernier contact.</p>
 
 <h3>VOS DROITS (RGPD)</h3>
-<p>Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification et de suppression de vos données personnelles. Pour exercer ce droit, écrivez-nous à : <a href="mailto:lepreparateur01@gmail.com">lepreparateur01@gmail.com</a>.</p>
+<p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, de portabilité et d'opposition au traitement de vos données personnelles. Pour exercer ces droits, contactez-nous à : <a href="mailto:lepreparateur01@gmail.com">lepreparateur01@gmail.com</a>.</p>
+<p>Si vous estimez, après nous avoir contactés, que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">CNIL</a>.</p>
 
 <h3>COOKIES</h3>
 <p>Ce site n'utilise aucun cookie tiers de profilage ou publicitaire. Seules les préférences fonctionnelles (comme le choix de la langue et du thème) peuvent être temporairement conservées localement dans votre navigateur.</p>`,
@@ -262,41 +265,44 @@ Site web : <a href="https://vercel.com" target="_blank" rel="noopener noreferrer
         footer_back_to_top: "BACK TO TOP ↑",
         footer_legal_notice: "Legal Notice",
         footer_privacy_policy: "Privacy Policy",
-        footer_developed_by: "Designed & developed by KPEKPASSI Fabien Téo",
+        footer_developed_by: "",
         legal_modal_title: "Legal Notice",
         legal_modal_content: `<h3>SITE PUBLISHER</h3>
-<p>The website <strong>Le Préparateur</strong> is published by Jean-Pierre AGBO, Sole Proprietorship (EI), based in France.<br />
+<p>The website <strong>Le Préparateur</strong> is published by Jean-Pierre AGBO, Sole Proprietorship (EI).<br />
+Head Office: [Full Postal Address, Zip Code, City]<br />
+SIRET: [14-digit number] | VAT: [Intra-community VAT number OR "VAT not applicable, art. 293 B of CGI"]<br />
 Email address: <a href="mailto:lepreparateur01@gmail.com">lepreparateur01@gmail.com</a><br />
 Phone: +33 7 59 21 15 88</p>
+
+<h3>PUBLICATION DIRECTOR</h3>
+<p>The Publication Director is Mr. Jean-Pierre AGBO.</p>
 
 <h3>WEBSITE HOSTING</h3>
 <p>This website is hosted by Vercel Inc.<br />
 Address: 340 S Lemon Ave #4133, Walnut, CA 91789, USA.<br />
-Website: <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel.com</a></p>
+Contact: <a href="https://vercel.com/contact" target="_blank" rel="noopener noreferrer">vercel.com/contact</a></p>
 
 <h3>INTELLECTUAL PROPERTY</h3>
 <p>All content on this site (structure, layout, design, text, logos, photos) is the exclusive property of Jean-Pierre AGBO. Any partial or full reproduction, representation, or distribution without prior written consent is strictly prohibited.</p>
 
 <h3>LIMITATION OF LIABILITY</h3>
-<p>The information on this site is updated regularly and is as accurate as possible. However, Le Préparateur cannot be held liable for any omission or inaccuracy.</p>
-
-<h3>DESIGN & DEVELOPMENT</h3>
-<p>This website was designed and developed by <strong>KPEKPASSI Fabien Téo</strong>.</p>`,
+<p>The information on this site is updated regularly and is as accurate as possible. However, Le Préparateur cannot be held liable for any omission or inaccuracy.</p>`,
         privacy_modal_title: "Privacy Policy",
-        privacy_modal_content: `<h3>DATA COLLECTION</h3>
-<p>We collect the data you provide directly when using our contact form: name, email address, and message content.</p>
+        privacy_modal_content: `<h3>DATA COLLECTION AND PURPOSE</h3>
+<p>We collect the data you provide directly when using our contact form: name, email address, and message content. This data is used solely to reply to your requests for information or custom detailing quotes.</p>
 
-<h3>PURPOSE OF DATA TREATMENT</h3>
-<p>This data is used solely to reply to your requests for information or custom detailing quotes.</p>
+<h3>LEGAL BASIS FOR PROCESSING</h3>
+<p>The processing of your data is based on your <strong>consent</strong> (when you submit the form) as well as the performance of <strong>pre-contractual measures</strong> (when requesting a quote).</p>
 
 <h3>DATA RECIPIENTS</h3>
-<p>Your personal data remains strictly confidential and will never be shared, sold, or rented to third parties. Form submissions are safely routed via the third-party service <strong>Web3Forms</strong>.</p>
+<p>Your personal data remains strictly confidential and will never be shared, sold, or rented to third parties. Form submissions are routed via the third-party service <strong>Web3Forms</strong>, which is committed to processing data in accordance with current security standards.</p>
 
 <h3>RETENTION PERIOD</h3>
-<p>Your data is stored for the time needed to manage your inquiries, up to a maximum of 3 years from the last interaction.</p>
+<p>Your data is stored for the time needed to manage your inquiries, up to a maximum of 3 years from our last interaction.</p>
 
 <h3>YOUR RIGHTS (GDPR)</h3>
-<p>Under the General Data Protection Regulation (GDPR), you have the right to access, rectify, or delete your personal data. To exercise these rights, please contact us at: <a href="mailto:lepreparateur01@gmail.com">lepreparateur01@gmail.com</a>.</p>
+<p>Under the GDPR, you have the right to access, rectify, delete, restrict, port, and object to the processing of your personal data. To exercise these rights, please contact us at: <a href="mailto:lepreparateur01@gmail.com">lepreparateur01@gmail.com</a>.</p>
+<p>If you believe, after contacting us, that your rights are not respected, you can submit a complaint to the <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">CNIL</a>.</p>
 
 <h3>COOKIES</h3>
 <p>This website does not use any tracking or advertising cookies. Only functional preferences (such as language and theme state) are saved locally within your browser's memory.</p>`,

@@ -100,6 +100,7 @@ export const Header = () => {
                     <button className={`burger-menu ${isMenuOpen ? 'is-active' : ''}`} onClick={toggleMenu} aria-label="Menu">
                         <span className="burger-line"></span>
                         <span className="burger-line"></span>
+                        <span className="burger-line"></span>
                     </button>
                 </div>
 

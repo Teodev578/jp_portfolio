@@ -117,9 +117,7 @@ export const Footer = ({ onOpenLegal }: FooterProps) => {
                         <p className="footer-copyright">
                             {copyrightText}
                         </p>
-                        <p className="footer-copyright" style={{ opacity: 0.5 }}>
-                            {t('footer_developed_by')}
-                        </p>
+
                     </div>
                     <button 
                         type="button" 
