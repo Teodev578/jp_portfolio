@@ -315,3 +315,24 @@
         line-height: 1.1;
     }
 }
+
+/* --- ANIMATION DES ITEMS DU MENU MOBILE --- */
+@media (max-width: 991px) {
+    .nav-list li {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    .header-nav.is-active .nav-list li {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Effet cascade (stagger) à l'ouverture */
+    .header-nav.is-active .nav-list li:nth-child(1) { transition-delay: 0.15s !important; }
+    .header-nav.is-active .nav-list li:nth-child(2) { transition-delay: 0.22s !important; }
+    .header-nav.is-active .nav-list li:nth-child(3) { transition-delay: 0.29s !important; }
+    .header-nav.is-active .nav-list li:nth-child(4) { transition-delay: 0.36s !important; }
+    .header-nav.is-active .nav-list li:nth-child(5) { transition-delay: 0.43s !important; }
+}
