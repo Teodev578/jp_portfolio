@@ -49,7 +49,7 @@ export const translations = {
         projects_challenge_header: "Le Défi / L'Intervention",
         projects_services_header: "Prestations réalisées",
         projects_github_link: "Suivez-moi sur Instagram pour plus de photos ➔",
-        
+
         // Projet 1 : Stellantis (Le texte de ton client adapté)
         project_1_title: "PRÉPARATION VÉHICULES - STELLANTIS (POISSY)",
         project_1_desc: "J'ai eu l'opportunité d'intervenir sur un volume important de véhicules au sein du site industriel automobile Stellantis. Ma mission principale était d'assurer la préparation esthétique complète de ces véhicules avant leur livraison ou leur mise en circulation, tout en respectant une cadence industrielle exigeante.",
@@ -115,8 +115,8 @@ export const translations = {
         legal_modal_title: "Mentions Légales",
         legal_modal_content: `<h3>ÉDITEUR DU SITE</h3>
 <p>Le site internet <strong>Le Préparateur</strong> est édité par Jean-Pierre AGBO, Entrepreneur Individuel (EI).<br />
-Siège social : 2 RUE LOUISE MICHEL, 95470 FOSSES<br />
-SIRET : 92238613100010 | TVA : FR23922386131<br />
+Siège social : [Adresse postale complète, Code Postal, Ville]<br />
+SIRET : [Numéro à 14 chiffres] | TVA : [Numéro de TVA intracommunautaire OU "TVA non applicable, art. 293 B du CGI"]<br />
 Adresse e-mail : <a href="mailto:lepreparateur01@gmail.com">lepreparateur01@gmail.com</a><br />
 Téléphone : +33 7 59 21 15 88</p>
 
@@ -203,7 +203,7 @@ Contact : <a href="https://vercel.com/contact" target="_blank" rel="noopener nor
         projects_challenge_header: "The Challenge / Intervention",
         projects_services_header: "Services provided",
         projects_github_link: "Follow me on Instagram for more photos ➔",
-        
+
         // Project 1 : Stellantis
         project_1_title: "VEHICLE PREPARATION - STELLANTIS (POISSY)",
         project_1_desc: "I had the opportunity to work on a large volume of vehicles within the Stellantis industrial automotive site. My main mission was to ensure the complete aesthetic preparation of these vehicles before their delivery or release into circulation, while keeping up with a demanding industrial pace.",
@@ -269,8 +269,8 @@ Contact : <a href="https://vercel.com/contact" target="_blank" rel="noopener nor
         legal_modal_title: "Legal Notice",
         legal_modal_content: `<h3>SITE PUBLISHER</h3>
 <p>The website <strong>Le Préparateur</strong> is published by Jean-Pierre AGBO, Sole Proprietorship (EI).<br />
-Head Office: 2 RUE LOUISE MICHEL, 95470 FOSSES<br />
-SIRET: 92238613100010 | VAT: FR23922386131<br />
+Head Office: [Full Postal Address, Zip Code, City]<br />
+SIRET: [14-digit number] | VAT: [Intra-community VAT number OR "VAT not applicable, art. 293 B of CGI"]<br />
 Email address: <a href="mailto:lepreparateur01@gmail.com">lepreparateur01@gmail.com</a><br />
 Phone: +33 7 59 21 15 88</p>
 
