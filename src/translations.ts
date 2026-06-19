@@ -115,8 +115,8 @@ export const translations = {
         legal_modal_title: "Mentions Légales",
         legal_modal_content: `<h3>ÉDITEUR DU SITE</h3>
 <p>Le site internet <strong>Le Préparateur</strong> est édité par Jean-Pierre AGBO, Entrepreneur Individuel (EI).<br />
-Siège social : [Adresse postale complète, Code Postal, Ville]<br />
-SIRET : [Numéro à 14 chiffres] | TVA : [Numéro de TVA intracommunautaire OU "TVA non applicable, art. 293 B du CGI"]<br />
+Siège social : 12, RUE DU 19 MARS 1962, 77460 SOUPPES-SUR-LOING<br />
+SIRET : 104225966 00019 | TVA : TVA non applicable, art. 293 B du CGI<br />
 Adresse e-mail : <a href="mailto:lepreparateur01@gmail.com">lepreparateur01@gmail.com</a><br />
 Téléphone : +33 7 59 21 15 88</p>
 
@@ -269,8 +269,8 @@ Contact : <a href="https://vercel.com/contact" target="_blank" rel="noopener nor
         legal_modal_title: "Legal Notice",
         legal_modal_content: `<h3>SITE PUBLISHER</h3>
 <p>The website <strong>Le Préparateur</strong> is published by Jean-Pierre AGBO, Sole Proprietorship (EI).<br />
-Head Office: [Full Postal Address, Zip Code, City]<br />
-SIRET: [14-digit number] | VAT: [Intra-community VAT number OR "VAT not applicable, art. 293 B of CGI"]<br />
+Head Office: 12, RUE DU 19 MARS 1962, 77460 SOUPPES-SUR-LOING<br />
+SIRET: 104225966 00019 | VAT: VAT not applicable, art. 293 B of CGI<br />
 Email address: <a href="mailto:lepreparateur01@gmail.com">lepreparateur01@gmail.com</a><br />
 Phone: +33 7 59 21 15 88</p>
 
