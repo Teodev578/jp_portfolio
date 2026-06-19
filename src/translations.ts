@@ -112,6 +112,11 @@ export const translations = {
         footer_legal_notice: "Mentions Légales",
         footer_privacy_policy: "Politique de Confidentialité",
         footer_developed_by: "",
+        // --- NOTE LÉGALE CONCERNANT LA TVA ---
+        // Pourquoi l'écrire sur le site ? La loi française (précisément l'article 293 B du Code Général des Impôts) t'oblige à informer tes clients de ce statut.
+        // C'est pour cela qu'il est obligatoire d'afficher la mention exacte : "TVA non applicable, art. 293 B du CGI" sur tes devis, tes factures, et dans les mentions légales de ton site web.
+        // Si tu ne mettais pas cette mention, on pourrait croire que tes prix incluent la TVA (TTC), ce qui serait considéré comme trompeur puisque tu n'y es pas assujetti.
+        // (Note : Si un jour ton chiffre d'affaires dépasse un certain plafond — environ 39 100 € pour les prestations de services —, tu deviendras assujetti à la TVA. Il faudra alors modifier cette mention légale et commencer à facturer avec la TVA, mais pour l'instant, au démarrage, tu en es dispensé !)
         legal_modal_title: "Mentions Légales",
         legal_modal_content: `<h3>ÉDITEUR DU SITE</h3>
 <p>Le site internet <strong>Le Préparateur</strong> est édité par Jean-Pierre AGBO, Entrepreneur Individuel (EI).<br />
